@@ -14,12 +14,16 @@ import android.media.session.PlaybackState
 import android.os.Binder
 import android.os.IBinder
 import android.speech.tts.TextToSpeech
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.util.Locale
 
 class TtsService : Service() {
 
     inner class TtsBinder : Binder() {
-        val controller get() = ttsController
+        fun getController(): TtsController? = ttsController
         var onControllerReady: ((TtsController) -> Unit)? = null
     }
 
@@ -28,28 +32,33 @@ class TtsService : Service() {
     var ttsController: TtsController? = null
         private set
     private lateinit var mediaSession: MediaSession
+    private val serviceJob = Job()
+    private val serviceScope = CoroutineScope(Dispatchers.IO + serviceJob)
 
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
         setupMediaSession()
-        val am = getSystemService(AudioManager::class.java)
-        val sessionId = am.generateAudioSessionId()
-        tts = TextToSpeech(this) { status ->
-            if (status == TextToSpeech.SUCCESS) {
-                tts?.language = Locale.GERMAN
-                ttsController = TtsController(tts!!, sessionId, am).also { ctrl ->
-                    ctrl.onPlayStateChanged = { playing ->
-                        updatePlaybackState(playing)
-                        if (playing) {
-                            startForeground(NOTIF_ID, buildNotification(true))
-                        } else {
-                            stopForeground(STOP_FOREGROUND_DETACH)
-                            notify(false)
+
+        serviceScope.launch {
+            val am = getSystemService(AudioManager::class.java)
+            val sessionId = am.generateAudioSessionId()
+            tts = TextToSpeech(this@TtsService) { status ->
+                if (status == TextToSpeech.SUCCESS) {
+                    tts?.language = Locale.GERMAN
+                    ttsController = TtsController(tts!!, sessionId, am).also { ctrl ->
+                        ctrl.onPlayStateChanged = { playing ->
+                            updatePlaybackState(playing)
+                            if (playing) {
+                                startForeground(NOTIF_ID, buildNotification(true))
+                            } else {
+                                stopForeground(STOP_FOREGROUND_DETACH)
+                                notify(false)
+                            }
                         }
+                        binder.onControllerReady?.invoke(ctrl)
+                        binder.onControllerReady = null
                     }
-                    binder.onControllerReady?.invoke(ctrl)
-                    binder.onControllerReady = null
                 }
             }
         }
@@ -68,6 +77,7 @@ class TtsService : Service() {
     override fun onBind(intent: Intent): IBinder = binder
 
     override fun onDestroy() {
+        serviceJob.cancel()
         mediaSession.release()
         ttsController?.release()
         tts?.stop()

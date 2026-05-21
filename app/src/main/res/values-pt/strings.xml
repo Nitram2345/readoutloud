@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Abrir</string>
+    <string name="listen">Ouvir</string>
+    <string name="pause">Pausa</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">Abrir PDF, DOCX ou EPUB</string>
+    <string name="status_loading">Carregando…</string>
+    <string name="status_cancelled">Cancelado</string>
+    <string name="status_error">ERRO: %s</string>
+    <string name="status_file_not_found">Arquivo não mais disponível</string>
+    <string name="status_pages">%d páginas, %d linhas de texto</string>
+    <string name="status_paragraphs">%d parágrafos</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator">Página %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">Guia do Usuário</string>
+    <string name="help_close">Fechar</string>
+    <string name="help_back">Fecha o documento e sai do aplicativo</string>
+    <string name="help_open">Selecionar novo documento (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Mostrar índice com títulos</string>
+    <string name="help_help">Mostrar este guia</string>
+    <string name="help_audio">Alternar entre alto-falante e fone de ouvido</string>
+    <string name="help_speed">Desacelerar ou acelerar a velocidade de leitura</string>
+    <string name="help_speed_display">Mostra velocidade atual</string>
+    <string name="help_skip_back">Retroceder 30 segundos</string>
+    <string name="help_listen">Iniciar ou pausar a leitura em voz alta</string>
+    <string name="help_timer">Temporizador de sono: para automaticamente após 30 min</string>
+    <string name="help_skip_forward">Avançar 30 segundos</string>
+    <string name="help_volume">Ajustar volume (até 150%%)</string>
+    <string name="help_volume_display">Mostra volume atual</string>
+    <string name="help_tap">Toque em um local do documento para continuar lendo a partir daí</string>
+    <string name="help_tap_title">Toque no PDF</string>
+    <string name="help_controls_top">Controles superiores:</string>
+    <string name="help_controls_bottom">Controles inferiores:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Jurídico</string>
+    <string name="privacy_policy">Política de Privacidade</string>
+    <string name="privacy_description">Sem coleta de dados. Todos os dados permanecem locais no seu dispositivo.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 Alemão</string>
+    <string name="lang_en">🇬🇧 Inglês</string>
+    <string name="lang_nl">🇳🇱 Holandês</string>
+    <string name="lang_it">🇮🇹 Italiano</string>
+    <string name="lang_fr">🇫🇷 Francês</string>
+    <string name="lang_pt">🇵🇹 Português</string>
+    <string name="lang_sv">🇸🇪 Sueco</string>
+    <string name="select_language">Escolher idioma</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Idioma alterado para %s</string>
+</resources>

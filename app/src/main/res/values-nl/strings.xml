@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Openen</string>
+    <string name="listen">Voorlezen</string>
+    <string name="pause">Pauze</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">PDF, DOCX of EPUB openen</string>
+    <string name="status_loading">Laden…</string>
+    <string name="status_cancelled">Geannuleerd</string>
+    <string name="status_error">FOUT: %s</string>
+    <string name="status_file_not_found">Bestand niet meer beschikbaar</string>
+    <string name="status_pages">%d paginas, %d tekstregels</string>
+    <string name="status_paragraphs">%d alineas</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator">Pagina %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">Gebruiksaanwijzing</string>
+    <string name="help_close">Sluiten</string>
+    <string name="help_back">Sluit het document en verlaat de app</string>
+    <string name="help_open">Kies een nieuw document (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Toon inhoudsopgave met koppen</string>
+    <string name="help_help">Toon deze handleiding</string>
+    <string name="help_audio">Wissel tussen luidspreker en oortelefoon</string>
+    <string name="help_speed">Vertraag of versnel de voorleessnelheid</string>
+    <string name="help_speed_display">Toont huidige snelheid</string>
+    <string name="help_skip_back">30 seconden terugspoelen</string>
+    <string name="help_listen">Start of pauzeert het voorlezen</string>
+    <string name="help_timer">Slaaptimer: stopt automatisch na 30 min</string>
+    <string name="help_skip_forward">30 seconden vooruitspoelen</string>
+    <string name="help_volume">Regel het volume (tot 150%%)</string>
+    <string name="help_volume_display">Toont huidig volume</string>
+    <string name="help_tap">Tik op een plek in het document om daar verder te lezen</string>
+    <string name="help_tap_title">Tik op PDF</string>
+    <string name="help_controls_top">Bovenste bediening:</string>
+    <string name="help_controls_bottom">Onderste bediening:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Juridisch</string>
+    <string name="privacy_policy">Privacybeleid</string>
+    <string name="privacy_description">Geen dataverzameling. Alle gegevens blijven lokaal op uw apparaat.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 Duits</string>
+    <string name="lang_en">🇬🇧 Engels</string>
+    <string name="lang_nl">🇳🇱 Nederlands</string>
+    <string name="select_language">Taal kiezen</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Taal gewijzigd naar %s</string>
+</resources>

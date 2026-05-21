@@ -4,6 +4,7 @@ import android.content.ComponentName
 import android.content.Intent
 import android.content.ServiceConnection
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
@@ -31,16 +32,18 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.PlatformTextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.readoutloud.ui.theme.ReadOutLoudTheme
 import com.tom_roush.pdfbox.android.PDFBoxResourceLoader
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class MainActivity : ComponentActivity() {
 
@@ -50,6 +53,16 @@ class MainActivity : ComponentActivity() {
     private var savedSpeechRate = 1.0f
     private var savedVolume = 1.0f
     private var savedIsSpeaker = true
+    private var savedLanguage = "de"
+
+    private fun changeLanguage(lang: String) {
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+        val config = Configuration(resources.configuration)
+        config.setLocale(locale)
+        @Suppress("DEPRECATION")
+        resources.updateConfiguration(config, resources.displayMetrics)
+    }
 
     private fun setupController(ctrl: TtsController) {
         ttsController = ctrl
@@ -58,13 +71,14 @@ class MainActivity : ComponentActivity() {
         ctrl.setRate(savedSpeechRate)
         ctrl.setVolume(savedVolume)
         ctrl.setAudioOutput(savedIsSpeaker)
+        ctrl.setLanguage(savedLanguage)
         Log.d("TTS", "Controller ready")
     }
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName, binder: IBinder) {
             val svc = binder as TtsService.TtsBinder
-            val ctrl = svc.controller
+            val ctrl = svc.getController()
             if (ctrl != null) {
                 setupController(ctrl)
             } else {
@@ -84,6 +98,14 @@ class MainActivity : ComponentActivity() {
         savedSpeechRate = settings0.speechRate
         savedVolume = settings0.volume
         savedIsSpeaker = settings0.isSpeaker
+        savedLanguage = settings0.language
+        // Set locale without recreate() during startup
+        val locale = Locale(savedLanguage)
+        Locale.setDefault(locale)
+        val config = Configuration(resources.configuration)
+        config.setLocale(locale)
+        @Suppress("DEPRECATION")
+        resources.updateConfiguration(config, resources.displayMetrics)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS)
@@ -113,6 +135,7 @@ class MainActivity : ComponentActivity() {
                         onSkipBackward = { ttsController?.skipBackward(30) },
                         onVolumeChange = { v -> ttsController?.setVolume(v) },
                         onAudioOutputChange = { s -> ttsController?.setAudioOutput(s) },
+                        onLanguageChange = { lang -> changeLanguage(lang) },
                         onSaveAndClose = {
                             stopService(Intent(this, TtsService::class.java))
                             finish()
@@ -143,17 +166,19 @@ fun PdfViewerScreen(
     onRateChange: (Float) -> Unit,
     onSkipForward: () -> Unit,
     onSkipBackward: () -> Unit,
-    onSaveAndClose: () -> Unit,
     onVolumeChange: (Float) -> Unit,
-    onAudioOutputChange: (Boolean) -> Unit
+    onAudioOutputChange: (Boolean) -> Unit,
+    onLanguageChange: (String) -> Unit,
+    onSaveAndClose: () -> Unit,
 ) {
     val context = LocalContext.current
+    val resources = context.resources
     val scope = rememberCoroutineScope()
     val settings = remember { AppSettings(context) }
     var documentData by remember { mutableStateOf<DocumentData?>(null) }
     var isLoading by remember { mutableStateOf(false) }
     var loadJob by remember { mutableStateOf<Job?>(null) }
-    var statusText by remember { mutableStateOf("PDF, DOCX oder EPUB öffnen") }
+    var statusText by remember { mutableStateOf(resources.getString(R.string.status_idle)) }
     var speechRate by remember { mutableStateOf(settings.speechRate) }
     var volume by remember { mutableStateOf(settings.volume) }
     val pdfListState = rememberLazyListState()
@@ -162,6 +187,9 @@ fun PdfViewerScreen(
     var sleepMinutesLeft by remember { mutableStateOf(0) }
     var sleepJob by remember { mutableStateOf<Job?>(null) }
     var showToc by remember { mutableStateOf(false) }
+    var showHelp by remember { mutableStateOf(false) }
+    var showLangDialog by remember { mutableStateOf(false) }
+    var language by remember { mutableStateOf(settings.language) }
     val tocHeadings = remember(documentData) {
         documentData?.textLines?.mapIndexedNotNull { idx, line ->
             if (headingLevel(line.style) > 0) idx to line else null
@@ -191,7 +219,7 @@ fun PdfViewerScreen(
         loadJob?.cancel()
         loadJob = scope.launch {
             isLoading = true
-            statusText = "Lade..."
+            statusText = resources.getString(R.string.status_loading)
             try {
                 val oldUri = settings.lastUri
                 val data = loadDocument(context, uri)
@@ -199,8 +227,8 @@ fun PdfViewerScreen(
                 if (oldUri != uri) settings.savedLineIndex = -1
                 settings.lastUri = uri
                 statusText = when (data) {
-                    is DocumentData.Pdf -> "${data.pages.size} Seiten, ${data.textLines.size} Textzeilen"
-                    is DocumentData.Word -> "${data.textLines.size} Absätze"
+                    is DocumentData.Pdf -> resources.getString(R.string.status_pages, data.pages.size, data.textLines.size)
+                    is DocumentData.Word -> resources.getString(R.string.status_paragraphs, data.textLines.size)
                 }
                 val savedIdx = settings.savedLineIndex
                 if (savedIdx >= 0 && savedIdx < data.textLines.size) {
@@ -208,13 +236,13 @@ fun PdfViewerScreen(
                 }
             } catch (e: java.io.FileNotFoundException) {
                 settings.lastUri = null
-                statusText = "Datei nicht mehr vorhanden"
+                statusText = resources.getString(R.string.status_file_not_found)
                 Log.e("DOC", "File not found: $uri", e)
             } catch (e: kotlinx.coroutines.CancellationException) {
-                statusText = "Abgebrochen"
+                statusText = resources.getString(R.string.status_cancelled)
                 throw e
             } catch (e: Exception) {
-                statusText = "FEHLER: ${e.javaClass.simpleName}: ${e.message}"
+                statusText = resources.getString(R.string.status_error, "${e.javaClass.simpleName}: ${e.message}")
                 Log.e("DOC", "Load failed", e)
             } finally {
                 isLoading = false
@@ -286,7 +314,7 @@ fun PdfViewerScreen(
                 },
                 enabled = !isLoading,
                 contentPadding = btnPadding
-            ) { Text("Öffnen") }
+            ) { Text(stringResource(R.string.open)) }
 
             RoundBtn(onClick = {
                 isSpeaker = !isSpeaker
@@ -294,10 +322,14 @@ fun PdfViewerScreen(
                 onAudioOutputChange(isSpeaker)
             }) { Text(if (isSpeaker) "🔊" else "👂") }
 
+            RoundBtn(onClick = { showLangDialog = true }) { Text(when (language) { "de" -> "🇩🇪" "en" -> "🇬🇧" "nl" -> "🇳🇱" "it" -> "🇮🇹" "fr" -> "🇫🇷" "pt" -> "🇵🇹" "sv" -> "🇸🇪" else -> "🇩🇪" }, style = MaterialTheme.typography.titleMedium) }
+
             RoundBtn(
                 onClick = { showToc = true },
                 enabled = tocHeadings.isNotEmpty()
             ) { Text("≡", style = MaterialTheme.typography.titleMedium) }
+
+            RoundBtn(onClick = { showHelp = true }) { Text("?", style = MaterialTheme.typography.titleMedium) }
 
             Spacer(Modifier.weight(1f))
 
@@ -324,7 +356,7 @@ fun PdfViewerScreen(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            RoundBtn(onClick = onSkipBackward, enabled = canControl) { Text("«30s", style = MaterialTheme.typography.labelSmall) }
+            RoundBtn(onClick = onSkipBackward, enabled = canControl) { Text(stringResource(R.string.skip_back), style = MaterialTheme.typography.labelSmall) }
 
             Button(
                 onClick = {
@@ -333,11 +365,11 @@ fun PdfViewerScreen(
                 enabled = canControl,
                 contentPadding = btnPadding,
                 modifier = Modifier.widthIn(min = 110.dp)
-            ) { Text(if (isPlaying) "Pause" else "Laut Lesen") }
+            ) { Text(stringResource(if (isPlaying) R.string.pause else R.string.listen)) }
 
-            RoundBtn(onClick = { if (sleepMinutesLeft > 0) cancelSleepTimer() else startSleepTimer() }) { Text(if (sleepMinutesLeft > 0) "${sleepMinutesLeft}m✕" else "30m", style = MaterialTheme.typography.labelSmall) }
+            RoundBtn(onClick = { if (sleepMinutesLeft > 0) cancelSleepTimer() else startSleepTimer() }) { Text(stringResource(if (sleepMinutesLeft > 0) R.string.sleep_timer_active else R.string.sleep_timer, sleepMinutesLeft), style = MaterialTheme.typography.labelSmall) }
 
-            RoundBtn(onClick = onSkipForward, enabled = canControl) { Text("30s»", style = MaterialTheme.typography.labelSmall) }
+            RoundBtn(onClick = onSkipForward, enabled = canControl) { Text(stringResource(R.string.skip_forward), style = MaterialTheme.typography.labelSmall) }
 
             Spacer(Modifier.weight(1f))
 
@@ -347,7 +379,7 @@ fun PdfViewerScreen(
                 settings.volume = volume; onVolumeChange(volume)
             }) { Text("−", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold) }
 
-            Text("🔊%.0f%%".format(volume * 100), style = MaterialTheme.typography.bodyMedium)
+            Text(stringResource(R.string.volume, volume * 100), style = MaterialTheme.typography.bodyMedium)
 
             RoundBtn(onClick = {
                 volume = (volume + 0.1f).coerceAtMost(1.5f)
@@ -359,11 +391,11 @@ fun PdfViewerScreen(
         if (isLoading) {
             LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
             Button(
-                onClick = { loadJob?.cancel(); statusText = "Wird abgebrochen…" },
+                onClick = { loadJob?.cancel(); statusText = resources.getString(R.string.status_cancelled) },
                 modifier = Modifier
                     .padding(horizontal = 8.dp, vertical = 2.dp)
                     .fillMaxWidth()
-            ) { Text("Abbrechen") }
+            ) { Text(stringResource(R.string.status_cancelled)) }
         }
 
         val allLines = documentData?.textLines
@@ -373,9 +405,9 @@ fun PdfViewerScreen(
             if (idx >= 0) {
                 val pct = (idx.toFloat() / allLines.size * 100).toInt()
                 val pageInfo = if (documentData is DocumentData.Pdf)
-                    " · Seite ${firstHighlight.page + 1}/${(documentData as DocumentData.Pdf).pages.size}"
+                    " · ${resources.getString(R.string.page_indicator, firstHighlight.page + 1, (documentData as DocumentData.Pdf).pages.size)}"
                 else ""
-                "  📍 $pct%$pageInfo"
+                "  📍 ${resources.getString(R.string.progress, pct)}$pageInfo"
             } else ""
         } else ""
         Text(
@@ -461,6 +493,94 @@ fun PdfViewerScreen(
                 }
             }
         }
+
+        if (showHelp) {
+            ModalBottomSheet(onDismissRequest = { showHelp = false }) {
+                Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+                    Text(stringResource(R.string.help_title), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
+
+                    Text(stringResource(R.string.help_controls_top), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                    HelpItem("⬅", stringResource(R.string.help_back))
+                    HelpItem(stringResource(R.string.open), stringResource(R.string.help_open))
+                    HelpItem("≡", stringResource(R.string.help_toc))
+                    HelpItem("?", stringResource(R.string.help_help))
+                    HelpItem("🔊/👂", stringResource(R.string.help_audio))
+                    HelpItem("− / +", stringResource(R.string.help_speed))
+
+                    Text(stringResource(R.string.help_controls_bottom), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 12.dp))
+                    HelpItem(stringResource(R.string.skip_back), stringResource(R.string.help_skip_back))
+                    HelpItem(stringResource(R.string.listen), stringResource(R.string.help_listen))
+                    HelpItem(stringResource(R.string.sleep_timer), stringResource(R.string.help_timer))
+                    HelpItem(stringResource(R.string.skip_forward), stringResource(R.string.help_skip_forward))
+                    HelpItem("− / +", stringResource(R.string.help_volume))
+
+                    Text(stringResource(R.string.help_tap_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 12.dp))
+                    Text(stringResource(R.string.help_tap), style = MaterialTheme.typography.bodyMedium)
+
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
+
+                    Text(stringResource(R.string.legal_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                    HelpItem(stringResource(R.string.privacy_policy), stringResource(R.string.privacy_description), link = stringResource(R.string.privacy_url))
+
+                    Spacer(modifier = Modifier.weight(1f))
+                    Button(onClick = { showHelp = false }, modifier = Modifier.align(Alignment.End)) { Text(stringResource(R.string.help_close)) }
+                }
+            }
+        }
+
+        if (showLangDialog) {
+            AlertDialog(
+                onDismissRequest = { showLangDialog = false },
+                title = { Text(stringResource(R.string.select_language)) },
+                text = {
+                    Column {
+                        LanguageOption("de", stringResource(R.string.lang_de)) {
+                            language = "de"; settings.language = "de"; onLanguageChange("de"); showLangDialog = false
+                        }
+                        LanguageOption("en", stringResource(R.string.lang_en)) {
+                            language = "en"; settings.language = "en"; onLanguageChange("en"); showLangDialog = false
+                        }
+                        LanguageOption("nl", stringResource(R.string.lang_nl)) {
+                            language = "nl"; settings.language = "nl"; onLanguageChange("nl"); showLangDialog = false
+                        }
+                        LanguageOption("it", stringResource(R.string.lang_it)) {
+                            language = "it"; settings.language = "it"; onLanguageChange("it"); showLangDialog = false
+                        }
+                        LanguageOption("fr", stringResource(R.string.lang_fr)) {
+                            language = "fr"; settings.language = "fr"; onLanguageChange("fr"); showLangDialog = false
+                        }
+                        LanguageOption("pt", stringResource(R.string.lang_pt)) {
+                            language = "pt"; settings.language = "pt"; onLanguageChange("pt"); showLangDialog = false
+                        }
+                        LanguageOption("sv", stringResource(R.string.lang_sv)) {
+                            language = "sv"; settings.language = "sv"; onLanguageChange("sv"); showLangDialog = false
+                        }
+                    }
+                },
+                confirmButton = {},
+                dismissButton = { TextButton(onClick = { showLangDialog = false }) { Text(stringResource(android.R.string.cancel)) } }
+            )
+        }
+    }
+}
+
+@Composable
+fun LanguageOption(code: String, label: String, onClick: () -> Unit) {
+    Row(modifier = Modifier.fillMaxWidth().clickable(onClick = onClick).padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
+        Text(label, style = MaterialTheme.typography.bodyLarge)
+    }
+}
+
+@Composable
+fun HelpItem(icon: String, text: String, link: String? = null) {
+    val context = LocalContext.current
+    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(vertical = 4.dp)) {
+        Text(icon, modifier = Modifier.width(40.dp), style = MaterialTheme.typography.bodyMedium)
+        Text(text, style = MaterialTheme.typography.bodyMedium, modifier = if (link != null) Modifier.clickable {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+            context.startActivity(Intent.createChooser(intent, "Open"))
+        } else Modifier)
     }
 }
 
@@ -544,7 +664,7 @@ fun RoundBtn(
         enabled = enabled,
         shape = androidx.compose.foundation.shape.CircleShape,
         contentPadding = PaddingValues(0.dp),
-        modifier = Modifier.size(36.dp)
+        modifier = Modifier.size(33.dp)
     ) { content() }
 }
 

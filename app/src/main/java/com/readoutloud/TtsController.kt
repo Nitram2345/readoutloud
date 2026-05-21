@@ -9,6 +9,7 @@ import android.os.Looper
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import android.util.Log
+import java.util.Locale
 import kotlin.math.log10
 
 class TtsController(
@@ -107,6 +108,20 @@ class TtsController(
             tts.stop()
             speakAt(currentIndex)
         }
+    }
+
+    fun setLanguage(lang: String) {
+        val locale = when (lang) {
+            "de" -> Locale.GERMAN
+            "en" -> Locale.ENGLISH
+            "nl" -> Locale("nl")
+            "it" -> Locale.ITALIAN
+            "fr" -> Locale.FRENCH
+            "pt" -> Locale("pt")
+            "sv" -> Locale("sv")
+            else -> Locale.getDefault()
+        }
+        tts.setLanguage(locale)
     }
 
     fun setAudioOutput(speaker: Boolean) {

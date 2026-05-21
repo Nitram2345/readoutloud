@@ -3,9 +3,11 @@ package com.readoutloud
 import android.content.Context
 import android.net.Uri
 import androidx.core.net.toUri
+import java.util.Locale
 
 class AppSettings(context: Context) {
     private val prefs = context.getSharedPreferences("readoutloud", Context.MODE_PRIVATE)
+    private val defaultLang = Locale.getDefault().language.take(2)
 
     var lastUri: Uri?
         get() = prefs.getString("last_uri", null)?.toUri()
@@ -26,4 +28,8 @@ class AppSettings(context: Context) {
     var isSpeaker: Boolean
         get() = prefs.getBoolean("is_speaker", true)
         set(value) = prefs.edit().putBoolean("is_speaker", value).apply()
+
+    var language: String
+        get() = prefs.getString("language", null) ?: defaultLang
+        set(value) = prefs.edit().putString("language", value).apply()
 }
