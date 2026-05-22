@@ -19,14 +19,14 @@ Emulator starten: Android Studio AVD Manager oder `emulator -avd <name>`.
 
 | Datei | Zweck |
 |-------|-------|
-| `MainActivity.kt` | Compose-UI, Toolbar, Dokument-Picker, TTS-Callbacks |
+| `MainActivity.kt` | Compose-UI, Toolbar, Dokument-Picker, TTS-Callbacks, i18n (7 Sprachen) |
 | `PdfLoader.kt` | `TextLine`-Datenmodell, `DocumentData` sealed class, PDF laden + Text extrahieren, Spaltenlogik |
 | `DocxLoader.kt` | DOCX → `List<TextLine>` via ZipInputStream + XmlPullParser |
 | `EpubLoader.kt` | EPUB → `List<TextLine>` via ZipInputStream + Jsoup |
 | `OdtLoader.kt` | ODT → `List<TextLine>` via ZipInputStream + XmlPullParser (content.xml, text:p/text:h) |
-| `TtsController.kt` | TTS-Steuerung, Satz-Splitting, Sentence→Line-Mapping, Highlighting-Callbacks |
-| `TtsService.kt` | Foreground-Service: TTS-Lifecycle, MediaSession, Notification mit Media-Controls |
-| `AppSettings.kt` | SharedPreferences: lastUri, speechRate, savedLineIndex, volume, isSpeaker |
+| `TtsController.kt` | TTS-Steuerung, Satz-Splitting, Sentence→Line-Mapping, Highlighting-Callbacks, `setLanguage()` |
+| `TtsService.kt` | Foreground-Service: TTS-Lifecycle, MediaSession, Notification mit Media-Controls (CoroutineScope) |
+| `AppSettings.kt` | SharedPreferences: lastUri, speechRate, savedLineIndex, volume, isSpeaker, language |
 
 ### Datenmodell
 
@@ -56,14 +56,14 @@ sealed class DocumentData {
 ```kotlin
 fun RoundBtn(onClick: () -> Unit, enabled: Boolean = true, content: @Composable () -> Unit)
 ```
-`CircleShape`, `size(36.dp)`, `contentPadding = PaddingValues(0.dp)`.  
+`CircleShape`, `size(33.dp)`, `contentPadding = PaddingValues(2.dp)`.  
 Für Text-Zentrierung innerhalb: `Box(Modifier.fillMaxSize(), Alignment.Center)`.  
 Für emoji/Sonderzeichen-Versatz: `Modifier.offset(y = (-N).dp)` auf `Text`.
 
 ### Toolbar-Zeilen
-- Zeile 1: `⬅` (RoundBtn) | `Öffnen` | `🔊/👂` (RoundBtn) | Spacer(weight) | `−` `🕛1.0×` `+`
-- Zeile 2: `«30s` | `Laut Lesen/Pause` (min 110dp) | `30m` | `30s»` | Spacer(weight) | `−` `🔊100%` `+`
-- Zeile 3: DEV-Row mit `ProvideTextStyle(labelSmall)`, horizontalScroll
+- Zeile 1: `⬅` | `Öffnen` | `🇩🇪` (?) | Spacer | `≡` | `−` `🕛1.0×` `+`
+- Zeile 2: `«30s` | `Laut Lesen/Pause` (min 110dp) | `30m` | `30s»` | Spacer | `🔊/👂` | `−` `🔊100%` `+`
+- Horizontal spacing: `Arrangement.spacedBy(7.dp)`
 
 ## Bekannte Fallstricke
 
@@ -159,3 +159,17 @@ org.jsoup:jsoup:1.17.2                   // EPUB XHTML-Parsing
 - DOCX liefert StyleId wie `"Heading1"`, `"berschrift2"`
 - EPUB liefert `"h1"`–`"h4"`
 - `WordDocView` nutzt `headingLevel()` für Schriftgröße und Abstände
+
+## Internationalisierung (i18n)
+
+7 Sprachen: DE, EN, NL, IT, FR, PT, SV  
+Sprach-Dateien: `values-{de,en,nl,it,fr,pt,sv}/strings.xml`  
+Auto-Detect: System-Sprache bei erstem Start  
+TTS-Sync: `TtsController.setLanguage(lang)` synchronisiert TTS mit UI-Sprache  
+UI-Refresh: `recreate()` bei Sprachwechsel für sofortige Aktualisierung
+
+## Play Store Vorbereitung
+
+Privacy Policy: https://nitram2345.github.io/readoutloud-privacy/
+Berechtigungen: `READ_EXTERNAL_STORAGE`, `FOREGROUND_SERVICE`, `FOREGROUND_SERVICE_MEDIA_PLAYBACK`
+`POST_NOTIFICATIONS` entfernt (nicht benötigt)

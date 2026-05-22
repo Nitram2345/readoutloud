@@ -60,7 +60,7 @@ Android-App zum Vorlesen von Dokumenten (PDF, DOCX, EPUB) per Text-to-Speech.
 - Während Timer läuft: Knopf zeigt verbleibende Minuten + ✕ (Abbrechen)
 
 ### Audio-Ausgabe
-- 🔊/👂-Knopf (rund): schaltet zwischen Lautsprecher und Ohrhörer um
+- 🔊/👂-Knopf (rund, untere Zeile): schaltet zwischen Lautsprecher und Ohrhörer um
 - Einstellung wird gespeichert (persistent)
 - Wirkung nur auf echtem Gerät (Emulator hat keinen Earpiece)
 
@@ -68,6 +68,13 @@ Android-App zum Vorlesen von Dokumenten (PDF, DOCX, EPUB) per Text-to-Speech.
 - Erkennung von Heading 1–4 (Deutsch + Englisch)
 - Größere Schrift + Fettdruck + mehr Abstand nach oben
 - Papier-Hintergrund (0xFFFAF8F5)
+
+### Internationalisierung
+- 7 Sprachen: DE, EN, NL, IT, FR, PT, SV
+- Sprachauswahl: Flaggen-Button (🇩🇪/🇬🇧/🇳🇱/🇮🇹/🇫🇷/🇵🇹/🇸🇪)
+- Auto-Detect: System-Sprache bei erstem Start
+- TTS-Sync: TTS-Sprache wechselt mit UI-Sprache
+- Help-Dialog: "?"-Knopf mit Bedienungsanleitung + Datenschutz-Link
 
 ### PDF-Spalten
 - Automatische Spaltenerkennung per Histogramm
@@ -78,18 +85,15 @@ Android-App zum Vorlesen von Dokumenten (PDF, DOCX, EPUB) per Text-to-Speech.
 
 ## UI-Elemente (Toolbar)
 
-Alle runden Knöpfe (`RoundBtn`): `CircleShape`, 36×36 dp, kein Content-Padding.
+Alle runden Knöpfe (`RoundBtn`): `CircleShape`, 33×33 dp, 2dp Content-Padding.
 
 ```
-Zeile 1: [⬅] [Öffnen]  [🔊/👂]  ···Spacer···  [−] [🕛1.0×] [+]
-Zeile 2: [«30s] [Laut Lesen / Pause (min. 110dp)] [30m] [30s»]  ···Spacer···  [−] [🔊100%] [+]
-Zeile 3 (klein): [DEV ○] [Test 1] [Test 2] [Test docx] [Test epub]  ← scrollbar, labelSmall
-──────────────── Ladebalken (wenn laden) ───────────────────────
-[Abbrechen]                                           ← nur wenn laden
-Statustext · Fortschrittsanzeige (📍 23% · Seite 2/3)
+Zeile 1: [⬅] [Öffnen] [🇩🇪] [?] ···Spacer··· [≡] [−] [🕛1.0×] [+]
+Zeile 2: [«30s] [Laut Lesen / Pause (min. 110dp)] [30m] [30s»] ···Spacer··· [🔊/👂] [−] [🔊100%] [+]
+Horizontal spacing: 7dp
 ```
 
-Runde Knöpfe: ⬅, 🔊/👂, «30s, 30m, 30s», −(×2), +(×2)  
+Runde Knöpfe: ⬅, 🇩🇪 (Sprache), ?, ≡ (Inhaltsverzeichnis), «30s, 30m, 30s», 🔊/👂, −(×2), +(×2)  
 Rechteckig: Öffnen, Laut Lesen/Pause, Abbrechen
 
 ---
@@ -110,8 +114,6 @@ Rechteckig: Öffnen, Laut Lesen/Pause, Abbrechen
 ## Offen / Ideen
 
 - "Öffnen mit" Intent-Handler (EPUB/PDF direkt aus anderen Apps)
-- TTS-Sprache wählbar (aktuell fix Deutsch)
 - Scrollposition pro Datei merken (aktuell nur eine gespeicherte Position)
 - DOC-Format (älteres Word-Format)
 - Zuletzt geöffnete Dateien (Liste)
-- Rate-Init-Bug: TTS noch nicht bereit wenn `LaunchedEffect` feuert
