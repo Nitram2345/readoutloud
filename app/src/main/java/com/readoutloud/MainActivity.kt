@@ -54,6 +54,7 @@ class MainActivity : ComponentActivity() {
     private var savedVolume = 1.0f
     private var savedIsSpeaker = true
     private var savedLanguage = "de"
+    private val languageState = mutableStateOf("de")
 
     private fun changeLanguage(lang: String) {
         val locale = Locale(lang)
@@ -62,6 +63,8 @@ class MainActivity : ComponentActivity() {
         config.setLocale(locale)
         @Suppress("DEPRECATION")
         resources.updateConfiguration(config, resources.displayMetrics)
+        languageState.value = lang
+        recreate()
     }
 
     private fun setupController(ctrl: TtsController) {
@@ -136,6 +139,7 @@ class MainActivity : ComponentActivity() {
                         onVolumeChange = { v -> ttsController?.setVolume(v) },
                         onAudioOutputChange = { s -> ttsController?.setAudioOutput(s) },
                         onLanguageChange = { lang -> changeLanguage(lang) },
+                        currentLanguage = languageState.value,
                         onSaveAndClose = {
                             stopService(Intent(this, TtsService::class.java))
                             finish()
@@ -169,6 +173,7 @@ fun PdfViewerScreen(
     onVolumeChange: (Float) -> Unit,
     onAudioOutputChange: (Boolean) -> Unit,
     onLanguageChange: (String) -> Unit,
+    currentLanguage: String,
     onSaveAndClose: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -283,7 +288,7 @@ fun PdfViewerScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 8.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(7.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             RoundBtn(onClick = {
@@ -316,22 +321,16 @@ fun PdfViewerScreen(
                 contentPadding = btnPadding
             ) { Text(stringResource(R.string.open)) }
 
-            RoundBtn(onClick = {
-                isSpeaker = !isSpeaker
-                settings.isSpeaker = isSpeaker
-                onAudioOutputChange(isSpeaker)
-            }) { Text(if (isSpeaker) "🔊" else "👂") }
-
             RoundBtn(onClick = { showLangDialog = true }) { Text(when (language) { "de" -> "🇩🇪" "en" -> "🇬🇧" "nl" -> "🇳🇱" "it" -> "🇮🇹" "fr" -> "🇫🇷" "pt" -> "🇵🇹" "sv" -> "🇸🇪" else -> "🇩🇪" }, style = MaterialTheme.typography.titleMedium) }
+
+            RoundBtn(onClick = { showHelp = true }) { Text("?", style = MaterialTheme.typography.titleMedium) }
+
+            Spacer(Modifier.weight(1f))
 
             RoundBtn(
                 onClick = { showToc = true },
                 enabled = tocHeadings.isNotEmpty()
             ) { Text("≡", style = MaterialTheme.typography.titleMedium) }
-
-            RoundBtn(onClick = { showHelp = true }) { Text("?", style = MaterialTheme.typography.titleMedium) }
-
-            Spacer(Modifier.weight(1f))
 
             RoundBtn(onClick = {
                 speechRate = (speechRate - 0.1f).coerceAtLeast(1.0f)
@@ -353,7 +352,7 @@ fun PdfViewerScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 8.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(7.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             RoundBtn(onClick = onSkipBackward, enabled = canControl) { Text(stringResource(R.string.skip_back), style = MaterialTheme.typography.labelSmall) }
@@ -374,18 +373,24 @@ fun PdfViewerScreen(
             Spacer(Modifier.weight(1f))
 
             RoundBtn(onClick = {
+                isSpeaker = !isSpeaker
+                settings.isSpeaker = isSpeaker
+                onAudioOutputChange(isSpeaker)
+            }) { Text(if (isSpeaker) "🔊" else "👂", style = MaterialTheme.typography.labelSmall) }
+
+            RoundBtn(onClick = {
                 volume = (volume - 0.1f).coerceAtLeast(0.1f)
                     .let { Math.round(it * 10) / 10f }
                 settings.volume = volume; onVolumeChange(volume)
-            }) { Text("−", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold) }
+            }) { Text("−", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Bold) }
 
-            Text(stringResource(R.string.volume, volume * 100), style = MaterialTheme.typography.bodyMedium)
+            Text(stringResource(R.string.volume, volume * 100), style = MaterialTheme.typography.bodySmall)
 
             RoundBtn(onClick = {
                 volume = (volume + 0.1f).coerceAtMost(1.5f)
                     .let { Math.round(it * 10) / 10f }
                 settings.volume = volume; onVolumeChange(volume)
-            }) { Text("+", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold) }
+            }) { Text("+", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Bold) }
         }
 
         if (isLoading) {
@@ -663,7 +668,7 @@ fun RoundBtn(
         onClick = onClick,
         enabled = enabled,
         shape = androidx.compose.foundation.shape.CircleShape,
-        contentPadding = PaddingValues(0.dp),
+        contentPadding = PaddingValues(2.dp),
         modifier = Modifier.size(33.dp)
     ) { content() }
 }

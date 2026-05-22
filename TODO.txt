@@ -3,8 +3,8 @@
   Kritisch (muss)
 
   1. Privacy Policy URL
-  - Play Console erfordert Privacy Policy bei Apps mit Berechtigungen (POST_NOTIFICATIONS, Dateizugriff)
-  - Hosting via GitHub Pages, Firebase, oder Google Docs möglich
+  + Play Console erfordert Privacy Policy bei Apps mit Berechtigungen (POST_NOTIFICATIONS, Dateizugriff)
+  + Hosting via GitHub Pages, Firebase, oder Google Docs möglich
 
   2. Content Rating Questionnaire
   - Ausfüllen in Play Console (Fragebogen zu Inhalten)
@@ -40,4 +40,59 @@
 
   10. Android Vitals Monitoring
   - Crashlytics oder ähnliches einrichten
+
+-----------------------------------
+
+  Play Store Publishing Checklist:
+
+  1. Google Play Console einrichten (einmalig)
+  + https://play.google.com/console
+  + Registrierungsgebühr: $25 (einmalig)
+  + Identität verifizieren
+
+  2. App erstellen
+  - Play Console → "App erstellen"
+  - Name: "ReadOutLoud"
+  - Sprache: Deutsch (oder Englisch)
+  - Kostenlos (nicht "Paid")
+
+  3. Store Listing ausfüllen
+  - Kurzbeschreibung (80 Zeichen)
+  - Vollbeschreibung (4000 Zeichen)
+  - Hochauflösendes App-Icon (512x512 px)
+  - Feature Graphic (1024x500 px)
+  - Screenshots (mindestens 2, 16:9 oder 9:16)
+
+  4. Privacy Policy URL eintragen
+  - Play Console → App-Content → Datenschutzrichtlinie
+  - URL: https://nitram2345.github.io/readoutloud-privacy/ (oder .html)
+
+  5. Content Rating Questionnaire
+  - Play Console → App-Content → Content-Rating
+  - Fragebogen ausfüllen (meist "Everyone" für diese App)
+
+  - Play Console → App-Content → Content-Rating
+  - Fragebogen ausfüllen (meist "Everyone" für diese App)
+  6. App Signing
+  - Play Console → Setup → App-Sharing
+  - Upload-Key erstellen oder Google Play App Signing verwenden
+
+  7. Release erstellen
+  - Play Console → Releases → Production
+  - AAB-Datei hochladen (Android App Bundle)
+  - Release notes (DE + EN)
+
+  8. Internal Testing (empfohlen)
+  - Erst Internal Testing Track
+  - 12+ Tester für 14 Tage
+  - Dann Production
+
+  9. Production Release
+  - Nach Testing erfolgreich → Production anfragen
+
+  Was brauchst du jetzt?
+
+  - Screenshots machen? (App auf Emulator/Device)
+  - Feature Graphic erstellen?
+  - Store Listing Text schreiben?
 
