@@ -15,28 +15,54 @@ import kotlin.math.log10
 class TtsController(
     private val tts: TextToSpeech,
     private val audioSessionId: Int = 0,
-    private val audioManager: AudioManager? = null
+    private val audioManager: AudioManager? = null,
+    private val voiceManager: VoiceManager? = null,
+    private val piperEngine: PiperTtsEngine? = null
 ) {
 
     private val mainHandler = Handler(Looper.getMainLooper())
     private fun onMain(block: () -> Unit) = mainHandler.post(block)
 
+    // Engine management
+    private val androidEngine = AndroidTtsEngine(tts)
+    private var currentEngine: TtsEngine = androidEngine
+
     private var sentences: List<String> = emptyList()
     private var sentenceLines: List<List<TextLine>> = emptyList()
     private var currentIndex = 0
+    @Volatile private var speakingId = -1
     var isPlaying = false
         private set
-    private var currentRate = 1.0f
+    var currentRate = 1.0f
+        private set
     private var currentVolume = 1.0f
     private var loudnessEnhancer: LoudnessEnhancer? = null
     private var currentStream = AudioManager.STREAM_MUSIC
     private var originalStreamVolume = -1
     var onPlayStateChanged: ((Boolean) -> Unit)? = null
     var onLinesChanged: ((List<TextLine>) -> Unit)? = null
+    var onSpeakStart: (() -> Unit)? = null    // fires when TTS audio actually begins
+    var onSpeakStop: (() -> Unit)? = null     // fires when TTS audio actually stops
+    @Volatile private var speakStartNotified = false
+    @Volatile private var speakStopNotified = false
 
     init {
+        // Listen for voice changes to switch engines
+        voiceManager?.selectedVoice?.observeForever { voice ->
+            if (voice != null) {
+                switchToPiperEngine()
+            } else {
+                switchToAndroidEngine()
+            }
+        }
+
         tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-            override fun onStart(utteranceId: String?) {}
+            override fun onStart(utteranceId: String?) {
+                if (!speakStartNotified) {
+                    speakStartNotified = true
+                    onMain { onSpeakStart?.invoke() }
+                }
+            }
 
             override fun onDone(utteranceId: String?) {
                 val idx = utteranceId?.toIntOrNull() ?: return
@@ -53,7 +79,18 @@ class TtsController(
                 }
             }
 
+            override fun onStop(utteranceId: String?, interrupted: Boolean) {
+                if (interrupted && !speakStopNotified) {
+                    speakStopNotified = true
+                    onMain { onSpeakStop?.invoke() }
+                }
+            }
+
             override fun onError(utteranceId: String?) {
+                val idx = utteranceId?.toIntOrNull() ?: return
+                // Samsung TTS fires onError for QUEUE_FLUSH-interrupted utterances.
+                // Ignore if this isn't the utterance we're currently expecting.
+                if (idx != speakingId) return
                 Log.e("TTS", "Error at utterance $utteranceId")
                 onMain {
                     isPlaying = false
@@ -64,11 +101,53 @@ class TtsController(
         })
     }
 
+    private fun switchToPiperEngine() {
+        if (piperEngine != null) {
+            currentEngine = piperEngine
+            Log.d("TtsController", "Switched to Piper engine")
+        }
+    }
+
+    private fun switchToAndroidEngine() {
+        currentEngine = androidEngine
+        Log.d("TtsController", "Switched to Android engine")
+    }
+
+    private class AndroidTtsEngine(private val tts: TextToSpeech) : TtsEngine {
+        override fun speak(text: String, params: SpeakParams) {
+            val bundle = Bundle().apply {
+                putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, params.volume)
+                putFloat(TextToSpeech.Engine.KEY_PARAM_RATE, params.rate)
+                if (params.audioSessionId != 0)
+                    putInt(TextToSpeech.Engine.KEY_PARAM_SESSION_ID, params.audioSessionId)
+            }
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, bundle, null)
+        }
+
+        override fun stop() {
+            tts.stop()
+        }
+
+        override fun setLanguage(lang: String) {
+            // Language handling is done externally via tts.setLanguage()
+            Log.d("AndroidTtsEngine", "setLanguage called but handled externally")
+        }
+
+        override fun release() {
+            // tts is managed externally by TtsController
+            Log.d("AndroidTtsEngine", "release called but tts managed externally")
+        }
+
+        override val isReady: Boolean
+            get() = true
+    }
+
     fun startFrom(lines: List<TextLine>) {
         val fullText = lines.joinToString(" ") { it.text }
         sentences = splitSentences(fullText)
         sentenceLines = mapSentencesToLines(fullText, sentences, lines)
         currentIndex = 0
+        speakStartNotified = false
         isPlaying = true
         onLinesChanged?.invoke(sentenceLines.getOrElse(0) { emptyList() })
         onPlayStateChanged?.invoke(true)
@@ -76,13 +155,16 @@ class TtsController(
     }
 
     fun pause() {
+        speakStopNotified = false
         isPlaying = false
-        tts.stop()
+        currentEngine.stop()
+        restoreStreamVolume()
         onPlayStateChanged?.invoke(false)
     }
 
     fun resume() {
         if (currentIndex < sentences.size) {
+            speakStartNotified = false
             isPlaying = true
             onLinesChanged?.invoke(sentenceLines.getOrElse(currentIndex) { emptyList() })
             onPlayStateChanged?.invoke(true)
@@ -103,25 +185,31 @@ class TtsController(
 
     fun setRate(rate: Float) {
         currentRate = rate
-        tts.setSpeechRate(rate)
         if (isPlaying && currentIndex < sentences.size) {
-            tts.stop()
+            currentEngine.stop()
             speakAt(currentIndex)
         }
     }
 
     fun setLanguage(lang: String) {
-        val locale = when (lang) {
-            "de" -> Locale.GERMAN
-            "en" -> Locale.ENGLISH
-            "nl" -> Locale("nl")
-            "it" -> Locale.ITALIAN
-            "fr" -> Locale.FRENCH
-            "pt" -> Locale("pt")
-            "sv" -> Locale("sv")
-            else -> Locale.getDefault()
+        currentEngine.setLanguage(lang)
+        // For Android engine, also set the locale
+        if (currentEngine is AndroidTtsEngine) {
+            val locale = when (lang) {
+                "de" -> Locale.GERMAN
+                "en" -> Locale.ENGLISH
+                "en-US" -> Locale("en", "US")
+                "es" -> Locale("es")
+                "nl" -> Locale.forLanguageTag("nl")
+                "it" -> Locale.ITALIAN
+                "fr" -> Locale.FRENCH
+                "pt" -> Locale.forLanguageTag("pt")
+                "sv" -> Locale.forLanguageTag("sv")
+                "ja" -> Locale.JAPANESE
+                else -> Locale.getDefault()
+            }
+            tts.setLanguage(locale)
         }
-        tts.setLanguage(locale)
     }
 
     fun setAudioOutput(speaker: Boolean) {
@@ -131,20 +219,23 @@ class TtsController(
             originalStreamVolume = -1
         }
         currentStream = newStream
-        if (currentVolume > 1.0f) boostStream()
-        tts.setAudioAttributes(
-            AudioAttributes.Builder()
-                .setUsage(if (speaker) AudioAttributes.USAGE_MEDIA else AudioAttributes.USAGE_VOICE_COMMUNICATION)
-                .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
-                .build()
-        )
-        if (isPlaying && currentIndex < sentences.size) { tts.stop(); speakAt(currentIndex) }
+        if (currentVolume > 1.0f && isPlaying) boostStream()
+        // Only Android TTS engine needs audio attributes configuration
+        if (currentEngine is AndroidTtsEngine) {
+            tts.setAudioAttributes(
+                AudioAttributes.Builder()
+                    .setUsage(if (speaker) AudioAttributes.USAGE_MEDIA else AudioAttributes.USAGE_VOICE_COMMUNICATION)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                    .build()
+            )
+        }
+        if (isPlaying && currentIndex < sentences.size) { currentEngine.stop(); speakAt(currentIndex) }
     }
 
     fun setVolume(vol: Float) {
         currentVolume = vol.coerceIn(0.1f, 1.5f)
         if (currentVolume > 1.0f) {
-            boostStream()
+            if (isPlaying) boostStream()   // only boost when actually speaking
             val gainMb = (20.0 * log10(currentVolume.toDouble()) * 100).toInt()
             try {
                 if (loudnessEnhancer == null && audioSessionId != 0)
@@ -163,7 +254,7 @@ class TtsController(
             }
             loudnessEnhancer?.enabled = false
         }
-        if (isPlaying && currentIndex < sentences.size) { tts.stop(); speakAt(currentIndex) }
+        if (isPlaying && currentIndex < sentences.size) { currentEngine.stop(); speakAt(currentIndex) }
     }
 
     private fun boostStream() {
@@ -174,15 +265,26 @@ class TtsController(
         }
     }
 
-    fun release() {
+    private fun restoreStreamVolume() {
         audioManager?.let { am ->
             if (originalStreamVolume >= 0) {
                 try { am.setStreamVolume(currentStream, originalStreamVolume, 0) } catch (_: Exception) {}
                 originalStreamVolume = -1
             }
         }
+    }
+
+    fun release() {
+        restoreStreamVolume()
+        audioManager?.let { am ->
+            if (originalStreamVolume >= 0) {  // belt-and-suspenders
+                try { am.setStreamVolume(currentStream, originalStreamVolume, 0) } catch (_: Exception) {}
+                originalStreamVolume = -1
+            }
+        }
         loudnessEnhancer?.release()
         loudnessEnhancer = null
+        currentEngine.release()
     }
 
     fun skipForward(seconds: Int) = skip(seconds)
@@ -210,18 +312,20 @@ class TtsController(
 
     private fun jumpTo(idx: Int) {
         currentIndex = idx
-        tts.stop()
+        currentEngine.stop()
         onLinesChanged?.invoke(sentenceLines.getOrElse(idx) { emptyList() })
         if (isPlaying) speakAt(idx)
     }
 
     private fun speakAt(idx: Int) {
-        val params = Bundle().apply {
-            putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, minOf(currentVolume, 1.0f))
-            if (audioSessionId != 0)
-                putInt(TextToSpeech.Engine.KEY_PARAM_SESSION_ID, audioSessionId)
-        }
-        tts.speak(sentences[idx], TextToSpeech.QUEUE_FLUSH, params, idx.toString())
+        if (currentVolume > 1.0f) boostStream()
+        speakingId = idx
+        val params = SpeakParams(
+            volume = minOf(currentVolume, 1.0f),
+            rate = currentRate,
+            audioSessionId = audioSessionId
+        )
+        currentEngine.speak(sentences[idx], params)
     }
 
     private fun splitSentences(text: String): List<String> =
