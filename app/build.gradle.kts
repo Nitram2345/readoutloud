@@ -69,7 +69,7 @@ dependencies {
     }
     implementation("org.jsoup:jsoup:1.17.2")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("com.microsoft.onnxruntime:onnxruntime-android:1.16.0")
+    implementation("com.microsoft.onnxruntime:onnxruntime-android:1.18.0")
     implementation("androidx.media:media:1.7.0")
     implementation("androidx.core:core:1.13.1")
     implementation(libs.androidx.core.ktx)
