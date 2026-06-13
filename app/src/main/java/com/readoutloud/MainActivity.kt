@@ -593,10 +593,15 @@ fun PdfViewerScreen(
             )
         }
 
+        var availableVoices by remember { mutableStateOf(emptyList<Voice>()) }
+
         if (showVoiceDialog) {
+            LaunchedEffect(language) {
+                availableVoices = voiceManager.fetchAvailableVoices(language)
+            }
             VoiceDialog(
                 currentLanguage = language,
-                allVoices = emptyList(),
+                allVoices = availableVoices,
                 downloadedVoices = voiceManager.downloadedVoices.value,
                 selectedVoice = voiceManager.selectedVoice.value,
                 activeDownloads = voiceManager.downloads.value,

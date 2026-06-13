@@ -156,4 +156,11 @@ class VoiceManager(
     fun getDownloadProgress(voiceName: String): Float? {
         return _downloads.value[voiceName]?.progress
     }
+
+    /**
+     * Fetch available voices for a language from HuggingFace.
+     */
+    suspend fun fetchAvailableVoices(lang: String): List<Voice> {
+        return repository.getVoicesForLanguage(lang)
+    }
 }
