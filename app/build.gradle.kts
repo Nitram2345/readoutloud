@@ -16,7 +16,7 @@ android {
         minSdk = 26
         targetSdk = 36
         versionCode = 1
-        versionName = "1.0"
+        versionName = "0.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
@@ -31,8 +31,13 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            // Additional release optimizations
+            ndk {
+                debugSymbolLevel = "NONE"
+            }
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -58,8 +63,14 @@ android {
 }
 
 dependencies {
-    implementation("com.tom-roush:pdfbox-android:2.0.27.0")
+    // PDFBox without Bouncy Castle for basic text extraction
+    implementation("com.tom-roush:pdfbox-android:2.0.27.0") {
+        exclude(group = "org.bouncycastle")
+    }
     implementation("org.jsoup:jsoup:1.17.2")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("androidx.media:media:1.7.0")
+    implementation("androidx.core:core:1.13.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
