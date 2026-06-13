@@ -32,4 +32,8 @@ class AppSettings(context: Context) {
     var language: String
         get() = prefs.getString("language", null) ?: defaultLang
         set(value) = prefs.edit().putString("language", value).apply()
+
+    var selectedVoice: String?
+        get() = prefs.getString("selected_voice", null)
+        set(value) = prefs.edit().putString("selected_voice", value).apply()
 }
