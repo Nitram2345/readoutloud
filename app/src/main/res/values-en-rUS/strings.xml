@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Open</string>
+    <string name="listen">Listen</string>
+    <string name="pause">Pause</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">Open PDF, DOCX or EPUB</string>
+    <string name="status_loading">Loading…</string>
+    <string name="status_cancelled">Cancelled</string>
+    <string name="status_error">ERROR: %s</string>
+    <string name="status_file_not_found">File no longer available</string>
+    <string name="status_pages" formatted="false">%d pages, %d text lines</string>
+    <string name="status_paragraphs">%d paragraphs</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">Page %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">User Guide</string>
+    <string name="help_close">Close</string>
+    <string name="help_back">Closes the document and exits the app</string>
+    <string name="help_open">Select a new document (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Show table of contents with headings</string>
+    <string name="help_help">Show this guide</string>
+    <string name="help_audio">Switch between speaker and earphone</string>
+    <string name="help_speed">Slow down or speed up reading speed</string>
+    <string name="help_speed_display">Displays current speed</string>
+    <string name="help_skip_back">Rewind 30 seconds</string>
+    <string name="help_listen">Start or pause reading aloud</string>
+    <string name="help_timer">Sleep timer: stops automatically after 30 min</string>
+    <string name="help_skip_forward">Forward 30 seconds</string>
+    <string name="help_volume">Adjust volume (up to 150%%)</string>
+    <string name="help_volume_display">Displays current volume</string>
+    <string name="help_tap">Tap on a location in the document to continue reading from there</string>
+    <string name="help_tap_title">Tap on PDF</string>
+    <string name="help_controls_top">Top controls:</string>
+    <string name="help_controls_bottom">Bottom controls:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Legal</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="privacy_description">No data collection. All data stays local on your device.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 German</string>
+    <string name="lang_en">🇬🇧 English</string>
+    <string name="lang_en_US">🇺🇸 American English</string>
+    <string name="lang_nl">🇳🇱 Dutch</string>
+    <string name="lang_it">🇮🇹 Italian</string>
+    <string name="lang_fr">🇫🇷 French</string>
+    <string name="lang_pt">🇵🇹 Portuguese</string>
+    <string name="lang_sv">🇸🇪 Swedish</string>
+    <string name="select_language">Select Language</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Language changed to %s</string>
+</resources>
