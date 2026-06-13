@@ -337,6 +337,8 @@ fun PdfViewerScreen(
 
             RoundBtn(onClick = { showLangDialog = true }) { Text(when (language) { "de" -> "🇩🇪" "en" -> "🇬🇧" "en-US" -> "🇺🇸" "es" -> "🇪🇸" "nl" -> "🇳🇱" "it" -> "🇮🇹" "fr" -> "🇫🇷" "pt" -> "🇵🇹" "sv" -> "🇸🇪" "ja" -> "🇯🇵" else -> "🇩🇪" }, style = MaterialTheme.typography.titleMedium) }
 
+            RoundBtn(onClick = { showVoiceDialog = true }) { Text("🗣️", style = MaterialTheme.typography.titleMedium) }
+
             RoundBtn(onClick = { showHelp = true }) { Text("?", style = MaterialTheme.typography.titleMedium) }
 
             Spacer(Modifier.weight(1f))
@@ -588,6 +590,24 @@ fun PdfViewerScreen(
                 },
                 confirmButton = {},
                 dismissButton = { TextButton(onClick = { showLangDialog = false }) { Text(stringResource(android.R.string.cancel)) } }
+            )
+        }
+
+        if (showVoiceDialog) {
+            VoiceDialog(
+                currentLanguage = language,
+                allVoices = emptyList(),
+                downloadedVoices = voiceManager.downloadedVoices.value,
+                selectedVoice = voiceManager.selectedVoice.value,
+                activeDownloads = voiceManager.downloads.value,
+                onVoiceSelected = { voice ->
+                    voiceManager.selectVoice(voice)
+                    showVoiceDialog = false
+                },
+                onVoiceDownloaded = { voice -> voiceManager.downloadVoice(voice) },
+                onVoiceDeleted = { voice -> voiceManager.deleteVoice(voice) },
+                onCancelDownload = { voiceName -> voiceManager.cancelDownload(voiceName) },
+                onDismiss = { showVoiceDialog = false }
             )
         }
     }
