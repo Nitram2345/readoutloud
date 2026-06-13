@@ -36,4 +36,8 @@ class AppSettings(context: Context) {
     var selectedVoice: String?
         get() = prefs.getString("selected_voice", null)
         set(value) = prefs.edit().putString("selected_voice", value).apply()
+
+    var downloadedVoices: List<String>
+        get() = prefs.getStringSet("downloaded_voices", emptySet())?.toList() ?: emptyList()
+        set(value) = prefs.edit().putStringSet("downloaded_voices", value.toSet()).apply()
 }
