@@ -16,10 +16,10 @@
     <string name="status_cancelled">Geannuleerd</string>
     <string name="status_error">FOUT: %s</string>
     <string name="status_file_not_found">Bestand niet meer beschikbaar</string>
-    <string name="status_pages">%d paginas, %d tekstregels</string>
+    <string name="status_pages" formatted="false">%d paginas, %d tekstregels</string>
     <string name="status_paragraphs">%d alineas</string>
     <string name="progress">%d%%</string>
-    <string name="page_indicator">Pagina %d/%d</string>
+    <string name="page_indicator" formatted="false">Pagina %d/%d</string>
 
     <!-- Speed & Volume -->
     <string name="speed">🕛%.1f×</string>
@@ -55,7 +55,14 @@
     <!-- Language -->
     <string name="lang_de">🇩🇪 Duits</string>
     <string name="lang_en">🇬🇧 Engels</string>
+    <string name="lang_en_US">🇺🇸 Amerikaans-Engels</string>
     <string name="lang_nl">🇳🇱 Nederlands</string>
+    <string name="lang_it">🇮🇹 Italiaans</string>
+    <string name="lang_fr">🇫🇷 Frans</string>
+    <string name="lang_pt">🇵🇹 Portugees</string>
+    <string name="lang_sv">🇸🇪 Zweeds</string>
+    <string name="lang_es">🇪🇸 Spaans</string>
+    <string name="lang_ja">🇯🇵 Japans</string>
     <string name="select_language">Taal kiezen</string>
 
     <!-- Toast -->

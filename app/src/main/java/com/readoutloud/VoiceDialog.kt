@@ -6,9 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Download
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,7 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.AlertDialog
+import androidx.compose.material3.AlertDialog as MaterialAlertDialog
 
 /**
  * VoiceDialog: AlertDialog for selecting and managing TTS voices.
@@ -85,7 +82,7 @@ fun VoiceDialog(
         )
     }
 
-    AlertDialog(
+    MaterialAlertDialog(
         onDismissRequest = onDismiss,
         title = {
             Text(
@@ -113,11 +110,7 @@ fun VoiceDialog(
                 }
             }
         },
-        dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text("Close")
-            }
-        }
+        confirmButton = {}
     )
 }
 
@@ -168,20 +161,12 @@ fun VoiceRow(
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     LinearProgressIndicator(
-                        progress = { downloadProgress.coerceIn(0f, 1f) },
-                        modifier = Modifier.fillMaxWidth(),
-                        barHeight = 6.dp
+                        progress = downloadProgress.coerceIn(0f, 1f),
+                        modifier = Modifier.fillMaxWidth()
                     )
                 }
-                IconButton(
-                    onClick = onCancel,
-                    modifier = Modifier.size(36.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Close,
-                        contentDescription = "Cancel download",
-                        tint = MaterialTheme.colorScheme.error
-                    )
+                TextButton(onClick = onCancel) {
+                    Text("❌", fontSize = MaterialTheme.typography.bodyLarge.fontSize)
                 }
             }
         } else if (voice.isDownloaded || voice.name == "android TTS default") {
@@ -217,8 +202,7 @@ fun VoiceRow(
                 if (voice.name != "android TTS default") {
                     IconButton(
                         onClick = onDelete,
-                        modifier = Modifier.size(36.dp),
-                        contentDescription = "Delete voice"
+                        modifier = Modifier.size(36.dp)
                     ) {
                         Text(
                             text = "🗑️",
@@ -257,16 +241,8 @@ fun VoiceRow(
                 }
 
                 // Download button
-                IconButton(
-                    onClick = onDownload,
-                    modifier = Modifier.size(36.dp),
-                    contentDescription = "Download voice"
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Download,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary
-                    )
+                TextButton(onClick = onDownload) {
+                    Text("⬇️", fontSize = MaterialTheme.typography.bodyLarge.fontSize)
                 }
             }
         }

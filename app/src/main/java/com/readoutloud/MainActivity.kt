@@ -51,13 +51,12 @@ class MainActivity : ComponentActivity() {
     private val isPlayingState = mutableStateOf(false)
     private val currentLinesState = mutableStateOf<List<TextLine>>(emptyList())
     private var savedSpeechRate = 1.0f
-    private var savedVolume = 1.0f
     private var savedIsSpeaker = true
     private var savedLanguage = "de"
     private val languageState = mutableStateOf("de")
 
     private fun changeLanguage(lang: String) {
-        val locale = Locale(lang)
+        val locale = Locale.forLanguageTag(lang)
         Locale.setDefault(locale)
         val config = Configuration(resources.configuration)
         config.setLocale(locale)
@@ -72,7 +71,6 @@ class MainActivity : ComponentActivity() {
         ctrl.onPlayStateChanged = { playing -> isPlayingState.value = playing }
         ctrl.onLinesChanged = { lines -> currentLinesState.value = lines }
         ctrl.setRate(savedSpeechRate)
-        ctrl.setVolume(savedVolume)
         ctrl.setAudioOutput(savedIsSpeaker)
         ctrl.setLanguage(savedLanguage)
         Log.d("TTS", "Controller ready")
@@ -99,11 +97,10 @@ class MainActivity : ComponentActivity() {
         PDFBoxResourceLoader.init(applicationContext)
         val settings0 = AppSettings(this)
         savedSpeechRate = settings0.speechRate
-        savedVolume = settings0.volume
         savedIsSpeaker = settings0.isSpeaker
         savedLanguage = settings0.language
         // Set locale without recreate() during startup
-        val locale = Locale(savedLanguage)
+        val locale = Locale.forLanguageTag(savedLanguage)
         Locale.setDefault(locale)
         val config = Configuration(resources.configuration)
         config.setLocale(locale)
@@ -180,12 +177,13 @@ fun PdfViewerScreen(
     val resources = context.resources
     val scope = rememberCoroutineScope()
     val settings = remember { AppSettings(context) }
+    val voiceManager = remember { VoiceManager(context, VoiceRepositoryImpl(), settings) }
     var documentData by remember { mutableStateOf<DocumentData?>(null) }
     var isLoading by remember { mutableStateOf(false) }
     var loadJob by remember { mutableStateOf<Job?>(null) }
     var statusText by remember { mutableStateOf(resources.getString(R.string.status_idle)) }
     var speechRate by remember { mutableStateOf(settings.speechRate) }
-    var volume by remember { mutableStateOf(settings.volume) }
+    var volume by remember { mutableStateOf(1.0f) }
     val pdfListState = rememberLazyListState()
     var isSpeaker by remember { mutableStateOf(settings.isSpeaker) }
 
@@ -194,6 +192,7 @@ fun PdfViewerScreen(
     var showToc by remember { mutableStateOf(false) }
     var showHelp by remember { mutableStateOf(false) }
     var showLangDialog by remember { mutableStateOf(false) }
+    var showVoiceDialog by remember { mutableStateOf(false) }
     var language by remember { mutableStateOf(settings.language) }
     val tocHeadings = remember(documentData) {
         documentData?.textLines?.mapIndexedNotNull { idx, line ->
@@ -229,7 +228,12 @@ fun PdfViewerScreen(
                 val oldUri = settings.lastUri
                 val data = loadDocument(context, uri)
                 documentData = data
-                if (oldUri != uri) settings.savedLineIndex = -1
+                if (oldUri != uri) {
+                    settings.savedLineIndex = -1
+                    speechRate = 1.0f
+                    settings.speechRate = 1.0f
+                    onRateChange(1.0f)
+                }
                 settings.lastUri = uri
                 statusText = when (data) {
                     is DocumentData.Pdf -> resources.getString(R.string.status_pages, data.pages.size, data.textLines.size)
@@ -257,7 +261,15 @@ fun PdfViewerScreen(
     }
 
     LaunchedEffect(Unit) {
-        settings.lastUri?.let { loadUri(it) }
+        val activity = context as? android.app.Activity
+        val viewUri = activity?.intent
+            ?.takeIf { it.action == Intent.ACTION_VIEW }
+            ?.data
+        if (viewUri != null) {
+            loadUri(viewUri)
+        } else {
+            settings.lastUri?.let { loadUri(it) }
+        }
     }
 
     val docPicker = rememberLauncherForActivityResult(
@@ -313,7 +325,9 @@ fun PdfViewerScreen(
                             "application/pdf",
                             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                             "application/epub+zip",
-                            "application/vnd.oasis.opendocument.text"
+                            "application/vnd.oasis.opendocument.text",
+                            "text/html",
+                            "application/xhtml+xml"
                         )
                     )
                 },
@@ -321,7 +335,7 @@ fun PdfViewerScreen(
                 contentPadding = btnPadding
             ) { Text(stringResource(R.string.open)) }
 
-            RoundBtn(onClick = { showLangDialog = true }) { Text(when (language) { "de" -> "🇩🇪" "en" -> "🇬🇧" "nl" -> "🇳🇱" "it" -> "🇮🇹" "fr" -> "🇫🇷" "pt" -> "🇵🇹" "sv" -> "🇸🇪" else -> "🇩🇪" }, style = MaterialTheme.typography.titleMedium) }
+            RoundBtn(onClick = { showLangDialog = true }) { Text(when (language) { "de" -> "🇩🇪" "en" -> "🇬🇧" "en-US" -> "🇺🇸" "es" -> "🇪🇸" "nl" -> "🇳🇱" "it" -> "🇮🇹" "fr" -> "🇫🇷" "pt" -> "🇵🇹" "sv" -> "🇸🇪" "ja" -> "🇯🇵" else -> "🇩🇪" }, style = MaterialTheme.typography.titleMedium) }
 
             RoundBtn(onClick = { showHelp = true }) { Text("?", style = MaterialTheme.typography.titleMedium) }
 
@@ -333,7 +347,7 @@ fun PdfViewerScreen(
             ) { Text("≡", style = MaterialTheme.typography.titleMedium) }
 
             RoundBtn(onClick = {
-                speechRate = (speechRate - 0.1f).coerceAtLeast(1.0f)
+                speechRate = (speechRate - 0.1f).coerceAtLeast(0.5f)
                     .let { Math.round(it * 10) / 10f }
                 settings.speechRate = speechRate; onRateChange(speechRate)
             }) { Text("−", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold) }
@@ -381,7 +395,7 @@ fun PdfViewerScreen(
             RoundBtn(onClick = {
                 volume = (volume - 0.1f).coerceAtLeast(0.1f)
                     .let { Math.round(it * 10) / 10f }
-                settings.volume = volume; onVolumeChange(volume)
+                onVolumeChange(volume)
             }) { Text("−", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Bold) }
 
             Text(stringResource(R.string.volume, volume * 100), style = MaterialTheme.typography.bodySmall)
@@ -389,7 +403,7 @@ fun PdfViewerScreen(
             RoundBtn(onClick = {
                 volume = (volume + 0.1f).coerceAtMost(1.5f)
                     .let { Math.round(it * 10) / 10f }
-                settings.volume = volume; onVolumeChange(volume)
+                onVolumeChange(volume)
             }) { Text("+", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Bold) }
         }
 
@@ -546,6 +560,9 @@ fun PdfViewerScreen(
                         LanguageOption("en", stringResource(R.string.lang_en)) {
                             language = "en"; settings.language = "en"; onLanguageChange("en"); showLangDialog = false
                         }
+                        LanguageOption("en-US", stringResource(R.string.lang_en_US)) {
+                            language = "en-US"; settings.language = "en-US"; onLanguageChange("en-US"); showLangDialog = false
+                        }
                         LanguageOption("nl", stringResource(R.string.lang_nl)) {
                             language = "nl"; settings.language = "nl"; onLanguageChange("nl"); showLangDialog = false
                         }
@@ -560,6 +577,12 @@ fun PdfViewerScreen(
                         }
                         LanguageOption("sv", stringResource(R.string.lang_sv)) {
                             language = "sv"; settings.language = "sv"; onLanguageChange("sv"); showLangDialog = false
+                        }
+                        LanguageOption("es", stringResource(R.string.lang_es)) {
+                            language = "es"; settings.language = "es"; onLanguageChange("es"); showLangDialog = false
+                        }
+                        LanguageOption("ja", stringResource(R.string.lang_ja)) {
+                            language = "ja"; settings.language = "ja"; onLanguageChange("ja"); showLangDialog = false
                         }
                     }
                 },

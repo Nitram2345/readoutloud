@@ -43,6 +43,8 @@ suspend fun loadDocument(context: Context, uri: Uri): DocumentData = withContext
                 seg.endsWith(".docx", ignoreCase = true) -> "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 seg.endsWith(".epub", ignoreCase = true) -> "application/epub+zip"
                 seg.endsWith(".odt", ignoreCase = true) -> "application/vnd.oasis.opendocument.text"
+                seg.endsWith(".html", ignoreCase = true) || seg.endsWith(".htm", ignoreCase = true) -> "text/html"
+                seg.endsWith(".xhtml", ignoreCase = true) -> "application/xhtml+xml"
                 else -> null
             }
         }
@@ -51,6 +53,7 @@ suspend fun loadDocument(context: Context, uri: Uri): DocumentData = withContext
         mimeType?.contains("wordprocessingml") == true -> DocumentData.Word(extractDocxLines(context, uri))
         mimeType?.contains("epub") == true -> DocumentData.Word(extractEpubLines(context, uri))
         mimeType?.contains("opendocument.text") == true -> DocumentData.Word(extractOdtLines(context, uri))
+        mimeType?.contains("html") == true -> DocumentData.Word(extractHtmlLines(context, uri))
         else -> throw IllegalArgumentException("Nicht unterstützt: $mimeType")
     }
 }

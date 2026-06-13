@@ -1,21 +1,80 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# Keep TextLine and DocumentData data classes
+-keep class com.readoutloud.TextLine { *; }
+-keep class com.readoutloud.DocumentData { *; }
+-keepclassmembers class com.readoutloud.DocumentData$* { *; }
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# Keep TTS Service and Controller
+-keep class com.readoutloud.TtsService { *; }
+-keep class com.readoutloud.TtsController { *; }
+-keep class com.readoutloud.AppSettings { *; }
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# Keep MainActivity and Compose UI classes
+-keep class com.readoutloud.MainActivity { *; }
+-keepclassmembers class com.readoutloud.MainActivity* { *; }
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Keep loader classes
+-keep class com.readoutloud.DocxLoader { *; }
+-keep class com.readoutloud.EpubLoader { *; }
+-keep class com.readoutloud.OdtLoader { *; }
+-keep class com.readoutloud.HtmlLoader { *; }
+
+# ============================================
+# PDFBox: Only keep required classes
+# Remove Bouncy Castle (not actually needed for basic PDF text extraction)
+# ============================================
+-dontwarn org.bouncycastle.**
+-keepnames class org.bouncycastle.** { *; }
+
+# Keep only PDF text extraction classes
+-keep class org.apache.pdfbox.pdmodel.** { *; }
+-keep class org.apache.pdfbox.text.** { *; }
+-keep class org.apache.pdfbox.filter.** { *; }
+-keep class org.apache.pdfbox.contentstream.** { *; }
+
+# Exclude unnecessary PDFBox modules
+-dontwarn org.apache.pdfbox.examples.**
+-dontwarn org.apache.pdfbox.pdfviewer.**
+-dontwarn org.apache.pdfbox.printing.**
+-dontwarn org.apache.pdfbox.javadoc.**
+
+# JPX/JP2 decoder (optional, not used in basic text extraction)
+-dontwarn com.gemalto.jp2.**
+-keepnames class com.gemalto.jp2.** { *; }
+
+# ============================================
+# Jsoup: Keep only required classes
+# ============================================
+-keep class org.jsoup.** { *; }
+-dontwarn org.jsoup.helper.DataUtil
+
+# ============================================
+# AndroidX Media: Keep only required parts
+# ============================================
+-keep class androidx.media.** { *; }
+
+# ============================================
+# Compose: Keep runtime but remove debug-only code
+# ============================================
+-dontwarn androidx.compose.ui.tooling.**
+-dontwarn androidx.compose.ui.test.**
+
+# ============================================
+# Remove unused AndroidX libraries
+# ============================================
+-dontwarn androidx.test.**
+-dontwarn androidx.espresso.**
+-dontwarn androidx.junit.**
+
+# ============================================
+# General optimizations
+# ============================================
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+-optimizationpasses 5
+-allowaccessmodification
+
+# Remove assertions
+-assumenosideeffects class android.util.Log {
+    public static *** d(...);
+    public static *** v(...);
+    public static *** i(...);
+}

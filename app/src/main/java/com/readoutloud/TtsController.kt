@@ -11,6 +11,9 @@ import android.speech.tts.UtteranceProgressListener
 import android.util.Log
 import java.util.Locale
 import kotlin.math.log10
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class TtsController(
     private val tts: TextToSpeech,
@@ -48,11 +51,13 @@ class TtsController(
 
     init {
         // Listen for voice changes to switch engines
-        voiceManager?.selectedVoice?.observeForever { voice ->
-            if (voice != null) {
-                switchToPiperEngine()
-            } else {
-                switchToAndroidEngine()
+        CoroutineScope(Dispatchers.Main).launch {
+            voiceManager?.selectedVoice?.collect { voice ->
+                if (voice != null) {
+                    switchToPiperEngine()
+                } else {
+                    switchToAndroidEngine()
+                }
             }
         }
 
@@ -117,10 +122,11 @@ class TtsController(
         override fun speak(text: String, params: SpeakParams) {
             val bundle = Bundle().apply {
                 putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, params.volume)
-                putFloat(TextToSpeech.Engine.KEY_PARAM_RATE, params.rate)
                 if (params.audioSessionId != 0)
                     putInt(TextToSpeech.Engine.KEY_PARAM_SESSION_ID, params.audioSessionId)
             }
+            // Rate is set globally via tts.setSpeechRate()
+            tts.setSpeechRate(params.rate)
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, bundle, null)
         }
 

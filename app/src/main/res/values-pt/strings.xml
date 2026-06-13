@@ -16,10 +16,10 @@
     <string name="status_cancelled">Cancelado</string>
     <string name="status_error">ERRO: %s</string>
     <string name="status_file_not_found">Arquivo não mais disponível</string>
-    <string name="status_pages">%d páginas, %d linhas de texto</string>
+    <string name="status_pages" formatted="false">%d páginas, %d linhas de texto</string>
     <string name="status_paragraphs">%d parágrafos</string>
     <string name="progress">%d%%</string>
-    <string name="page_indicator">Página %d/%d</string>
+    <string name="page_indicator" formatted="false">Página %d/%d</string>
 
     <!-- Speed & Volume -->
     <string name="speed">🕛%.1f×</string>
@@ -55,11 +55,14 @@
     <!-- Language -->
     <string name="lang_de">🇩🇪 Alemão</string>
     <string name="lang_en">🇬🇧 Inglês</string>
+    <string name="lang_en_US">🇺🇸 Inglês americano</string>
     <string name="lang_nl">🇳🇱 Holandês</string>
     <string name="lang_it">🇮🇹 Italiano</string>
     <string name="lang_fr">🇫🇷 Francês</string>
     <string name="lang_pt">🇵🇹 Português</string>
     <string name="lang_sv">🇸🇪 Sueco</string>
+    <string name="lang_es">🇪🇸 Espanhol</string>
+    <string name="lang_ja">🇯🇵 Japonês</string>
     <string name="select_language">Escolher idioma</string>
 
     <!-- Toast -->

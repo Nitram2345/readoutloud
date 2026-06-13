@@ -16,19 +16,19 @@
     <string name="status_cancelled">Annulé</string>
     <string name="status_error">ERREUR: %s</string>
     <string name="status_file_not_found">Fichier plus disponible</string>
-    <string name="status_pages">%d pages, %d lignes de texte</string>
+    <string name="status_pages" formatted="false">%d pages, %d lignes de texte</string>
     <string name="status_paragraphs">%d paragraphes</string>
     <string name="progress">%d%%</string>
-    <string name="page_indicator">Page %d/%d</string>
+    <string name="page_indicator" formatted="false">Page %d/%d</string>
 
     <!-- Speed & Volume -->
     <string name="speed">🕛%.1f×</string>
     <string name="volume">🔊%.0f%%</string>
 
     <!-- Help -->
-    <string name="help_title">Guide d utilisation</string>
+    <string name="help_title">Guide d\'utilisation</string>
     <string name="help_close">Fermer</string>
-    <string name="help_back">Ferme le document et quitte l application</string>
+    <string name="help_back">Ferme le document et quitte l\'application</string>
     <string name="help_open">Sélectionner un nouveau document (PDF, DOCX, EPUB, ODT)</string>
     <string name="help_toc">Afficher la table des matières avec les titres</string>
     <string name="help_help">Afficher ce guide</string>
@@ -37,9 +37,9 @@
     <string name="help_speed_display">Affiche la vitesse actuelle</string>
     <string name="help_skip_back">Retour de 30 secondes</string>
     <string name="help_listen">Démarrer ou mettre en pause la lecture à haute voix</string>
-    <string name="help_timer">Minuteur de sommeil: s arrête automatiquement après 30 min</string>
+    <string name="help_timer">Minuteur de sommeil: s\'arrête automatiquement après 30 min</string>
     <string name="help_skip_forward">Avance de 30 secondes</string>
-    <string name="help_volume">Régler le volume (jusqu à 150%%)</string>
+    <string name="help_volume">Régler le volume (jusqu\'à 150%%)</string>
     <string name="help_volume_display">Affiche le volume actuel</string>
     <string name="help_tap">Touchez un endroit du document pour continuer à lire à partir de là</string>
     <string name="help_tap_title">Toucher PDF</string>
@@ -55,11 +55,14 @@
     <!-- Language -->
     <string name="lang_de">🇩🇪 Allemand</string>
     <string name="lang_en">🇬🇧 Anglais</string>
+    <string name="lang_en_US">🇺🇸 Anglais américain</string>
     <string name="lang_nl">🇳🇱 Néerlandais</string>
     <string name="lang_it">🇮🇹 Italien</string>
     <string name="lang_fr">🇫🇷 Français</string>
     <string name="lang_pt">🇵🇹 Portugais</string>
     <string name="lang_sv">🇸🇪 Suédois</string>
+    <string name="lang_es">🇪🇸 Espagnol</string>
+    <string name="lang_ja">🇯🇵 Japonais</string>
     <string name="select_language">Choisir la langue</string>
 
     <!-- Toast -->

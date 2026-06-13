@@ -250,10 +250,6 @@ class VoiceRepositoryImpl(
             // Could log call start
         }
 
-        override fun responseReceived(call: Call, response: Response) {
-            // Could log response
-        }
-
         override fun callEnd(call: Call) {
             // Could log call end
         }

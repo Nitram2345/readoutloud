@@ -16,10 +16,10 @@
     <string name="status_cancelled">Annullato</string>
     <string name="status_error">ERRORE: %s</string>
     <string name="status_file_not_found">File non più disponibile</string>
-    <string name="status_pages">%d pagine, %d righe di testo</string>
+    <string name="status_pages" formatted="false">%d pagine, %d righe di testo</string>
     <string name="status_paragraphs">%d paragrafi</string>
     <string name="progress">%d%%</string>
-    <string name="page_indicator">Pagina %d/%d</string>
+    <string name="page_indicator" formatted="false">Pagina %d/%d</string>
 
     <!-- Speed & Volume -->
     <string name="speed">🕛%.1f×</string>
@@ -28,7 +28,7 @@
     <!-- Help -->
     <string name="help_title">Guida Utente</string>
     <string name="help_close">Chiudi</string>
-    <string name="help_back">Chiude il documento ed esce dall app</string>
+    <string name="help_back">Chiude il documento ed esce dall\'app</string>
     <string name="help_open">Seleziona un nuovo documento (PDF, DOCX, EPUB, ODT)</string>
     <string name="help_toc">Mostra indice con titoli</string>
     <string name="help_help">Mostra questa guida</string>
@@ -55,11 +55,14 @@
     <!-- Language -->
     <string name="lang_de">🇩🇪 Tedesco</string>
     <string name="lang_en">🇬🇧 Inglese</string>
+    <string name="lang_en_US">🇺🇸 Inglese americano</string>
     <string name="lang_nl">🇳🇱 Olandese</string>
     <string name="lang_it">🇮🇹 Italiano</string>
     <string name="lang_fr">🇫🇷 Francese</string>
     <string name="lang_pt">🇵🇹 Portoghese</string>
     <string name="lang_sv">🇸🇪 Svedese</string>
+    <string name="lang_es">🇪🇸 Spagnolo</string>
+    <string name="lang_ja">🇯🇵 Giapponese</string>
     <string name="select_language">Scegli lingua</string>
 
     <!-- Toast -->
