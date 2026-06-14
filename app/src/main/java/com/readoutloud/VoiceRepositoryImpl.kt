@@ -1,6 +1,7 @@
 package com.readoutloud
 
 import android.content.Context
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.Call
@@ -25,8 +26,8 @@ class VoiceRepositoryImpl(
 ) : VoiceRepository {
 
     companion object {
-        private const val VOICES_JSON_URL = "https://huggingface.co/rhaspy/piper-voices/resolve/main/voices.json"
-        private const val HUGGINGFACE_BASE_URL = "https://huggingface.co/rhaspy/piper-voices/resolve/main"
+        private const val VOICES_JSON_URL = "https://huggingface.co/rhasspy/piper-voices/raw/main/voices.json"
+        private const val HUGGINGFACE_BASE_URL = "https://huggingface.co/rhasspy/piper-voices/resolve/main"
         private const val VOICES_DIR = "voices"
         private const val ONNX_EXTENSION = ".onnx"
         private const val DAT_EXTENSION = ".dat"
@@ -45,6 +46,7 @@ class VoiceRepositoryImpl(
 
     /**
      * Fetch available voices for a given language from HuggingFace.
+     * JSON structure: { "voice_key": { "name", "language": { "code" }, "quality", "files": { ... } } }
      */
     override suspend fun getVoicesForLanguage(lang: String): List<Voice> = withContext(Dispatchers.IO) {
         try {
@@ -59,47 +61,69 @@ class VoiceRepositoryImpl(
             }
 
             val jsonText = response.body?.string() ?: return@withContext emptyList()
-            val voicesJson = JSONArray(jsonText)
+            val voicesJson = JSONObject(jsonText)
 
             val normalizedLang = normalizeLanguageCode(lang)
             val filteredVoices = mutableListOf<Voice>()
 
-            for (i in 0 until voicesJson.length()) {
-                val voiceJson = voicesJson.getJSONObject(i)
-                val languageCode = voiceJson.optString("lang", "")
+            val voiceKeys = voicesJson.keys().asSequence().toList()
+            for (voiceKey in voiceKeys) {
+                val voiceData = voicesJson.getJSONObject(voiceKey)
+                val languageObj = voiceData.optJSONObject("language")
+                val languageCode = languageObj?.optString("code", "") ?: voiceData.optString("lang", "")
 
-                // Filter by language code (exact match or normalized match)
+                // Filter by language code
                 if (languageCode.equals(normalizedLang, ignoreCase = true) ||
+                    languageCode.equals(normalizedLang.replace("_", "-"), ignoreCase = true) ||
+                    languageCode.startsWith(normalizedLang.substringBefore("_"), ignoreCase = true) ||
                     languageCode.startsWith(normalizedLang.substringBefore("-"), ignoreCase = true)) {
 
-                    val name = voiceJson.optString("name", "Unknown")
-                    val quality = voiceJson.optString("quality", "unknown")
-                    val sizeMb = voiceJson.optDouble("size_mb", 0.0)
-                    val path = voiceJson.optString("path", "")
-                    val sampleRate = voiceJson.optInt("sample_rate", 22050)
+                    val name = voiceData.optString("name", voiceKey)
+                    val quality = voiceData.optString("quality", "unknown")
+                    val numSpeakers = voiceData.optInt("num_speakers", 1)
+                    val sampleRate = voiceData.optInt("sample_rate", 22050)
 
-                    // Construct download URL and format name with init_cap
-                    val onnxUrl = constructDownloadUrl(path, ONNX_EXTENSION)
-                    val formattedName = formatVoiceName(name)
+                    // Find the .onnx file in the files object
+                    val files = voiceData.optJSONObject("files")
+                    var onnxPath: String? = null
+                    var sizeBytes: Long = 0
 
-                    filteredVoices.add(
-                        Voice(
-                            name = formattedName,
-                            language = languageCode,
-                            quality = quality,
-                            sizeMb = sizeMb,
-                            onnxUrl = onnxUrl,
-                            sampleRate = sampleRate,
-                            isDownloaded = false,
-                            isSelected = false
+                    if (files != null) {
+                        val fileKeys = files.keys().asSequence().toList()
+                        for (fileKey in fileKeys) {
+                            if (fileKey.endsWith(".onnx") && !fileKey.endsWith(".onnx.json")) {
+                                onnxPath = fileKey
+                                val fileInfo = files.optJSONObject(fileKey)
+                                sizeBytes = fileInfo?.optLong("size_bytes", 0) ?: 0
+                                break
+                            }
+                        }
+                    }
+
+                    if (onnxPath != null) {
+                        val onnxUrl = "$HUGGINGFACE_BASE_URL/$onnxPath"
+                        val sizeMb = sizeBytes / (1024.0 * 1024.0)
+                        val formattedName = formatVoiceName(name)
+
+                        filteredVoices.add(
+                            Voice(
+                                name = formattedName,
+                                language = languageCode,
+                                quality = quality,
+                                sizeMb = sizeMb,
+                                onnxUrl = onnxUrl,
+                                sampleRate = sampleRate,
+                                isDownloaded = false,
+                                isSelected = false
+                            )
                         )
-                    )
+                    }
                 }
             }
 
             filteredVoices
         } catch (e: Exception) {
-            // Log error and return empty list
+            Log.e("VoiceRepository", "Failed to fetch voices: ${e.message}")
             emptyList()
         }
     }
