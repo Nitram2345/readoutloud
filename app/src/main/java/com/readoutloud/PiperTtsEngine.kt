@@ -32,6 +32,7 @@ class PiperTtsEngine(
     private var audioTrack: AudioTrack? = null
     private var speakJob: Job? = null
     @Volatile private var stopped = false
+    @Volatile private var speakEpoch = 0
 
     var isSpeaker: Boolean = true
 
@@ -120,26 +121,26 @@ class PiperTtsEngine(
             return
         }
 
+        val epoch = ++speakEpoch  // invalidate any in-flight blocking generate() call
         stopped = false
         speakJob?.cancel()
         speakJob = scope.launch {
             withContext(Dispatchers.Default) {
-                Log.d("GREPPBAR", "speak() generate() text='${text.take(40)}'")
-                // generateWithConfigAndCallback callback conflicts with D8 lambda desugaring:
-                // JNI expects invoke([F)Ljava/lang/Integer; but D8 emits Ljava/lang/Object;
-                // Use generate() instead — returns full FloatArray, no JNI callback needed.
+                Log.d("GREPPBAR", "speak() generate() epoch=$epoch text='${text.take(40)}'")
                 try {
+                    // generate() is a blocking native call — coroutine cancellation can't interrupt it.
+                    // After it returns, check epoch to discard stale results (e.g. speed was changed).
                     val audio = engine.generate(text = text, sid = 0, speed = params.rate)
-                    Log.d("GREPPBAR", "speak() ${audio.samples.size} samples @ ${audio.sampleRate}Hz")
+                    if (speakEpoch != epoch || stopped) return@withContext  // stale — discard
 
-                    if (!stopped && audio.samples.isNotEmpty()) {
+                    if (audio.samples.isNotEmpty()) {
                         val track = createAudioTrack(audio.sampleRate, params)
                         audioTrack = track
                         track.play()
 
                         val chunkSize = 4096
                         var offset = 0
-                        while (offset < audio.samples.size && !stopped) {
+                        while (offset < audio.samples.size && !stopped && speakEpoch == epoch) {
                             val end = minOf(offset + chunkSize, audio.samples.size)
                             track.write(audio.samples, offset, end - offset, AudioTrack.WRITE_BLOCKING)
                             offset = end
@@ -156,7 +157,7 @@ class PiperTtsEngine(
                 }
             }
 
-            if (!stopped) {
+            if (speakEpoch == epoch && !stopped) {
                 onDone?.invoke()
             }
         }
@@ -195,6 +196,7 @@ class PiperTtsEngine(
     }
 
     override fun stop() {
+        speakEpoch++  // invalidate any blocking generate() still running
         stopped = true
         speakJob?.cancel()
         speakJob = null
