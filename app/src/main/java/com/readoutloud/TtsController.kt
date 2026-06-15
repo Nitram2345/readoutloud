@@ -108,8 +108,17 @@ class TtsController(
 
     private fun switchToPiperEngine() {
         if (piperEngine != null) {
+            val voice = voiceManager?.selectedVoice?.value
+            if (voice != null) {
+                val result = piperEngine.loadVoice(voice)
+                if (result.isFailure) {
+                    Log.e("TtsController", "Failed to load Piper voice ${voice.name}: ${result.exceptionOrNull()?.message}")
+                    switchToAndroidEngine()
+                    return
+                }
+            }
             currentEngine = piperEngine
-            Log.d("TtsController", "Switched to Piper engine")
+            Log.d("TtsController", "Switched to Piper engine: ${voice?.name}")
         }
     }
 
@@ -353,7 +362,29 @@ class TtsController(
             rate = currentRate,
             audioSessionId = audioSessionId
         )
-        currentEngine.speak(sentences[idx], params)
+        val isPiper = currentEngine !is AndroidTtsEngine
+        if (isPiper && !speakStartNotified) {
+            speakStartNotified = true
+            onMain { onSpeakStart?.invoke() }
+        }
+        currentEngine.speak(
+            text = sentences[idx],
+            params = params,
+            utteranceId = idx.toString(),
+            onDone = if (isPiper) {
+                {
+                    currentIndex = idx + 1
+                    if (isPlaying && currentIndex < sentences.size) {
+                        onLinesChanged?.invoke(sentenceLines.getOrElse(currentIndex) { emptyList() })
+                        speakAt(currentIndex)
+                    } else {
+                        isPlaying = false
+                        onLinesChanged?.invoke(emptyList())
+                        onPlayStateChanged?.invoke(false)
+                    }
+                }
+            } else null
+        )
     }
 
     private fun splitSentences(text: String): List<String> =
