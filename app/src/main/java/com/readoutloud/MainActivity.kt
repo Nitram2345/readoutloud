@@ -272,6 +272,7 @@ fun PdfViewerScreen(
         }
     }
 
+
     val docPicker = rememberLauncherForActivityResult(
         ActivityResultContracts.OpenDocument()
     ) { uri: Uri? ->

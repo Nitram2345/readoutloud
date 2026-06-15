@@ -5,14 +5,20 @@ import android.media.AudioAttributes
 import android.media.AudioFormat
 import android.media.AudioTrack
 import android.util.Log
-import ai.onnxruntime.OnnxTensor
 import ai.onnxruntime.OrtEnvironment
+import ai.onnxruntime.OrtException
 import ai.onnxruntime.OrtSession
 import java.io.File
-import java.nio.ByteBuffer
-import java.nio.ByteOrder
-import java.nio.FloatBuffer
 
+/**
+ * PiperTtsEngine: ONNX Runtime-based TTS engine for Piper voices.
+ *
+ * CURRENT STATUS: Model loading works, inference pending.
+ *
+ * The ONNX Runtime Android API requires version-specific tensor handling.
+ * This implementation provides the structure and model loading.
+ * Full inference will be added once the exact tensor API is finalized.
+ */
 class PiperTtsEngine(
     private val context: Context,
     private val voiceManager: VoiceManager
@@ -25,89 +31,49 @@ class PiperTtsEngine(
     private var isPlaying = false
     private var currentAudioSessionId = 0
 
-    override val isReady: Boolean get() = currentVoice != null
+    override val isReady: Boolean get() = model != null
 
+    /**
+     * Load a Piper voice model from storage.
+     * This functionality is fully working.
+     */
     fun loadVoice(voice: Voice): Result<Unit> {
         return try {
             val voiceFile = File(context.filesDir, "voices/${voice.name}.onnx")
             if (!voiceFile.exists()) {
+                Log.e("PiperTtsEngine", "Voice file not found: ${voiceFile.absolutePath}")
                 return Result.failure(IllegalStateException("Voice file not found: ${voice.name}"))
             }
 
-            model = ortEnv.createSession(voiceFile.absolutePath, OrtSession.SessionOptions())
+            val sessionOptions = OrtSession.SessionOptions()
+            sessionOptions.setIntraOpNumThreads(2)
+            sessionOptions.setOptimizationLevel(OrtSession.SessionOptions.OptLevel.ALL_OPT)
+
+            model = ortEnv.createSession(voiceFile.absolutePath, sessionOptions)
             currentVoice = voice
-            Log.i("PiperTtsEngine", "Loaded voice: ${voice.name} (${voice.language})")
+
+            Log.i("PiperTtsEngine", "Loaded Piper voice: ${voice.name} (${voice.language}) @ ${voice.sampleRate}Hz")
             Result.success(Unit)
+        } catch (e: OrtException) {
+            Log.e("PiperTtsEngine", "ONNX Error loading voice ${voice.name}: ${e.message}")
+            Result.failure(e)
         } catch (e: Exception) {
-            Log.e("PiperTtsEngine", "Failed to load voice: ${voice.name}", e)
+            Log.e("PiperTtsEngine", "Error loading voice ${voice.name}: ${e.message}")
             Result.failure(e)
         }
     }
 
     override fun speak(text: String, params: SpeakParams) {
-        val voice = currentVoice ?: run {
-            Log.e("PiperTtsEngine", "No voice loaded")
-            return
-        }
+        // ONNX Inference is not yet implemented
+        // This will be added in a future update
+        Log.w("PiperTtsEngine", "ONNX Inference not yet implemented. Voice: ${currentVoice?.name}")
 
-        val session = model ?: run {
-            Log.e("PiperTtsEngine", "Model not loaded")
-            return
-        }
-
-        currentAudioSessionId = params.audioSessionId
-        isPlaying = true
-
-        try {
-            // Piper model expects: input_ids (long tensor)
-            // Simple byte-based tokenization (real Piper uses BPE tokenizer)
-            val inputBytes = text.toByteArray(Charsets.UTF_8)
-            val inputIds = LongArray(inputBytes.size + 2) { i ->
-                when {
-                    i == 0 -> 0L  // BOS token
-                    i == inputBytes.size + 1 -> 2L  // EOS token
-                    else -> inputBytes[i - 1].toLong() and 0xFFL
-                }
-            }
-
-            // Create input tensor - use simple createTensor with data
-            val inputTensor = OnnxTensor.createTensor(ortEnv, inputIds)
-
-            val inputs = mapOf("input_ids" to inputTensor)
-
-            val outputs = session.run(inputs)
-
-            // Extract audio from output - get first output tensor
-            val outputValue = outputs[0]
-            val audioArray: FloatArray? = when (outputValue) {
-                is OnnxTensor -> {
-                    // ONNX Runtime API for extracting tensor data varies by version
-                    // Full implementation requires version-specific API calls
-                    Log.w("PiperTtsEngine", "ONNX tensor extraction not fully implemented")
-                    null
-                }
-                else -> {
-                    Log.e("PiperTtsEngine", "Unexpected output type: ${outputValue::class.java}")
-                    null
-                }
-            }
-
-            inputTensor.close()
-            outputs.close()
-
-            if (audioArray != null && audioArray.size > 0) {
-                playAudio(audioArray, voice.sampleRate, params)
-            } else {
-                Log.e("PiperTtsEngine", "No audio output from model - ONNX integration incomplete")
-            }
-        } catch (e: Exception) {
-            Log.e("PiperTtsEngine", "Inference failed", e)
-        } finally {
-            isPlaying = false
-        }
+        // For now, throw an exception so TtsController can fall back to Android TTS
+        throw IllegalStateException("Piper ONNX Inference not yet implemented. Using Android TTS as fallback.")
     }
 
     private fun playAudio(audioData: FloatArray, sampleRate: Int, params: SpeakParams) {
+        // Audio playback logic (called after successful inference)
         audioTrack?.let {
             if (it.playState == AudioTrack.PLAYSTATE_PLAYING) {
                 it.stop()
@@ -115,11 +81,9 @@ class PiperTtsEngine(
             it.release()
         }
 
-        val minBufferSize = AudioTrack.getMinBufferSize(
-            sampleRate,
-            AudioFormat.CHANNEL_OUT_MONO,
-            AudioFormat.ENCODING_PCM_16BIT
-        )
+        val channelConfig = AudioFormat.CHANNEL_OUT_MONO
+        val encoding = AudioFormat.ENCODING_PCM_16BIT
+        val minBufferSize = AudioTrack.getMinBufferSize(sampleRate, channelConfig, encoding)
 
         val audioAttributes = AudioAttributes.Builder()
             .setUsage(AudioAttributes.USAGE_VOICE_COMMUNICATION)
@@ -128,8 +92,8 @@ class PiperTtsEngine(
 
         val audioFormat = AudioFormat.Builder()
             .setSampleRate(sampleRate)
-            .setChannelMask(AudioFormat.CHANNEL_OUT_MONO)
-            .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+            .setChannelMask(channelConfig)
+            .setEncoding(encoding)
             .build()
 
         audioTrack = AudioTrack.Builder()
@@ -142,7 +106,6 @@ class PiperTtsEngine(
 
         audioTrack?.play()
 
-        // Convert float to short (16-bit)
         val volume = params.volume.coerceIn(0f, 1f)
         val shortArray = ShortArray(audioData.size) { i ->
             val sample = (audioData[i] * volume * 32767f).toInt().coerceIn(-32768, 32767)
@@ -150,6 +113,8 @@ class PiperTtsEngine(
         }
 
         audioTrack?.write(shortArray, 0, shortArray.size)
+
+        Thread.sleep((audioData.size.toFloat() / sampleRate * 1000).toLong() + 100)
 
         audioTrack?.stop()
         audioTrack?.release()
@@ -159,7 +124,11 @@ class PiperTtsEngine(
     override fun stop() {
         audioTrack?.let {
             if (it.playState == AudioTrack.PLAYSTATE_PLAYING) {
-                it.stop()
+                try {
+                    it.stop()
+                } catch (e: Exception) {
+                    Log.w("PiperTtsEngine", "Error stopping audio: ${e.message}")
+                }
             }
         }
         isPlaying = false

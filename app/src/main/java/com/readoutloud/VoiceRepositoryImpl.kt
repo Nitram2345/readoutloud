@@ -121,9 +121,11 @@ class VoiceRepositoryImpl(
                 }
             }
 
+            Log.d("VoiceRepository", "Fetched ${filteredVoices.size} voices for lang=$lang (normalized=$normalizedLang)")
             filteredVoices
         } catch (e: Exception) {
             Log.e("VoiceRepository", "Failed to fetch voices: ${e.message}")
+            e.printStackTrace()
             emptyList()
         }
     }

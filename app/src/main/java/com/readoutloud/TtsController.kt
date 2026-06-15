@@ -113,6 +113,14 @@ class TtsController(
         }
     }
 
+    /**
+     * Call this when Piper engine fails - switches back to Android TTS.
+     */
+    fun fallbackToAndroidTTS() {
+        currentEngine = androidEngine
+        Log.d("TtsController", "Fallback to Android TTS")
+    }
+
     private fun switchToAndroidEngine() {
         currentEngine = androidEngine
         Log.d("TtsController", "Switched to Android engine")
@@ -158,6 +166,20 @@ class TtsController(
         onLinesChanged?.invoke(sentenceLines.getOrElse(0) { emptyList() })
         onPlayStateChanged?.invoke(true)
         speakAt(0)
+    }
+
+    /**
+     * Speak with error handling - falls back to Android TTS on Piper failure.
+     */
+    private fun speakAtWithFallback(idx: Int) {
+        try {
+            speakAt(idx)
+        } catch (e: Exception) {
+            Log.e("TtsController", "Engine failed, falling back to Android TTS: ${e.message}")
+            fallbackToAndroidTTS()
+            // Retry with Android engine
+            speakAt(idx)
+        }
     }
 
     fun pause() {
@@ -320,7 +342,7 @@ class TtsController(
         currentIndex = idx
         currentEngine.stop()
         onLinesChanged?.invoke(sentenceLines.getOrElse(idx) { emptyList() })
-        if (isPlaying) speakAt(idx)
+        if (isPlaying) speakAtWithFallback(idx)
     }
 
     private fun speakAt(idx: Int) {
