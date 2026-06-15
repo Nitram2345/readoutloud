@@ -607,9 +607,9 @@ fun PdfViewerScreen(
             VoiceDialog(
                 currentLanguage = language,
                 allVoices = availableVoices,
-                downloadedVoices = vm.downloadedVoices.value,
-                selectedVoice = vm.selectedVoice.value,
-                activeDownloads = vm.downloads.value,
+                downloadedVoices = vm.downloadedVoices.collectAsState().value,
+                selectedVoice = vm.selectedVoice.collectAsState().value,
+                activeDownloads = vm.downloads.collectAsState().value,
                 onVoiceSelected = { voice ->
                     vm.selectVoice(voice)
                     showVoiceDialog = false
