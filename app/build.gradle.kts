@@ -59,6 +59,11 @@ android {
                 "META-INF/*.RSA",
             )
         }
+        jniLibs {
+            // Compress native libs in APK (~50% size reduction for download).
+            // Trade-off: Android extracts libs on first install (slightly more storage used).
+            useLegacyPackaging = true
+        }
     }
 }
 
