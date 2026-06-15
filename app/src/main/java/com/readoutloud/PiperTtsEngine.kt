@@ -8,6 +8,7 @@ import android.media.AudioTrack
 import android.util.Log
 import com.k2fsa.sherpa.onnx.GenerationConfig
 import org.json.JSONObject
+import java.io.FileOutputStream
 import com.k2fsa.sherpa.onnx.OfflineTts
 import com.k2fsa.sherpa.onnx.OfflineTtsConfig
 import com.k2fsa.sherpa.onnx.OfflineTtsModelConfig
@@ -73,6 +74,9 @@ class PiperTtsEngine(
                 Log.e("GREPPBAR", "loadVoice FAIL espeak-ng-data not ready")
                 return Result.failure(IllegalStateException("espeak-ng-data not ready yet"))
             }
+
+            // Ensure ONNX metadata is injected (idempotent: checks for existing entries first)
+            ensureOnnxMetadata(voiceFile, voiceJsonFile)
 
             Log.d("GREPPBAR", "loadVoice all checks passed — calling OfflineTts()")
             tts?.release()
@@ -201,6 +205,67 @@ class PiperTtsEngine(
             try { it.release() } catch (_: Exception) {}
         }
         audioTrack = null
+    }
+
+    /**
+     * Inject sherpa-onnx required ONNX metadata if not already present.
+     * Checks for "piper" marker in existing metadata_props region to avoid double-injection.
+     * ONNX protobuf allows safe appending of repeated fields.
+     */
+    private fun ensureOnnxMetadata(onnxFile: File, jsonFile: File) {
+        try {
+            // Quick check: scan last 512 bytes for "piper" marker — avoids full parse
+            val size = onnxFile.length()
+            val checkBytes = minOf(512L, size)
+            val tail = ByteArray(checkBytes.toInt())
+            onnxFile.inputStream().use { it.skip(size - checkBytes); it.read(tail) }
+            if (tail.toString(Charsets.ISO_8859_1).contains("piper")) {
+                Log.d("GREPPBAR", "ensureOnnxMetadata: already injected, skipping")
+                return
+            }
+
+            val json = JSONObject(jsonFile.readText())
+            val sampleRate = json.optJSONObject("audio")?.optInt("sample_rate", 22050)
+                ?: json.optInt("sample_rate", 22050)
+            val numSpeakers = json.optInt("num_speakers", 1)
+            val espeakVoice = json.optJSONObject("espeak")?.optString("voice", "en") ?: "en"
+
+            val metadata = mapOf(
+                "sample_rate" to sampleRate.toString(),
+                "n_speakers" to numSpeakers.toString(),
+                "language" to espeakVoice,
+                "comment" to "piper",
+                "frontend" to "espeak"
+            )
+            FileOutputStream(onnxFile, true).use { out ->
+                for ((key, value) in metadata) {
+                    out.write(encodeMetadataProp(key, value))
+                }
+            }
+            Log.d("GREPPBAR", "ensureOnnxMetadata: injected sample_rate=$sampleRate language=$espeakVoice")
+        } catch (e: Exception) {
+            Log.e("GREPPBAR", "ensureOnnxMetadata FAILED: ${e.message}")
+        }
+    }
+
+    private fun encodeMetadataProp(key: String, value: String): ByteArray {
+        val inner = encodeProtoStr(1, key) + encodeProtoStr(2, value)
+        return encodeProtoLen(14, inner)
+    }
+
+    private fun encodeProtoStr(field: Int, v: String) = encodeProtoLen(field, v.toByteArray())
+
+    private fun encodeProtoLen(field: Int, bytes: ByteArray): ByteArray {
+        val tag = encodeVarint(((field shl 3) or 2).toLong())
+        return tag + encodeVarint(bytes.size.toLong()) + bytes
+    }
+
+    private fun encodeVarint(v: Long): ByteArray {
+        val r = mutableListOf<Byte>()
+        var x = v
+        while (x > 127L) { r.add(((x and 0x7F) or 0x80).toByte()); x = x ushr 7 }
+        r.add((x and 0x7F).toByte())
+        return r.toByteArray()
     }
 
     private fun generateTokensTxt(jsonFile: File, outputFile: File) {

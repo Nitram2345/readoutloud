@@ -187,12 +187,82 @@ class VoiceRepositoryImpl(
             if (jsonDest.exists()) {
                 val tokensDest = File(destination.parent, destination.name.removeSuffix(".onnx") + ".tokens.txt")
                 generateTokensTxt(jsonDest, tokensDest)
+                // Inject sherpa-onnx required ONNX metadata into the model file.
+                // HuggingFace Piper models store config in .onnx.json, not in ONNX metadata.
+                // Sherpa-onnx calls _Exit(-1) if sample_rate/n_speakers/language/comment are missing.
+                injectOnnxMetadata(destination, jsonDest)
             }
 
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
         }
+    }
+
+    /**
+     * Inject sherpa-onnx required metadata into a HuggingFace Piper ONNX model file.
+     * Appends protobuf-encoded metadata_props entries to the end of the model.
+     * Protobuf repeated fields can be safely appended; parsers merge them.
+     *
+     * Sherpa-onnx requires in ONNX model metadata: sample_rate, n_speakers,
+     * language, comment (containing "piper"), frontend="espeak".
+     * HuggingFace models store this in .onnx.json instead — so we inject it.
+     */
+    private fun injectOnnxMetadata(onnxFile: File, jsonFile: File) {
+        try {
+            val json = JSONObject(jsonFile.readText())
+            val sampleRate = json.optJSONObject("audio")?.optInt("sample_rate", 22050)
+                ?: json.optInt("sample_rate", 22050)
+            val numSpeakers = json.optInt("num_speakers", 1)
+            val espeakVoice = json.optJSONObject("espeak")?.optString("voice", "en") ?: "en"
+
+            val metadata = mapOf(
+                "sample_rate" to sampleRate.toString(),
+                "n_speakers" to numSpeakers.toString(),
+                "language" to espeakVoice,
+                "comment" to "piper",
+                "frontend" to "espeak"
+            )
+
+            FileOutputStream(onnxFile, true /* append */).use { out ->
+                for ((key, value) in metadata) {
+                    out.write(encodeOnnxMetadataProp(key, value))
+                }
+            }
+            Log.d("GREPPBAR", "injectOnnxMetadata: sample_rate=$sampleRate n_speakers=$numSpeakers language=$espeakVoice")
+        } catch (e: Exception) {
+            Log.e("GREPPBAR", "injectOnnxMetadata FAILED: ${e.message}")
+        }
+    }
+
+    /** Encode one ONNX ModelProto.metadata_props entry as protobuf bytes. */
+    private fun encodeOnnxMetadataProp(key: String, value: String): ByteArray {
+        // StringStringEntryProto: field 1 = key, field 2 = value (both length-delimited strings)
+        val inner = encodeProtoString(1, key) + encodeProtoString(2, value)
+        // ModelProto.metadata_props is field 14, wire type 2 (length-delimited)
+        return encodeProtoLengthDelimited(14, inner)
+    }
+
+    private fun encodeProtoString(fieldNumber: Int, value: String): ByteArray {
+        val bytes = value.toByteArray(Charsets.UTF_8)
+        return encodeProtoLengthDelimited(fieldNumber, bytes)
+    }
+
+    private fun encodeProtoLengthDelimited(fieldNumber: Int, bytes: ByteArray): ByteArray {
+        val tag = encodeVarint(((fieldNumber shl 3) or 2).toLong())
+        val length = encodeVarint(bytes.size.toLong())
+        return tag + length + bytes
+    }
+
+    private fun encodeVarint(value: Long): ByteArray {
+        val result = mutableListOf<Byte>()
+        var v = value
+        while (v > 127L) {
+            result.add(((v and 0x7F) or 0x80).toByte())
+            v = v ushr 7
+        }
+        result.add((v and 0x7F).toByte())
+        return result.toByteArray()
     }
 
     /**
