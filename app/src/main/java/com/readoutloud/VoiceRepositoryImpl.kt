@@ -132,6 +132,7 @@ class VoiceRepositoryImpl(
 
     /**
      * Download a voice file from HuggingFace with progress reporting.
+     * Also downloads the companion .onnx.json config file (required by sherpa-onnx).
      */
     override suspend fun downloadVoice(
         voice: Voice,
@@ -175,6 +176,29 @@ class VoiceRepositoryImpl(
             outputStream.close()
             inputStream.close()
 
+            // Download companion JSON config (sherpa-onnx reads it automatically for Piper voices)
+            val jsonDest = File(destination.parent, destination.name + ".json")
+            val jsonResult = downloadFile(voice.onnxUrl + ".json", jsonDest)
+            if (jsonResult.isFailure) {
+                Log.w("VoiceRepository", "Could not download .onnx.json for ${voice.name}: ${jsonResult.exceptionOrNull()?.message}")
+            }
+
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    private fun downloadFile(url: String, destination: File): Result<Unit> {
+        return try {
+            val request = Request.Builder().url(url).build()
+            val response = httpClient.newCall(request).execute()
+            if (!response.isSuccessful) return Result.failure(IOException("HTTP ${response.code}"))
+            val body = response.body ?: return Result.failure(IOException("Empty body"))
+            destination.parentFile?.mkdirs()
+            FileOutputStream(destination).use { out ->
+                body.byteStream().use { input -> input.copyTo(out) }
+            }
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
@@ -192,6 +216,8 @@ class VoiceRepositoryImpl(
 
             if (onnxFile.exists()) onnxFile.delete()
             if (datFile.exists()) datFile.delete()
+            val jsonFile = File(voicesDir, "${voice.name.lowercase()}$ONNX_EXTENSION.json")
+            if (jsonFile.exists()) jsonFile.delete()
         } catch (e: Exception) {
             // Log error but don't throw
         }
