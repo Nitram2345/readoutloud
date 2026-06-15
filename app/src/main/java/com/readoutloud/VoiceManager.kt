@@ -38,6 +38,10 @@ class VoiceManager(
     private val _downloadedVoices = MutableStateFlow<List<Voice>>(emptyList())
     val downloadedVoices: StateFlow<List<Voice>> = _downloadedVoices.asStateFlow()
 
+    /** Emits true once espeak-ng-data is confirmed on disk. TtsController retries loadVoice when this fires. */
+    private val _espeakDataReady = MutableStateFlow(false)
+    val espeakDataReady: StateFlow<Boolean> = _espeakDataReady.asStateFlow()
+
     private val activeDownloads = mutableMapOf<String, Job>()
 
     private val voicesDir: File
@@ -131,7 +135,10 @@ class VoiceManager(
      */
     private suspend fun ensureEspeakNgData() = withContext(Dispatchers.IO) {
         val espeakDir = File(context.filesDir, "espeak-ng-data")
-        if (espeakDir.exists() && espeakDir.list()?.isNotEmpty() == true) return@withContext
+        if (espeakDir.exists() && espeakDir.list()?.isNotEmpty() == true) {
+            _espeakDataReady.value = true
+            return@withContext
+        }
 
         Log.i("VoiceManager", "Downloading espeak-ng-data (~7MB)...")
         val tempFile = File(context.cacheDir, "espeak-ng-data.tar.bz2")
@@ -164,6 +171,7 @@ class VoiceManager(
                 }
             }
             Log.i("VoiceManager", "espeak-ng-data ready at ${espeakDir.absolutePath}")
+            _espeakDataReady.value = true
         } catch (e: Exception) {
             if (e is kotlinx.coroutines.CancellationException) throw e
             Log.e("VoiceManager", "espeak-ng-data setup failed: ${e.message}")

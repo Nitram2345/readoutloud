@@ -40,15 +40,23 @@ class PiperTtsEngine(
         return try {
             val voiceFile = File(context.filesDir, "voices/${voice.name}.onnx")
             if (!voiceFile.exists()) {
+                Log.e("PiperTtsEngine", "ONNX file missing: ${voiceFile.absolutePath}")
                 return Result.failure(IllegalStateException("Voice file not found: ${voice.name}"))
+            }
+
+            val voiceJsonFile = File(voiceFile.parent, voiceFile.name + ".json")
+            if (!voiceJsonFile.exists()) {
+                Log.e("PiperTtsEngine", "Config JSON missing: ${voiceJsonFile.absolutePath} — re-download the voice to fix")
+                return Result.failure(IllegalStateException("Voice config .onnx.json missing: ${voice.name}"))
             }
 
             val espeakDataDir = File(context.filesDir, "espeak-ng-data")
             if (!espeakDataDir.exists() || espeakDataDir.list().isNullOrEmpty()) {
-                return Result.failure(IllegalStateException(
-                    "espeak-ng-data not ready yet — download still in progress"
-                ))
+                Log.e("PiperTtsEngine", "espeak-ng-data not ready: ${espeakDataDir.absolutePath}")
+                return Result.failure(IllegalStateException("espeak-ng-data not ready yet"))
             }
+
+            Log.d("PiperTtsEngine", "Loading voice: model=${voiceFile.absolutePath} json=${voiceJsonFile.exists()} espeakDir=${espeakDataDir.absolutePath} (${espeakDataDir.list()?.size} entries)")
 
             tts?.release()
 
@@ -61,7 +69,7 @@ class PiperTtsEngine(
                         dataDir = espeakDataDir.absolutePath
                     ),
                     numThreads = 2,
-                    debug = false,
+                    debug = true,
                     provider = "cpu"
                 ),
                 maxNumSentences = 1
@@ -70,7 +78,7 @@ class PiperTtsEngine(
             tts = OfflineTts(config = config)
             currentVoice = voice
 
-            Log.i("PiperTtsEngine", "Loaded Piper voice: ${voice.name} (${voice.language})")
+            Log.i("PiperTtsEngine", "OfflineTts constructed for voice ${voice.name}")
             Result.success(Unit)
         } catch (e: Exception) {
             Log.e("PiperTtsEngine", "Error loading voice ${voice.name}: ${e.message}")

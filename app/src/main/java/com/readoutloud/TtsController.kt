@@ -61,6 +61,18 @@ class TtsController(
             }
         }
 
+        // Retry engine switch when espeak-ng-data becomes ready (catches the race where
+        // espeak-ng-data wasn't ready at voice-selection time)
+        CoroutineScope(Dispatchers.Main).launch {
+            voiceManager?.espeakDataReady?.collect { ready ->
+                if (ready && voiceManager?.selectedVoice?.value != null
+                    && currentEngine !is PiperTtsEngine) {
+                    Log.d("TtsController", "espeak-ng-data now ready — retrying Piper engine switch")
+                    switchToPiperEngine()
+                }
+            }
+        }
+
         tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
             override fun onStart(utteranceId: String?) {
                 if (!speakStartNotified) {
