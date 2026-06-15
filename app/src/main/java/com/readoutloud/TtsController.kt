@@ -119,16 +119,12 @@ class TtsController(
     }
 
     private fun switchToPiperEngine() {
-        Log.d("GREPPBAR", "switchToPiperEngine piperEngine=$piperEngine")
         if (piperEngine == null) return
         val voice = voiceManager?.selectedVoice?.value
-        Log.d("GREPPBAR", "switchToPiperEngine voice=${voice?.name}")
         if (voice == null) {
-            Log.w("GREPPBAR", "switchToPiperEngine: voice null — staying on current engine")
             return
         }
         val result = piperEngine.loadVoice(voice)
-        Log.d("GREPPBAR", "switchToPiperEngine loadVoice=${if (result.isSuccess) "SUCCESS" else "FAIL: ${result.exceptionOrNull()?.message}"}")
         if (result.isFailure) {
             val msg = result.exceptionOrNull()?.message ?: ""
             Log.e("TtsController", "Failed to load Piper voice ${voice.name}: $msg")
@@ -142,7 +138,6 @@ class TtsController(
         }
         // Only switch engine AFTER successful loadVoice
         currentEngine = piperEngine
-        Log.d("GREPPBAR", "switchToPiperEngine done — currentEngine=PiperTtsEngine")
     }
 
     /**
@@ -189,10 +184,8 @@ class TtsController(
     }
 
     fun startFrom(lines: List<TextLine>) {
-        Log.d("GREPPBAR", "startFrom lines=${lines.size} engine=${currentEngine::class.simpleName}")
         val fullText = lines.joinToString(" ") { it.text }
         sentences = splitSentences(fullText)
-        Log.d("GREPPBAR", "startFrom sentences=${sentences.size} firstSentence='${sentences.firstOrNull()?.take(40)}'")
 
         sentenceLines = mapSentencesToLines(fullText, sentences, lines)
         currentIndex = 0
@@ -389,7 +382,6 @@ class TtsController(
             audioSessionId = audioSessionId
         )
         val isPiper = currentEngine !is AndroidTtsEngine
-        Log.d("GREPPBAR", "speakAt idx=$idx engine=${currentEngine::class.simpleName} isPiper=$isPiper text='${sentences[idx].take(40)}'")
         if (isPiper && !speakStartNotified) {
             speakStartNotified = true
             onMain { onSpeakStart?.invoke() }

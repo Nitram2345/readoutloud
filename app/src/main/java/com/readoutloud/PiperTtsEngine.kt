@@ -39,46 +39,35 @@ class PiperTtsEngine(
     override val isReady: Boolean get() = tts != null
 
     fun loadVoice(voice: Voice): Result<Unit> {
-        Log.d("GREPPBAR", "loadVoice START voice=${voice.name}")
         return try {
             val voiceFile = File(context.filesDir, "voices/${voice.name}.onnx")
-            Log.d("GREPPBAR", "loadVoice onnx=${voiceFile.absolutePath} exists=${voiceFile.exists()} size=${voiceFile.length()}")
             if (!voiceFile.exists()) {
-                Log.e("GREPPBAR", "loadVoice FAIL onnx missing")
                 return Result.failure(IllegalStateException("Voice file not found: ${voice.name}"))
             }
 
             val voiceJsonFile = File(voiceFile.parent, voiceFile.name + ".json")
-            Log.d("GREPPBAR", "loadVoice json=${voiceJsonFile.absolutePath} exists=${voiceJsonFile.exists()} size=${voiceJsonFile.length()}")
             if (!voiceJsonFile.exists()) {
-                Log.e("GREPPBAR", "loadVoice FAIL json missing — re-download the voice")
                 return Result.failure(IllegalStateException("Voice config .onnx.json missing: ${voice.name}"))
             }
 
             // tokens.txt required by sherpa-onnx Validate(); generate from .onnx.json if missing
             val tokensFile = File(voiceFile.parent, "${voice.name}.tokens.txt")
             if (!tokensFile.exists()) {
-                Log.d("GREPPBAR", "loadVoice tokens.txt missing — generating from .onnx.json")
                 generateTokensTxt(voiceJsonFile, tokensFile)
             }
-            Log.d("GREPPBAR", "loadVoice tokens=${tokensFile.absolutePath} exists=${tokensFile.exists()} size=${tokensFile.length()}")
             if (!tokensFile.exists() || tokensFile.length() == 0L) {
-                Log.e("GREPPBAR", "loadVoice FAIL tokens.txt missing/empty")
                 return Result.failure(IllegalStateException("tokens.txt missing for ${voice.name}"))
             }
 
             val espeakDataDir = File(context.filesDir, "espeak-ng-data")
             val espeakEntries = espeakDataDir.list()?.size ?: -1
-            Log.d("GREPPBAR", "loadVoice espeakDir=${espeakDataDir.absolutePath} exists=${espeakDataDir.exists()} entries=$espeakEntries")
             if (!espeakDataDir.exists() || espeakEntries == 0) {
-                Log.e("GREPPBAR", "loadVoice FAIL espeak-ng-data not ready")
                 return Result.failure(IllegalStateException("espeak-ng-data not ready yet"))
             }
 
             // Ensure ONNX metadata is injected (idempotent: checks for existing entries first)
             ensureOnnxMetadata(voiceFile, voiceJsonFile)
 
-            Log.d("GREPPBAR", "loadVoice all checks passed — calling OfflineTts()")
             tts?.release()
 
             val config = OfflineTtsConfig(
@@ -96,15 +85,11 @@ class PiperTtsEngine(
                 maxNumSentences = 1
             )
 
-            Log.d("GREPPBAR", "loadVoice calling OfflineTts()")
             tts = OfflineTts(config = config)
-            Log.d("GREPPBAR", "loadVoice OfflineTts() returned tts=$tts")
             currentVoice = voice
 
-            Log.i("GREPPBAR", "loadVoice SUCCESS voice=${voice.name}")
             Result.success(Unit)
         } catch (e: Exception) {
-            Log.e("GREPPBAR", "loadVoice EXCEPTION ${e::class.simpleName}: ${e.message}")
             Result.failure(e)
         }
     }
@@ -126,7 +111,6 @@ class PiperTtsEngine(
         speakJob?.cancel()
         speakJob = scope.launch {
             withContext(Dispatchers.Default) {
-                Log.d("GREPPBAR", "speak() generate() epoch=$epoch text='${text.take(40)}'")
                 try {
                     // generate() is a blocking native call — coroutine cancellation can't interrupt it.
                     // After it returns, check epoch to discard stale results (e.g. speed was changed).
@@ -153,7 +137,6 @@ class PiperTtsEngine(
                         audioTrack = null
                     }
                 } catch (e: Exception) {
-                    Log.e("GREPPBAR", "speak() error: ${e.message}")
                 }
             }
 
@@ -224,7 +207,6 @@ class PiperTtsEngine(
             // \\x0a\\x05voice = protobuf field1+len5+"voice" — present only if we injected voice field
             val voiceMarker = "\nvoice"
             if (tail.toString(Charsets.ISO_8859_1).contains(voiceMarker)) {
-                Log.d("GREPPBAR", "ensureOnnxMetadata: already injected, skipping")
                 return
             }
 
@@ -247,9 +229,7 @@ class PiperTtsEngine(
                     out.write(encodeMetadataProp(key, value))
                 }
             }
-            Log.d("GREPPBAR", "ensureOnnxMetadata: injected sample_rate=$sampleRate language=$espeakVoice")
         } catch (e: Exception) {
-            Log.e("GREPPBAR", "ensureOnnxMetadata FAILED: ${e.message}")
         }
     }
 
@@ -285,9 +265,7 @@ class PiperTtsEngine(
                 if (phoneme == " ") sb.appendLine(id.toString()) else sb.appendLine("$phoneme $id")
             }
             outputFile.writeText(sb.toString())
-            Log.d("GREPPBAR", "generateTokensTxt wrote ${phonemeIdMap.length()} entries")
         } catch (e: Exception) {
-            Log.e("GREPPBAR", "generateTokensTxt FAILED: ${e.message}")
         }
     }
 
