@@ -183,9 +183,44 @@ class VoiceRepositoryImpl(
                 Log.w("VoiceRepository", "Could not download .onnx.json for ${voice.name}: ${jsonResult.exceptionOrNull()?.message}")
             }
 
+            // Generate tokens.txt from phoneme_id_map in .onnx.json (required by sherpa-onnx Validate())
+            if (jsonDest.exists()) {
+                val tokensDest = File(destination.parent, destination.name.removeSuffix(".onnx") + ".tokens.txt")
+                generateTokensTxt(jsonDest, tokensDest)
+            }
+
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
+        }
+    }
+
+    /**
+     * Generate tokens.txt from phoneme_id_map in Piper's .onnx.json.
+     * Required by sherpa-onnx: Validate() rejects empty tokens path.
+     * Format: space phoneme → lone id on line; others → "symbol id".
+     * Skips multi-codepoint phonemes (sherpa-onnx rejects them anyway).
+     */
+    private fun generateTokensTxt(jsonFile: File, outputFile: File) {
+        try {
+            val phonemeIdMap = JSONObject(jsonFile.readText()).optJSONObject("phoneme_id_map") ?: return
+            val sb = StringBuilder()
+            phonemeIdMap.keys().forEach { phoneme ->
+                val ids = phonemeIdMap.optJSONArray(phoneme) ?: return@forEach
+                if (ids.length() == 0) return@forEach
+                val id = ids.getInt(0)
+                // sherpa-onnx ReadTokens requires exactly 1 Unicode code point per token
+                if (phoneme.codePointCount(0, phoneme.length) != 1) return@forEach
+                if (phoneme == " ") {
+                    sb.appendLine(id.toString())  // space: lone id on its own line
+                } else {
+                    sb.appendLine("$phoneme $id")
+                }
+            }
+            outputFile.writeText(sb.toString())
+            Log.d("GREPPBAR", "generateTokensTxt wrote ${phonemeIdMap.length()} entries to ${outputFile.absolutePath}")
+        } catch (e: Exception) {
+            Log.e("GREPPBAR", "generateTokensTxt FAILED: ${e.message}")
         }
     }
 
@@ -218,6 +253,8 @@ class VoiceRepositoryImpl(
             if (datFile.exists()) datFile.delete()
             val jsonFile = File(voicesDir, "${voice.name.lowercase()}$ONNX_EXTENSION.json")
             if (jsonFile.exists()) jsonFile.delete()
+            val tokensFile = File(voicesDir, "${voice.name.lowercase()}.tokens.txt")
+            if (tokensFile.exists()) tokensFile.delete()
         } catch (e: Exception) {
             // Log error but don't throw
         }

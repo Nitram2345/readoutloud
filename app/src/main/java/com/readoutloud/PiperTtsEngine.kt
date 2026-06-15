@@ -7,6 +7,7 @@ import android.media.AudioManager
 import android.media.AudioTrack
 import android.util.Log
 import com.k2fsa.sherpa.onnx.GenerationConfig
+import org.json.JSONObject
 import com.k2fsa.sherpa.onnx.OfflineTts
 import com.k2fsa.sherpa.onnx.OfflineTtsConfig
 import com.k2fsa.sherpa.onnx.OfflineTtsModelConfig
@@ -53,6 +54,18 @@ class PiperTtsEngine(
                 return Result.failure(IllegalStateException("Voice config .onnx.json missing: ${voice.name}"))
             }
 
+            // tokens.txt required by sherpa-onnx Validate(); generate from .onnx.json if missing
+            val tokensFile = File(voiceFile.parent, "${voice.name}.tokens.txt")
+            if (!tokensFile.exists()) {
+                Log.d("GREPPBAR", "loadVoice tokens.txt missing — generating from .onnx.json")
+                generateTokensTxt(voiceJsonFile, tokensFile)
+            }
+            Log.d("GREPPBAR", "loadVoice tokens=${tokensFile.absolutePath} exists=${tokensFile.exists()} size=${tokensFile.length()}")
+            if (!tokensFile.exists() || tokensFile.length() == 0L) {
+                Log.e("GREPPBAR", "loadVoice FAIL tokens.txt missing/empty")
+                return Result.failure(IllegalStateException("tokens.txt missing for ${voice.name}"))
+            }
+
             val espeakDataDir = File(context.filesDir, "espeak-ng-data")
             val espeakEntries = espeakDataDir.list()?.size ?: -1
             Log.d("GREPPBAR", "loadVoice espeakDir=${espeakDataDir.absolutePath} exists=${espeakDataDir.exists()} entries=$espeakEntries")
@@ -61,6 +74,7 @@ class PiperTtsEngine(
                 return Result.failure(IllegalStateException("espeak-ng-data not ready yet"))
             }
 
+            Log.d("GREPPBAR", "loadVoice all checks passed — calling OfflineTts()")
             tts?.release()
 
             val config = OfflineTtsConfig(
@@ -68,7 +82,7 @@ class PiperTtsEngine(
                     vits = OfflineTtsVitsModelConfig(
                         model = voiceFile.absolutePath,
                         lexicon = "",
-                        tokens = "",
+                        tokens = tokensFile.absolutePath,
                         dataDir = espeakDataDir.absolutePath
                     ),
                     numThreads = 2,
@@ -187,6 +201,24 @@ class PiperTtsEngine(
             try { it.release() } catch (_: Exception) {}
         }
         audioTrack = null
+    }
+
+    private fun generateTokensTxt(jsonFile: File, outputFile: File) {
+        try {
+            val phonemeIdMap = JSONObject(jsonFile.readText()).optJSONObject("phoneme_id_map") ?: return
+            val sb = StringBuilder()
+            phonemeIdMap.keys().forEach { phoneme ->
+                val ids = phonemeIdMap.optJSONArray(phoneme) ?: return@forEach
+                if (ids.length() == 0) return@forEach
+                val id = ids.getInt(0)
+                if (phoneme.codePointCount(0, phoneme.length) != 1) return@forEach
+                if (phoneme == " ") sb.appendLine(id.toString()) else sb.appendLine("$phoneme $id")
+            }
+            outputFile.writeText(sb.toString())
+            Log.d("GREPPBAR", "generateTokensTxt wrote ${phonemeIdMap.length()} entries")
+        } catch (e: Exception) {
+            Log.e("GREPPBAR", "generateTokensTxt FAILED: ${e.message}")
+        }
     }
 
     override fun setLanguage(lang: String) {
