@@ -84,19 +84,23 @@ class VoiceManager(
 
             try {
                 repository.downloadVoice(voice, destination) { progress ->
-                    _downloads.value = _downloads.value + (voice.name to
-                        _downloads.value[voice.name]!!.copy(progress = progress))
+                    _downloads.value[voice.name]?.let { current ->
+                        _downloads.value = _downloads.value + (voice.name to current.copy(progress = progress))
+                    }
                 }
 
-                _downloads.value = _downloads.value + (voice.name to
-                    _downloads.value[voice.name]!!.copy(status = DownloadStatus.Completed))
+                _downloads.value[voice.name]?.let { current ->
+                    _downloads.value = _downloads.value + (voice.name to current.copy(status = DownloadStatus.Completed))
+                }
 
                 withContext(Dispatchers.Main) {
                     refreshDownloadedVoices()
                 }
             } catch (e: Exception) {
-                _downloads.value = _downloads.value + (voice.name to
-                    _downloads.value[voice.name]!!.copy(status = DownloadStatus.Failed))
+                if (e is kotlinx.coroutines.CancellationException) throw e
+                _downloads.value[voice.name]?.let { current ->
+                    _downloads.value = _downloads.value + (voice.name to current.copy(status = DownloadStatus.Failed))
+                }
             } finally {
                 activeDownloads.remove(voice.name)
             }
