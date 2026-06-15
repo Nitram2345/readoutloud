@@ -88,8 +88,8 @@ class PiperTtsEngine(
                         tokens = tokensFile.absolutePath,
                         dataDir = espeakDataDir.absolutePath
                     ),
-                    numThreads = 2,
-                    debug = true,
+                    numThreads = 1,
+                    debug = false,
                     provider = "cpu"
                 ),
                 maxNumSentences = 1
