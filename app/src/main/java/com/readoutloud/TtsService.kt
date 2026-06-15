@@ -113,6 +113,18 @@ class TtsService : Service() {
 
     override fun onBind(intent: Intent): IBinder = binder
 
+    override fun onTrimMemory(level: Int) {
+        super.onTrimMemory(level)
+        // Release ORT session (~80MB native memory) under memory pressure.
+        // TtsController retries via espeakDataReady flow when next needed.
+        if (level >= android.content.ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW) {
+            if (ttsController?.isPlaying != true) {
+                piperEngine.releaseModel()
+                android.util.Log.d("TtsService", "Released Piper model at TRIM_MEMORY level=$level")
+            }
+        }
+    }
+
     override fun onDestroy() {
         serviceJob.cancel()
         unregisterReceiver(screenOnReceiver)

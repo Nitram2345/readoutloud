@@ -289,6 +289,13 @@ class PiperTtsEngine(
         }
     }
 
+    fun releaseModel() {
+        tts?.release()
+        tts = null
+        currentVoice = null
+        Log.d("PiperTtsEngine", "Model released to free memory")
+    }
+
     override fun setLanguage(lang: String) {
         Log.d("PiperTtsEngine", "setLanguage ignored — language fixed at voice load time")
     }
