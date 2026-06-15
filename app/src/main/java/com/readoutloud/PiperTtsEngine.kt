@@ -209,17 +209,19 @@ class PiperTtsEngine(
 
     /**
      * Inject sherpa-onnx required ONNX metadata if not already present.
-     * Checks for "piper" marker in existing metadata_props region to avoid double-injection.
+     * Checks for voice-field protobuf marker to avoid double-injection.
      * ONNX protobuf allows safe appending of repeated fields.
      */
     private fun ensureOnnxMetadata(onnxFile: File, jsonFile: File) {
         try {
-            // Quick check: scan last 512 bytes for "piper" marker — avoids full parse
+            // Quick check: scan last 512 bytes for voice-field marker — avoids full parse
             val size = onnxFile.length()
             val checkBytes = minOf(512L, size)
             val tail = ByteArray(checkBytes.toInt())
             onnxFile.inputStream().use { it.skip(size - checkBytes); it.read(tail) }
-            if (tail.toString(Charsets.ISO_8859_1).contains("piper")) {
+            // \\x0a\\x05voice = protobuf field1+len5+"voice" — present only if we injected voice field
+            val voiceMarker = "\nvoice"
+            if (tail.toString(Charsets.ISO_8859_1).contains(voiceMarker)) {
                 Log.d("GREPPBAR", "ensureOnnxMetadata: already injected, skipping")
                 return
             }
