@@ -415,7 +415,50 @@ class TtsController(
     }
 
     private fun splitSentences(text: String): List<String> =
-        text.split(Regex("(?<=[.!?])\\s+")).filter { it.isNotBlank() }
+        // Primary split at sentence boundaries, then cap length to limit ORT tensor size.
+        // Long sentences → huge VITS intermediate tensors → OOM. Keep chunks ≤ 150 chars.
+        text.split(Regex("(?<=[.!?])\\s+"))
+            .filter { it.isNotBlank() }
+            .flatMap { chopSentence(it, 150) }
+
+    private fun chopSentence(sentence: String, maxChars: Int): List<String> {
+        if (sentence.length <= maxChars) return listOf(sentence)
+        // Try secondary splits at ,;: first
+        val secondary = sentence.split(Regex("(?<=[,;:])\\s+")).filter { it.isNotBlank() }
+        if (secondary.size > 1) {
+            // Merge short adjacent chunks, split long ones further
+            val result = mutableListOf<String>()
+            var current = StringBuilder()
+            for (chunk in secondary) {
+                if (current.isEmpty()) {
+                    current.append(chunk)
+                } else if (current.length + 1 + chunk.length <= maxChars) {
+                    current.append(" ").append(chunk)
+                } else {
+                    result.add(current.toString())
+                    current = StringBuilder(chunk)
+                }
+            }
+            if (current.isNotEmpty()) result.add(current.toString())
+            return result.flatMap { chopSentence(it, maxChars) }
+        }
+        // No secondary boundaries: split at word boundary near maxChars
+        val words = sentence.split(" ")
+        val result = mutableListOf<String>()
+        var current = StringBuilder()
+        for (word in words) {
+            if (current.isEmpty()) {
+                current.append(word)
+            } else if (current.length + 1 + word.length <= maxChars) {
+                current.append(" ").append(word)
+            } else {
+                result.add(current.toString())
+                current = StringBuilder(word)
+            }
+        }
+        if (current.isNotEmpty()) result.add(current.toString())
+        return result
+    }
 
     private fun mapSentencesToLines(
         fullText: String,
