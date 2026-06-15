@@ -6,7 +6,6 @@ import android.media.AudioFormat
 import android.media.AudioManager
 import android.media.AudioTrack
 import android.util.Log
-import com.k2fsa.sherpa.onnx.GenerationConfig
 import org.json.JSONObject
 import java.io.FileOutputStream
 import com.k2fsa.sherpa.onnx.OfflineTts
@@ -125,35 +124,36 @@ class PiperTtsEngine(
         speakJob?.cancel()
         speakJob = scope.launch {
             withContext(Dispatchers.Default) {
-                Log.d("GREPPBAR", "speak() calling engine.sampleRate() engine=$engine text='${text.take(40)}'")
-                val sampleRate = engine.sampleRate()
-                Log.d("GREPPBAR", "speak() sampleRate=$sampleRate")
-                val track = createAudioTrack(sampleRate, params)
-                audioTrack = track
-                track.play()
-
+                Log.d("GREPPBAR", "speak() generate() text='${text.take(40)}'")
+                // generateWithConfigAndCallback callback conflicts with D8 lambda desugaring:
+                // JNI expects invoke([F)Ljava/lang/Integer; but D8 emits Ljava/lang/Object;
+                // Use generate() instead — returns full FloatArray, no JNI callback needed.
                 try {
-                    engine.generateWithConfigAndCallback(
-                        text = text,
-                        config = GenerationConfig(speed = params.rate, sid = 0),
-                        callback = { samples ->
-                            if (stopped) {
-                                0
-                            } else {
-                                track.write(samples, 0, samples.size, AudioTrack.WRITE_BLOCKING)
-                                1
-                            }
-                        }
-                    )
-                } catch (e: Exception) {
-                    Log.e("PiperTtsEngine", "Generation error: ${e.message}")
-                }
+                    val audio = engine.generate(text = text, sid = 0, speed = params.rate)
+                    Log.d("GREPPBAR", "speak() ${audio.samples.size} samples @ ${audio.sampleRate}Hz")
 
-                if (track.playState == AudioTrack.PLAYSTATE_PLAYING) {
-                    try { track.stop() } catch (_: Exception) {}
+                    if (!stopped && audio.samples.isNotEmpty()) {
+                        val track = createAudioTrack(audio.sampleRate, params)
+                        audioTrack = track
+                        track.play()
+
+                        val chunkSize = 4096
+                        var offset = 0
+                        while (offset < audio.samples.size && !stopped) {
+                            val end = minOf(offset + chunkSize, audio.samples.size)
+                            track.write(audio.samples, offset, end - offset, AudioTrack.WRITE_BLOCKING)
+                            offset = end
+                        }
+
+                        if (track.playState == AudioTrack.PLAYSTATE_PLAYING) {
+                            try { track.stop() } catch (_: Exception) {}
+                        }
+                        track.release()
+                        audioTrack = null
+                    }
+                } catch (e: Exception) {
+                    Log.e("GREPPBAR", "speak() error: ${e.message}")
                 }
-                track.release()
-                audioTrack = null
             }
 
             if (!stopped) {
