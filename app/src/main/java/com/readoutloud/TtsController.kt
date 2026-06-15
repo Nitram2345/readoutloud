@@ -127,7 +127,14 @@ class TtsController(
                 val result = piperEngine.loadVoice(voice)
                 Log.d("GREPPBAR", "switchToPiperEngine loadVoice result=${if (result.isSuccess) "SUCCESS" else "FAIL: ${result.exceptionOrNull()?.message}"}")
                 if (result.isFailure) {
-                    Log.e("TtsController", "Failed to load Piper voice ${voice.name}: ${result.exceptionOrNull()?.message}")
+                    val msg = result.exceptionOrNull()?.message ?: ""
+                    Log.e("TtsController", "Failed to load Piper voice ${voice.name}: $msg")
+                    // If espeak-ng-data is missing, trigger download in background so retry fires later
+                    if (msg.contains("espeak-ng-data") || msg.contains("tokens")) {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            voiceManager?.ensureEspeakNgData()
+                        }
+                    }
                     switchToAndroidEngine()
                     return
                 }

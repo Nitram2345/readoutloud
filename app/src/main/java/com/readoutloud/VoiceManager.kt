@@ -48,11 +48,6 @@ class VoiceManager(
         get() = File(context.filesDir, "voices")
 
     init {
-        // Ensure espeak-ng-data is available (needed by sherpa-onnx Piper TTS)
-        scope.launch(Dispatchers.IO) {
-            ensureEspeakNgData()
-        }
-
         // Load selected voice from settings
         val savedVoiceName = settings.selectedVoice
         if (savedVoiceName != null) {
@@ -133,7 +128,7 @@ class VoiceManager(
      * Required by sherpa-onnx for Piper TTS phonemization.
      * Safe to call multiple times — no-op if data already exists.
      */
-    private suspend fun ensureEspeakNgData() = withContext(Dispatchers.IO) {
+    suspend fun ensureEspeakNgData() = withContext(Dispatchers.IO) {
         val espeakDir = File(context.filesDir, "espeak-ng-data")
         val existingEntries = espeakDir.list()?.size ?: 0
         Log.d("GREPPBAR", "ensureEspeakNgData espeakDir=${espeakDir.absolutePath} exists=${espeakDir.exists()} entries=$existingEntries")
