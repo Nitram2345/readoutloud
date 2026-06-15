@@ -119,10 +119,13 @@ class TtsController(
     }
 
     private fun switchToPiperEngine() {
+        Log.d("GREPPBAR", "switchToPiperEngine piperEngine=$piperEngine")
         if (piperEngine != null) {
             val voice = voiceManager?.selectedVoice?.value
+            Log.d("GREPPBAR", "switchToPiperEngine voice=${voice?.name}")
             if (voice != null) {
                 val result = piperEngine.loadVoice(voice)
+                Log.d("GREPPBAR", "switchToPiperEngine loadVoice result=${if (result.isSuccess) "SUCCESS" else "FAIL: ${result.exceptionOrNull()?.message}"}")
                 if (result.isFailure) {
                     Log.e("TtsController", "Failed to load Piper voice ${voice.name}: ${result.exceptionOrNull()?.message}")
                     switchToAndroidEngine()
@@ -130,7 +133,7 @@ class TtsController(
                 }
             }
             currentEngine = piperEngine
-            Log.d("TtsController", "Switched to Piper engine: ${voice?.name}")
+            Log.d("GREPPBAR", "switchToPiperEngine done — currentEngine=PiperTtsEngine")
         }
     }
 
@@ -375,6 +378,7 @@ class TtsController(
             audioSessionId = audioSessionId
         )
         val isPiper = currentEngine !is AndroidTtsEngine
+        Log.d("GREPPBAR", "speakAt idx=$idx engine=${currentEngine::class.simpleName} isPiper=$isPiper text='${sentences[idx].take(40)}'")
         if (isPiper && !speakStartNotified) {
             speakStartNotified = true
             onMain { onSpeakStart?.invoke() }

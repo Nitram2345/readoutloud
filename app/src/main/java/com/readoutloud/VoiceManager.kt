@@ -135,12 +135,15 @@ class VoiceManager(
      */
     private suspend fun ensureEspeakNgData() = withContext(Dispatchers.IO) {
         val espeakDir = File(context.filesDir, "espeak-ng-data")
-        if (espeakDir.exists() && espeakDir.list()?.isNotEmpty() == true) {
+        val existingEntries = espeakDir.list()?.size ?: 0
+        Log.d("GREPPBAR", "ensureEspeakNgData espeakDir=${espeakDir.absolutePath} exists=${espeakDir.exists()} entries=$existingEntries")
+        if (espeakDir.exists() && existingEntries > 0) {
+            Log.d("GREPPBAR", "ensureEspeakNgData already present — ready")
             _espeakDataReady.value = true
             return@withContext
         }
 
-        Log.i("VoiceManager", "Downloading espeak-ng-data (~7MB)...")
+        Log.i("GREPPBAR", "ensureEspeakNgData downloading (~7MB)...")
         val tempFile = File(context.cacheDir, "espeak-ng-data.tar.bz2")
         try {
             val request = Request.Builder()
@@ -170,11 +173,11 @@ class VoiceManager(
                     }
                 }
             }
-            Log.i("VoiceManager", "espeak-ng-data ready at ${espeakDir.absolutePath}")
+            Log.i("GREPPBAR", "ensureEspeakNgData extracted OK entries=${espeakDir.list()?.size} path=${espeakDir.absolutePath}")
             _espeakDataReady.value = true
         } catch (e: Exception) {
             if (e is kotlinx.coroutines.CancellationException) throw e
-            Log.e("VoiceManager", "espeak-ng-data setup failed: ${e.message}")
+            Log.e("GREPPBAR", "ensureEspeakNgData FAILED: ${e.message}")
             espeakDir.deleteRecursively()
         } finally {
             tempFile.delete()

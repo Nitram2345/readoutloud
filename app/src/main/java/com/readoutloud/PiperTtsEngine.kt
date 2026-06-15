@@ -37,26 +37,29 @@ class PiperTtsEngine(
     override val isReady: Boolean get() = tts != null
 
     fun loadVoice(voice: Voice): Result<Unit> {
+        Log.d("GREPPBAR", "loadVoice START voice=${voice.name}")
         return try {
             val voiceFile = File(context.filesDir, "voices/${voice.name}.onnx")
+            Log.d("GREPPBAR", "loadVoice onnx=${voiceFile.absolutePath} exists=${voiceFile.exists()} size=${voiceFile.length()}")
             if (!voiceFile.exists()) {
-                Log.e("PiperTtsEngine", "ONNX file missing: ${voiceFile.absolutePath}")
+                Log.e("GREPPBAR", "loadVoice FAIL onnx missing")
                 return Result.failure(IllegalStateException("Voice file not found: ${voice.name}"))
             }
 
             val voiceJsonFile = File(voiceFile.parent, voiceFile.name + ".json")
+            Log.d("GREPPBAR", "loadVoice json=${voiceJsonFile.absolutePath} exists=${voiceJsonFile.exists()} size=${voiceJsonFile.length()}")
             if (!voiceJsonFile.exists()) {
-                Log.e("PiperTtsEngine", "Config JSON missing: ${voiceJsonFile.absolutePath} — re-download the voice to fix")
+                Log.e("GREPPBAR", "loadVoice FAIL json missing — re-download the voice")
                 return Result.failure(IllegalStateException("Voice config .onnx.json missing: ${voice.name}"))
             }
 
             val espeakDataDir = File(context.filesDir, "espeak-ng-data")
-            if (!espeakDataDir.exists() || espeakDataDir.list().isNullOrEmpty()) {
-                Log.e("PiperTtsEngine", "espeak-ng-data not ready: ${espeakDataDir.absolutePath}")
+            val espeakEntries = espeakDataDir.list()?.size ?: -1
+            Log.d("GREPPBAR", "loadVoice espeakDir=${espeakDataDir.absolutePath} exists=${espeakDataDir.exists()} entries=$espeakEntries")
+            if (!espeakDataDir.exists() || espeakEntries == 0) {
+                Log.e("GREPPBAR", "loadVoice FAIL espeak-ng-data not ready")
                 return Result.failure(IllegalStateException("espeak-ng-data not ready yet"))
             }
-
-            Log.d("PiperTtsEngine", "Loading voice: model=${voiceFile.absolutePath} json=${voiceJsonFile.exists()} espeakDir=${espeakDataDir.absolutePath} (${espeakDataDir.list()?.size} entries)")
 
             tts?.release()
 
@@ -75,13 +78,15 @@ class PiperTtsEngine(
                 maxNumSentences = 1
             )
 
+            Log.d("GREPPBAR", "loadVoice calling OfflineTts()")
             tts = OfflineTts(config = config)
+            Log.d("GREPPBAR", "loadVoice OfflineTts() returned tts=$tts")
             currentVoice = voice
 
-            Log.i("PiperTtsEngine", "OfflineTts constructed for voice ${voice.name}")
+            Log.i("GREPPBAR", "loadVoice SUCCESS voice=${voice.name}")
             Result.success(Unit)
         } catch (e: Exception) {
-            Log.e("PiperTtsEngine", "Error loading voice ${voice.name}: ${e.message}")
+            Log.e("GREPPBAR", "loadVoice EXCEPTION ${e::class.simpleName}: ${e.message}")
             Result.failure(e)
         }
     }
@@ -102,7 +107,9 @@ class PiperTtsEngine(
         speakJob?.cancel()
         speakJob = scope.launch {
             withContext(Dispatchers.Default) {
+                Log.d("GREPPBAR", "speak() calling engine.sampleRate() engine=$engine text='${text.take(40)}'")
                 val sampleRate = engine.sampleRate()
+                Log.d("GREPPBAR", "speak() sampleRate=$sampleRate")
                 val track = createAudioTrack(sampleRate, params)
                 audioTrack = track
                 track.play()
