@@ -257,7 +257,6 @@ class TtsController(
         }
         currentStream = newStream
         if (currentVolume > 1.0f && isPlaying) boostStream()
-        // Only Android TTS engine needs audio attributes configuration
         if (currentEngine is AndroidTtsEngine) {
             tts.setAudioAttributes(
                 AudioAttributes.Builder()
@@ -266,6 +265,7 @@ class TtsController(
                     .build()
             )
         }
+        piperEngine?.isSpeaker = speaker
         if (isPlaying && currentIndex < sentences.size) { currentEngine.stop(); speakAt(currentIndex) }
     }
 
