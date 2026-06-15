@@ -9,8 +9,15 @@ interface TtsEngine {
      * Speak the given text with optional parameters.
      * @param text The text to speak
      * @param params Speech parameters (volume, rate, audioSessionId)
+     * @param utteranceId Identifier passed back via onDone (Android TTS also uses this for progress tracking)
+     * @param onDone Called on main thread when audio finishes. Ignored by AndroidTtsEngine (uses UtteranceProgressListener instead).
      */
-    fun speak(text: String, params: SpeakParams = SpeakParams())
+    fun speak(
+        text: String,
+        params: SpeakParams = SpeakParams(),
+        utteranceId: String = "",
+        onDone: (() -> Unit)? = null
+    )
 
     /**
      * Stop current speech.

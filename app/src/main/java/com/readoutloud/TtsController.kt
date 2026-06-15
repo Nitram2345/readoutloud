@@ -127,15 +127,15 @@ class TtsController(
     }
 
     private class AndroidTtsEngine(private val tts: TextToSpeech) : TtsEngine {
-        override fun speak(text: String, params: SpeakParams) {
+        override fun speak(text: String, params: SpeakParams, utteranceId: String, onDone: (() -> Unit)?) {
             val bundle = Bundle().apply {
                 putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, params.volume)
                 if (params.audioSessionId != 0)
                     putInt(TextToSpeech.Engine.KEY_PARAM_SESSION_ID, params.audioSessionId)
             }
-            // Rate is set globally via tts.setSpeechRate()
             tts.setSpeechRate(params.rate)
-            tts.speak(text, TextToSpeech.QUEUE_FLUSH, bundle, null)
+            // onDone ignored — completion handled by UtteranceProgressListener
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, bundle, utteranceId.ifEmpty { null })
         }
 
         override fun stop() {
