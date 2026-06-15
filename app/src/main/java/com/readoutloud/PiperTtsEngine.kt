@@ -234,6 +234,7 @@ class PiperTtsEngine(
                 "sample_rate" to sampleRate.toString(),
                 "n_speakers" to numSpeakers.toString(),
                 "language" to espeakVoice,
+                "voice" to espeakVoice,
                 "comment" to "piper",
                 "frontend" to "espeak"
             )
