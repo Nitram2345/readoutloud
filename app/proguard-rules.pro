@@ -66,6 +66,12 @@
 -dontwarn androidx.junit.**
 
 # ============================================
+# sherpa-onnx JNI bridge — must not be renamed
+# ============================================
+-keep class com.k2fsa.sherpa.onnx.** { *; }
+-keepclassmembers class com.k2fsa.sherpa.onnx.** { *; }
+
+# ============================================
 # General optimizations
 # ============================================
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
