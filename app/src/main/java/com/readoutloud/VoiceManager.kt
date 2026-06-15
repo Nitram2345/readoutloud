@@ -1,6 +1,7 @@
 package com.readoutloud
 
 import android.content.Context
+import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -9,7 +10,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream
+import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream
 import java.io.File
+import java.io.FileOutputStream
 
 /**
  * Manages voice selection state, downloaded voices, and active downloads.
@@ -21,6 +27,7 @@ class VoiceManager(
     private val settings: AppSettings
 ) {
     private val scope = CoroutineScope(Dispatchers.Main)
+    private val httpClient = OkHttpClient()
 
     private val _downloads = MutableStateFlow<Map<String, VoiceDownload>>(emptyMap())
     val downloads: StateFlow<Map<String, VoiceDownload>> = _downloads.asStateFlow()
@@ -37,6 +44,11 @@ class VoiceManager(
         get() = File(context.filesDir, "voices")
 
     init {
+        // Ensure espeak-ng-data is available (needed by sherpa-onnx Piper TTS)
+        scope.launch(Dispatchers.IO) {
+            ensureEspeakNgData()
+        }
+
         // Load selected voice from settings
         val savedVoiceName = settings.selectedVoice
         if (savedVoiceName != null) {
@@ -93,6 +105,9 @@ class VoiceManager(
                     _downloads.value = _downloads.value + (voice.name to current.copy(status = DownloadStatus.Completed))
                 }
 
+                // Ensure espeak-ng-data is ready alongside the downloaded voice
+                ensureEspeakNgData()
+
                 withContext(Dispatchers.Main) {
                     refreshDownloadedVoices()
                 }
@@ -107,6 +122,55 @@ class VoiceManager(
         }
 
         activeDownloads[voice.name] = job
+    }
+
+    /**
+     * Download and extract espeak-ng-data if not already present.
+     * Required by sherpa-onnx for Piper TTS phonemization.
+     * Safe to call multiple times — no-op if data already exists.
+     */
+    private suspend fun ensureEspeakNgData() = withContext(Dispatchers.IO) {
+        val espeakDir = File(context.filesDir, "espeak-ng-data")
+        if (espeakDir.exists() && espeakDir.list()?.isNotEmpty() == true) return@withContext
+
+        Log.i("VoiceManager", "Downloading espeak-ng-data (~7MB)...")
+        val tempFile = File(context.cacheDir, "espeak-ng-data.tar.bz2")
+        try {
+            val request = Request.Builder()
+                .url("https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/espeak-ng-data.tar.bz2")
+                .build()
+            val response = httpClient.newCall(request).execute()
+            if (!response.isSuccessful) {
+                Log.e("VoiceManager", "espeak-ng-data download failed: HTTP ${response.code}")
+                return@withContext
+            }
+            val body = response.body ?: return@withContext
+            FileOutputStream(tempFile).use { out -> body.byteStream().copyTo(out) }
+
+            Log.i("VoiceManager", "Extracting espeak-ng-data...")
+            BZip2CompressorInputStream(tempFile.inputStream().buffered()).use { bz2 ->
+                TarArchiveInputStream(bz2).use { tar ->
+                    var entry = tar.nextEntry
+                    while (entry != null) {
+                        val outFile = File(context.filesDir, entry.name)
+                        if (entry.isDirectory) {
+                            outFile.mkdirs()
+                        } else {
+                            outFile.parentFile?.mkdirs()
+                            FileOutputStream(outFile).use { out -> tar.copyTo(out) }
+                        }
+                        entry = tar.nextEntry
+                    }
+                }
+            }
+            Log.i("VoiceManager", "espeak-ng-data ready at ${espeakDir.absolutePath}")
+        } catch (e: Exception) {
+            if (e is kotlinx.coroutines.CancellationException) throw e
+            Log.e("VoiceManager", "espeak-ng-data setup failed: ${e.message}")
+            espeakDir.deleteRecursively()
+        } finally {
+            tempFile.delete()
+        }
     }
 
     /**

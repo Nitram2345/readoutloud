@@ -69,6 +69,7 @@ dependencies {
     }
     implementation("org.jsoup:jsoup:1.17.2")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("org.apache.commons:commons-compress:1.27.1")
     implementation(files("libs/sherpa-onnx-1.13.2.aar"))
     implementation("androidx.media:media:1.7.0")
     implementation("androidx.core:core:1.13.1")

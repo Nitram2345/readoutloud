@@ -43,6 +43,13 @@ class PiperTtsEngine(
                 return Result.failure(IllegalStateException("Voice file not found: ${voice.name}"))
             }
 
+            val espeakDataDir = File(context.filesDir, "espeak-ng-data")
+            if (!espeakDataDir.exists() || espeakDataDir.list().isNullOrEmpty()) {
+                return Result.failure(IllegalStateException(
+                    "espeak-ng-data not ready yet — download still in progress"
+                ))
+            }
+
             tts?.release()
 
             val config = OfflineTtsConfig(
@@ -51,7 +58,7 @@ class PiperTtsEngine(
                         model = voiceFile.absolutePath,
                         lexicon = "",
                         tokens = "",
-                        dataDir = ""
+                        dataDir = espeakDataDir.absolutePath
                     ),
                     numThreads = 2,
                     debug = false,
