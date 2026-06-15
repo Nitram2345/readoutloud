@@ -50,6 +50,7 @@ class MainActivity : ComponentActivity() {
     private var ttsController: TtsController? = null
     private val isPlayingState = mutableStateOf(false)
     private val currentLinesState = mutableStateOf<List<TextLine>>(emptyList())
+    private val voiceManagerState = mutableStateOf<VoiceManager?>(null)
     private var savedSpeechRate = 1.0f
     private var savedIsSpeaker = true
     private var savedLanguage = "de"
@@ -79,6 +80,7 @@ class MainActivity : ComponentActivity() {
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName, binder: IBinder) {
             val svc = binder as TtsService.TtsBinder
+            voiceManagerState.value = svc.getVoiceManager()
             val ctrl = svc.getController()
             if (ctrl != null) {
                 setupController(ctrl)
@@ -123,6 +125,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     PdfViewerScreen(
                         modifier = Modifier.padding(innerPadding),
+                        voiceManager = voiceManagerState.value,
                         isPlaying = isPlayingState.value,
                         currentHighlightLines = currentLinesState.value,
                         onStartFrom = { lines -> ttsController?.startFrom(lines) },
@@ -157,6 +160,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun PdfViewerScreen(
     modifier: Modifier = Modifier,
+    voiceManager: VoiceManager?,
     isPlaying: Boolean,
     currentHighlightLines: List<TextLine>,
     onStartFrom: (List<TextLine>) -> Unit,
@@ -177,7 +181,6 @@ fun PdfViewerScreen(
     val resources = context.resources
     val scope = rememberCoroutineScope()
     val settings = remember { AppSettings(context) }
-    val voiceManager = remember { VoiceManager(context, VoiceRepositoryImpl(), settings) }
     var documentData by remember { mutableStateOf<DocumentData?>(null) }
     var isLoading by remember { mutableStateOf(false) }
     var loadJob by remember { mutableStateOf<Job?>(null) }
@@ -596,23 +599,24 @@ fun PdfViewerScreen(
 
         var availableVoices by remember { mutableStateOf(emptyList<Voice>()) }
 
-        if (showVoiceDialog) {
+        val vm = voiceManager
+        if (showVoiceDialog && vm != null) {
             LaunchedEffect(language) {
-                availableVoices = voiceManager.fetchAvailableVoices(language)
+                availableVoices = vm.fetchAvailableVoices(language)
             }
             VoiceDialog(
                 currentLanguage = language,
                 allVoices = availableVoices,
-                downloadedVoices = voiceManager.downloadedVoices.value,
-                selectedVoice = voiceManager.selectedVoice.value,
-                activeDownloads = voiceManager.downloads.value,
+                downloadedVoices = vm.downloadedVoices.value,
+                selectedVoice = vm.selectedVoice.value,
+                activeDownloads = vm.downloads.value,
                 onVoiceSelected = { voice ->
-                    voiceManager.selectVoice(voice)
+                    vm.selectVoice(voice)
                     showVoiceDialog = false
                 },
-                onVoiceDownloaded = { voice -> voiceManager.downloadVoice(voice) },
-                onVoiceDeleted = { voice -> voiceManager.deleteVoice(voice) },
-                onCancelDownload = { voiceName -> voiceManager.cancelDownload(voiceName) },
+                onVoiceDownloaded = { voice -> vm.downloadVoice(voice) },
+                onVoiceDeleted = { voice -> vm.deleteVoice(voice) },
+                onCancelDownload = { voiceName -> vm.cancelDownload(voiceName) },
                 onDismiss = { showVoiceDialog = false }
             )
         }

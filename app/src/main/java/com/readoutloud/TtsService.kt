@@ -32,6 +32,7 @@ class TtsService : Service() {
 
     inner class TtsBinder : Binder() {
         fun getController(): TtsController? = ttsController
+        fun getVoiceManager(): VoiceManager = voiceManager
         var onControllerReady: ((TtsController) -> Unit)? = null
     }
 
@@ -39,6 +40,8 @@ class TtsService : Service() {
     private var tts: TextToSpeech? = null
     var ttsController: TtsController? = null
         private set
+    private lateinit var voiceManager: VoiceManager
+    private lateinit var piperEngine: PiperTtsEngine
     private lateinit var mediaSession: MediaSession
     private val serviceJob = Job()
     private val serviceScope = CoroutineScope(Dispatchers.IO + serviceJob)
@@ -62,13 +65,17 @@ class TtsService : Service() {
         setupMediaSession()
         registerReceiver(screenOnReceiver, IntentFilter(Intent.ACTION_SCREEN_ON))
 
+        val settings = AppSettings(this)
+        voiceManager = VoiceManager(this, VoiceRepositoryImpl(), settings)
+        piperEngine = PiperTtsEngine(this, voiceManager)
+
         serviceScope.launch {
             val am = getSystemService(AudioManager::class.java)
             val sessionId = am.generateAudioSessionId()
             tts = TextToSpeech(this@TtsService) { status ->
                 if (status == TextToSpeech.SUCCESS) {
                     tts?.language = Locale.GERMAN
-                    ttsController = TtsController(tts!!, sessionId, am).also { ctrl ->
+                    ttsController = TtsController(tts!!, sessionId, am, voiceManager, piperEngine).also { ctrl ->
                         ctrl.onPlayStateChanged = { playing ->
                             updatePlaybackState(playing)
                             if (!playing) {
