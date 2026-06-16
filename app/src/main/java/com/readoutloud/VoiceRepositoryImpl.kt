@@ -230,9 +230,7 @@ class VoiceRepositoryImpl(
                     out.write(encodeOnnxMetadataProp(key, value))
                 }
             }
-            Log.d("GREPPBAR", "injectOnnxMetadata: sample_rate=$sampleRate n_speakers=$numSpeakers language=$espeakVoice")
         } catch (e: Exception) {
-            Log.e("GREPPBAR", "injectOnnxMetadata FAILED: ${e.message}")
         }
     }
 
@@ -289,9 +287,7 @@ class VoiceRepositoryImpl(
                 }
             }
             outputFile.writeText(sb.toString())
-            Log.d("GREPPBAR", "generateTokensTxt wrote ${phonemeIdMap.length()} entries to ${outputFile.absolutePath}")
         } catch (e: Exception) {
-            Log.e("GREPPBAR", "generateTokensTxt FAILED: ${e.message}")
         }
     }
 
@@ -343,13 +339,25 @@ class VoiceRepositoryImpl(
         } ?: return emptyList()
 
         return onnxFiles.map { file ->
+            val jsonFile = File(file.parent, file.name + ".json")
+            val quality = if (jsonFile.exists()) {
+                try {
+                    JSONObject(jsonFile.readText()).optJSONObject("audio")?.optString("quality", "") ?: ""
+                } catch (_: Exception) { "" }
+            } else ""
+            val sampleRate = if (jsonFile.exists()) {
+                try {
+                    JSONObject(jsonFile.readText()).optJSONObject("audio")?.optInt("sample_rate", 22050) ?: 22050
+                } catch (_: Exception) { 22050 }
+            } else 22050
+
             Voice(
                 name = formatVoiceName(file.name.removeSuffix(ONNX_EXTENSION)),
-                language = "", // Language would need to be stored separately or parsed from filename
-                quality = "downloaded",
+                language = "",
+                quality = quality.ifEmpty { "unknown" },
                 sizeMb = file.length() / (1024.0 * 1024.0),
                 onnxUrl = "",
-                sampleRate = 22050,
+                sampleRate = sampleRate,
                 isDownloaded = true,
                 isSelected = false
             )
