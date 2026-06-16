@@ -99,7 +99,7 @@ fun VoiceDialog(
                 items(sortedVoices, key = { it.name }) { voice ->
                     VoiceRow(
                         voice = voice,
-                        isDownloading = activeDownloads.containsKey(voice.name),
+                        isDownloading = activeDownloads[voice.name]?.status == DownloadStatus.Downloading,
                         downloadProgress = activeDownloads[voice.name]?.progress ?: 0f,
                         isSelected = voice.name == selectedVoice?.name,
                         onSelect = { onVoiceSelected(voice) },
@@ -155,7 +155,7 @@ fun VoiceRow(
                         fontWeight = FontWeight.Medium
                     )
                     Text(
-                        text = "${voice.sizeMb} MB",
+                        text = "${"%.1f".format(voice.sizeMb)} MB",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -166,7 +166,7 @@ fun VoiceRow(
                     )
                 }
                 TextButton(onClick = onCancel) {
-                    Text("❌", fontSize = MaterialTheme.typography.bodyLarge.fontSize)
+                    Text("❌", fontSize = MaterialTheme.typography.bodySmall.fontSize)
                 }
             }
         } else if (voice.isDownloaded || voice.name == "android TTS default") {
@@ -192,7 +192,7 @@ fun VoiceRow(
                         fontWeight = if (voice.name == "android TTS default") FontWeight.Normal else FontWeight.Medium
                     )
                     Text(
-                        text = "${voice.sizeMb} MB • Quality: ${voice.quality}",
+                        text = "${"%.1f".format(voice.sizeMb)} MB • Quality: ${voice.quality}",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -234,7 +234,7 @@ fun VoiceRow(
                         fontWeight = FontWeight.Medium
                     )
                     Text(
-                        text = "${voice.sizeMb} MB • Quality: ${voice.quality}",
+                        text = "${"%.1f".format(voice.sizeMb)} MB • Quality: ${voice.quality}",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -242,7 +242,7 @@ fun VoiceRow(
 
                 // Download button
                 TextButton(onClick = onDownload) {
-                    Text("⬇️", fontSize = MaterialTheme.typography.bodyLarge.fontSize)
+                    Text("⬇️", fontSize = MaterialTheme.typography.titleLarge.fontSize)
                 }
             }
         }
