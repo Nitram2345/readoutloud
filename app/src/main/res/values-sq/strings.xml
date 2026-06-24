@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Hap</string>
+    <string name="listen">Lexo me zë të lartë</string>
+    <string name="pause">Pauzë</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">Hap PDF, DOCX ose EPUB</string>
+    <string name="status_loading">Duke ngarkuar…</string>
+    <string name="status_cancelled">Anuluar</string>
+    <string name="status_error">Gabim: %s</string>
+    <string name="status_file_not_found">Skafili nuk është më i disponueshëm</string>
+    <string name="status_pages" formatted="false">%d faqe, %d rreshta teksti</string>
+    <string name="status_paragraphs">%d paragrafë</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">Faqja %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">Udhëzuesi i përdoruesit</string>
+    <string name="help_close">Mbyll</string>
+    <string name="help_back">Mbyll dokumentin dhe del nga aplikacioni</string>
+    <string name="help_open">Zgjidh një dokument të ri (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Shfaq përmbajtjen me tituj</string>
+    <string name="help_help">Shfaq këtë udhëzues</string>
+    <string name="help_audio">Kaloni midis altoparlantit dhe dëgjuesit</string>
+    <string name="help_speed">Ngadalëso ose përshpejto shpejtësinë e leximit</string>
+    <string name="help_speed_display">Shfaq shpejtësinë aktuale</string>
+    <string name="help_skip_back">Kthehu 30 sekonda prapa</string>
+    <string name="help_listen">Fillo ose ndal leximin me zë të lartë</string>
+    <string name="help_timer">Koha e gjumit: Ndalon automatikisht pas 30 min</string>
+    <string name="help_skip_forward">Përparo 30 sekonda</string>
+    <string name="help_volume">Rregullo volumin (deri në 150%%)</string>
+    <string name="help_volume_display">Shfaq volumin aktual</string>
+    <string name="help_tap">Prek një vend në dokument për të vazhduar leximin aty</string>
+    <string name="help_tap_title">Prek PDF</string>
+    <string name="help_controls_top">Kontrollat e sipërme:</string>
+    <string name="help_controls_bottom">Kontrollat e poshtme:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Ligjor</string>
+    <string name="privacy_policy">Politika e privatësisë</string>
+    <string name="privacy_description">Asnjë mbledhje të dhënash. Të gjitha të dhënat mbeten lokalë në pajisjen tuaj.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 Gjermanisht</string>
+    <string name="lang_en">🇬🇧 Anglisht</string>
+    <string name="lang_en_US">🇺🇸 Anglisht amerikane</string>
+    <string name="lang_nl">🇳🇱 Holandezisht</string>
+    <string name="lang_it">🇮🇹 Italisht</string>
+    <string name="lang_fr">🇫🇷 Frëngjisht</string>
+    <string name="lang_pt">🇵🇹 Portugalisht</string>
+    <string name="lang_sv">🇸🇪 Suedisht</string>
+    <string name="lang_es">🇪🇸 Spanjisht</string>
+    <string name="lang_ja">🇯🇵 Japonisht</string>
+    <string name="lang_sq">🇦🇱 Shqip</string>
+    <string name="lang_ar">🇸🇦 Arabisht</string>
+    <string name="lang_bg">🇧🇬 Bullgarisht</string>
+    <string name="lang_ca">🏴 Katalonisht</string>
+    <string name="lang_cs">🇨🇿 Çekisht</string>
+    <string name="lang_cy">🏴 Uellsisht</string>
+    <string name="lang_da">🇩🇰 Danisht</string>
+    <string name="lang_el">🇬🇷 Greqisht</string>
+    <string name="lang_fa">🇮🇷 Persisht</string>
+    <string name="lang_fi">🇫🇮 Finlandisht</string>
+    <string name="lang_hi">🇮🇳 Hindi</string>
+    <string name="lang_hu">🇭🇺 Hungarisht</string>
+    <string name="lang_id">🇮🇩 Indonezisht</string>
+    <string name="lang_is">🇮🇸 Islandisht</string>
+    <string name="lang_ka">🇬🇪 Gjeorgjisht</string>
+    <string name="lang_kk">🇰🇿 Kazakisht</string>
+    <string name="lang_ku">☀️ Kurdisht</string>
+    <string name="lang_lb">🇱🇺 Luksemburgisht</string>
+    <string name="lang_lv">🇱🇻 Letonisht</string>
+    <string name="lang_ml">🇮🇳 Malayalam</string>
+    <string name="lang_ne">🇳🇵 Nepalisht</string>
+    <string name="lang_no">🇳🇴 Norvegjisht</string>
+    <string name="lang_pl">🇵🇱 Polonisht</string>
+    <string name="lang_pt_BR">🇧🇷 Portugalisht Brazili</string>
+    <string name="lang_pt_PT">🇵🇹 Portugalisht Evropiane</string>
+    <string name="lang_ro">🇷🇴 Rumanisht</string>
+    <string name="lang_ru">🇷🇺 Rusisht</string>
+    <string name="lang_sk">🇸🇰 Sllovakisht</string>
+    <string name="lang_sl">🇸🇮 Sllovenisht</string>
+    <string name="lang_sr">🇷🇸 Serbisht</string>
+    <string name="lang_sw">🇹🇰 Swahili</string>
+    <string name="lang_te">🇮🇳 Telugu</string>
+    <string name="lang_tr">🇹🇷 Turqisht</string>
+    <string name="lang_uk">🇺🇦 Ukrainisht</string>
+    <string name="lang_ur">🇵🇰 Urdu</string>
+    <string name="lang_vi">🇻🇳 Vietnamisht</string>
+    <string name="lang_zh">🇨🇳 Kinezisht</string>
+    <string name="lang_es_MX">🇲🇽 Spanjisht Meksikane</string>
+    <string name="lang_es_AR">🇦🇷 Spanjisht Argjentinase</string>
+    <string name="lang_nl_BE">🇧🇪 Flanisht</string>
+    <string name="lang_en_GB">🇬🇧 Anglisht Britanike</string>
+    <string name="select_language">Zgjidh gjuhën</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Gjuha ndryshuar në %s</string>
+</resources>

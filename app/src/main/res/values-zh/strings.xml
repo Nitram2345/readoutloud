@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">打开</string>
+    <string name="listen">朗读</string>
+    <string name="pause">暂停</string>
+    <string name="skip_back">«30 秒</string>
+    <string name="skip_forward">30 秒»</string>
+    <string name="sleep_timer">30 分钟</string>
+    <string name="sleep_timer_active">%d分钟✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">打开 PDF、DOCX 或 EPUB</string>
+    <string name="status_loading">正在加载…</string>
+    <string name="status_cancelled">已取消</string>
+    <string name="status_error">错误：%s</string>
+    <string name="status_file_not_found">文件不再可用</string>
+    <string name="status_pages" formatted="false">%d 页，%d 行文本</string>
+    <string name="status_paragraphs">%d 个段落</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">第 %d/%d 页</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">用户指南</string>
+    <string name="help_close">关闭</string>
+    <string name="help_back">关闭文档并退出应用</string>
+    <string name="help_open">选择新文档（PDF、DOCX、EPUB、ODT）</string>
+    <string name="help_toc">显示带标题的目录</string>
+    <string name="help_help">显示此指南</string>
+    <string name="help_audio">在扬声器和耳机之间切换</string>
+    <string name="help_speed">减慢或加快阅读速度</string>
+    <string name="help_speed_display">显示当前速度</string>
+    <string name="help_skip_back">回退 30 秒</string>
+    <string name="help_listen">开始或暂停朗读</string>
+    <string name="help_timer">睡眠定时器：30 分钟后自动停止</string>
+    <string name="help_skip_forward">前进 30 秒</string>
+    <string name="help_volume">调整音量（高达 150%%）</string>
+    <string name="help_volume_display">显示当前音量</string>
+    <string name="help_tap">点击文档中的位置以从此处继续阅读</string>
+    <string name="help_tap_title">点击 PDF</string>
+    <string name="help_controls_top">顶部控件：</string>
+    <string name="help_controls_bottom">底部控件：</string>
+
+    <!-- Legal -->
+    <string name="legal_title">法律信息</string>
+    <string name="privacy_policy">隐私政策</string>
+    <string name="privacy_description">不收集数据。所有数据都保留在您的设备上。</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 德语</string>
+    <string name="lang_en">🇬🇧 英语</string>
+    <string name="lang_en_US">🇺🇸 美式英语</string>
+    <string name="lang_nl">🇳🇱 荷兰语</string>
+    <string name="lang_it">🇮🇹 意大利语</string>
+    <string name="lang_fr">🇫🇷 法语</string>
+    <string name="lang_pt">🇵🇹 葡萄牙语</string>
+    <string name="lang_sv">🇸🇪 瑞典语</string>
+    <string name="lang_es">🇪🇸 西班牙语</string>
+    <string name="lang_ja">🇯🇵 日语</string>
+    <string name="lang_zh">🇨🇳 中文</string>
+    <string name="lang_ar">🇸🇦 阿拉伯语</string>
+    <string name="lang_bg">🇧🇬 保加利亚语</string>
+    <string name="lang_ca">🏴 加泰罗尼亚语</string>
+    <string name="lang_cs">🇨🇿 捷克语</string>
+    <string name="lang_cy">🏴 威尔士语</string>
+    <string name="lang_da">🇩🇰 丹麦语</string>
+    <string name="lang_el">🇬🇷 希腊语</string>
+    <string name="lang_fa">🇮🇷 波斯语</string>
+    <string name="lang_fi">🇫🇮 芬兰语</string>
+    <string name="lang_hi">🇮🇳 印地语</string>
+    <string name="lang_hu">🇭🇺 匈牙利语</string>
+    <string name="lang_id">🇮🇩 印度尼西亚语</string>
+    <string name="lang_is">🇮🇸 冰岛语</string>
+    <string name="lang_ka">🇬🇪 格鲁吉亚语</string>
+    <string name="lang_kk">🇰🇿 哈萨克语</string>
+    <string name="lang_ku">☀️ 库尔德语</string>
+    <string name="lang_lb">🇱🇺 卢森堡语</string>
+    <string name="lang_lv">🇱🇻 拉脱维亚语</string>
+    <string name="lang_ml">🇮🇳 马拉雅拉姆语</string>
+    <string name="lang_ne">🇳🇵 尼泊尔语</string>
+    <string name="lang_no">🇳🇴 挪威语</string>
+    <string name="lang_pl">🇵🇱 波兰语</string>
+    <string name="lang_pt_BR">🇧🇷 巴西葡萄牙语</string>
+    <string name="lang_pt_PT">🇵🇹 欧洲葡萄牙语</string>
+    <string name="lang_ro">🇷🇴 罗马尼亚语</string>
+    <string name="lang_ru">🇷🇺 俄语</string>
+    <string name="lang_sk">🇸🇰 斯洛伐克语</string>
+    <string name="lang_sl">🇸🇮 斯洛文尼亚语</string>
+    <string name="lang_sq">🇦🇱 阿尔巴尼亚语</string>
+    <string name="lang_sr">🇷🇸 塞尔维亚语</string>
+    <string name="lang_sw">🇹🇰 斯瓦希里语</string>
+    <string name="lang_te">🇮🇳 泰卢固语</string>
+    <string name="lang_tr">🇹🇷 土耳其语</string>
+    <string name="lang_uk">🇺🇦 乌克兰语</string>
+    <string name="lang_ur">🇵🇰 乌尔都语</string>
+    <string name="lang_vi">🇻🇳 越南语</string>
+    <string name="lang_es_MX">🇲🇽 墨西哥西班牙语</string>
+    <string name="lang_es_AR">🇦🇷 阿根廷西班牙语</string>
+    <string name="lang_nl_BE">🇧🇪 佛兰芒语</string>
+    <string name="lang_en_GB">🇬🇧 英国英语</string>
+    <string name="select_language">选择语言</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">语言已更改为 %s</string>
+</resources>

@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.AlertDialog as MaterialAlertDialog
+import com.readoutloud.CountryUtils.getFlagForLanguage
 
 /**
  * VoiceDialog: AlertDialog for selecting and managing TTS voices.
@@ -82,11 +83,15 @@ fun VoiceDialog(
         )
     }
 
+    val flagForLanguage = remember(currentLanguage) {
+        getFlagForLanguage(currentLanguage)
+    }
+
     MaterialAlertDialog(
         onDismissRequest = onDismiss,
         title = {
             Text(
-                text = "Voices for $currentLanguage",
+                text = "$flagForLanguage Voices for $currentLanguage",
                 fontWeight = FontWeight.Bold
             )
         },
@@ -187,8 +192,9 @@ fun VoiceRow(
 
                 // Voice info
                 Column(modifier = Modifier.weight(1f)) {
+                    val voiceFlag = remember(voice.language) { getFlagForLanguage(voice.language) }
                     Text(
-                        text = voice.name,
+                        text = "$voiceFlag ${voice.name}",
                         fontWeight = if (voice.name == "android TTS default") FontWeight.Normal else FontWeight.Medium
                     )
                     Text(
@@ -229,8 +235,9 @@ fun VoiceRow(
 
                 // Voice info
                 Column(modifier = Modifier.weight(1f)) {
+                    val voiceFlag = remember(voice.language) { getFlagForLanguage(voice.language) }
                     Text(
-                        text = voice.name,
+                        text = "$voiceFlag ${voice.name}",
                         fontWeight = FontWeight.Medium
                     )
                     Text(

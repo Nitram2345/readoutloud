@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Agor</string>
+    <string name="listen">Gwrando</string>
+    <string name="pause">Seibiant</string>
+    <string name="skip_back">«30e</string>
+    <string name="skip_forward">30e»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">Agor PDF, DOCX neu EPUB</string>
+    <string name="status_loading">Yn llwytho…</string>
+    <string name="status_cancelled">Diddymwyd</string>
+    <string name="status_error">GWALL: %s</string>
+    <string name="status_file_not_found">Nid yw\'r ffeil ar gael mwyach</string>
+    <string name="status_pages" formatted="false">%d tudalen, %d llinell testun</string>
+    <string name="status_paragraphs">%d paragraff</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">Tudalen %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">Canllaw defnyddiwr</string>
+    <string name="help_close">Cau</string>
+    <string name="help_back">Cau\'r dogfen ac allan o\'r ap</string>
+    <string name="help_open">Dewis dogfen newydd (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Dangos cynnwys gyda phennawdau</string>
+    <string name="help_help">Dangos y canllaw hwn</string>
+    <string name="help_audio">Newid rhwng siaradwr a chlustffonau</string>
+    <string name="help_speed">Aralu neu gyflymu cyflyrdd darllen</string>
+    <string name="help_speed_display">Dangos cyflyrdd cyfredol</string>
+    <string name="help_skip_back">Dychwelyd 30 eiliad</string>
+    <string name="help_listen">Dechrau neu seibio darllen yn uchel</string>
+    <string name="help_timer">Amserwrth cysgu: stopio yn awtomatig ar ôl 30 munud</string>
+    <string name="help_skip_forward">Ymlaen 30 eiliad</string>
+    <string name="help_volume">Addasu cyfaint (hyd at 150%%)</string>
+    <string name="help_volume_display">Dangos cyfaint cyfredol</string>
+    <string name="help_tap">Taro lle yn y dogfen i barhau o\'r fan honno</string>
+    <string name="help_tap_title">Taro PDF</string>
+    <string name="help_controls_top">Rheolyddion uchaf:</string>
+    <string name="help_controls_bottom">Rheolyddion isaf:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Cyfreithiol</string>
+    <string name="privacy_policy">Polisi Preifatrwydd</string>
+    <string name="privacy_description">Dim casglu data. Mae pob data yn aros yn lleol ar eich dyfais.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 Almaeneg</string>
+    <string name="lang_en">🇬🇧 Saesneg</string>
+    <string name="lang_en_US">🇺🇸 Saesneg Americanaidd</string>
+    <string name="lang_nl">🇳🇱 Iseldireg</string>
+    <string name="lang_fr">🇫🇷 Ffrangeg</string>
+    <string name="lang_pt">🇵🇹 Portiwgaleg</string>
+    <string name="lang_sv">🇸🇪 Swedeg</string>
+    <string name="lang_es">🇪🇸 Sbaeneg</string>
+    <string name="lang_ja">🇯🇵 Japaneg</string>
+    <string name="lang_cy">🏴 Cymraeg</string>
+    <string name="lang_ar">🇸🇦 Arabeg</string>
+    <string name="lang_bg">🇧🇬 Bwlgareg</string>
+    <string name="lang_ca">🏴 Catalaneg</string>
+    <string name="lang_cs">🇨🇿 Tsieceg</string>
+    <string name="lang_da">🇩🇰 Daneg</string>
+    <string name="lang_el">🇬🇷 Groeg</string>
+    <string name="lang_fa">🇮🇷 Perseg</string>
+    <string name="lang_fi">🇫🇮 Ffinneg</string>
+    <string name="lang_hi">🇮🇳 Hindi</string>
+    <string name="lang_hu">🇭🇺 Hwngareg</string>
+    <string name="lang_id">🇮🇩 Indonezieg</string>
+    <string name="lang_is">🇮🇸 Gwlad yr Iâ</string>
+    <string name="lang_it">🇮🇹 Eidaleg</string>
+    <string name="lang_ka">🇬🇪 Georgeg</string>
+    <string name="lang_kk">🇰🇿 Casacheg</string>
+    <string name="lang_ku">☀️ Cwrdieg</string>
+    <string name="lang_lb">🇱🇺 Lwcsembwrgieg</string>
+    <string name="lang_lv">🇱🇻 Latfieg</string>
+    <string name="lang_ml">🇮🇳 Malayalam</string>
+    <string name="lang_ne">🇳🇵 Nepaleg</string>
+    <string name="lang_no">🇳🇴 Norwyeg</string>
+    <string name="lang_pl">🇵🇱 Pwyleg</string>
+    <string name="lang_pt_BR">🇧🇷 Portiwgaleg Brasil</string>
+    <string name="lang_pt_PT">🇵🇹 Portiwgaleg Ewropeaidd</string>
+    <string name="lang_ro">🇷🇴 Rwmanieg</string>
+    <string name="lang_ru">🇷🇺 Rwseg</string>
+    <string name="lang_sk">🇸🇰 Slofaceg</string>
+    <string name="lang_sl">🇸🇮 Slofenieg</string>
+    <string name="lang_sq">🇦🇱 Albaneg</string>
+    <string name="lang_sr">🇷🇸 Serbeg</string>
+    <string name="lang_sw">🇹🇿 Swahili</string>
+    <string name="lang_te">🇮🇾 Telugu</string>
+    <string name="lang_tr">🇹🇷 Twrcieg</string>
+    <string name="lang_uk">🇺🇦 Wcreineg</string>
+    <string name="lang_ur">🇵🇰 Wrdw</string>
+    <string name="lang_vi">🇻🇳 Fietnameg</string>
+    <string name="lang_zh">🇨🇳 Tsieinëeg</string>
+    <string name="lang_es_MX">🇲🇽 Sbaeneg Mecsico</string>
+    <string name="lang_es_AR">🇦🇷 Sbaeneg yr Ariannin</string>
+    <string name="lang_nl_BE">🇧🇪 Fflandrys</string>
+    <string name="lang_en_GB">🇬🇧 Saesneg Prydeinig</string>
+    <string name="select_language">Dewis iaith</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Newidiwyd iaith i %s</string>
+</resources>

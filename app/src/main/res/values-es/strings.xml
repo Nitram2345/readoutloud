@@ -51,6 +51,22 @@
     <string name="privacy_policy">Política de Privacidad</string>
     <string name="privacy_description">Sin recopilación de datos. Todos los datos permanecen locales en su dispositivo.</string>
     <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+    <string name="open_source_licenses">Licencias de código abierto</string>
+    <string name="oss_description">Esta aplicación utiliza las siguientes bibliotecas de código abierto:</string>
+    <string name="oss_sherpa_onnx">sherpa-onnx - Apache 2.0</string>
+    <string name="oss_sherpa_url">https://github.com/k2-fsa/sherpa-onnx</string>
+    <string name="oss_piper">Piper TTS - MIT</string>
+    <string name="oss_piper_url">https://github.com/rhasspy/piper</string>
+    <string name="oss_espeak">espeak-ng - GPL v3</string>
+    <string name="oss_espeak_url">https://github.com/espeak-ng/espeak-ng</string>
+    <string name="oss_pdfbox">PDFBox Android - Apache 2.0</string>
+    <string name="oss_pdfbox_url">https://github.com/TomRoush/PdfBox-Android</string>
+    <string name="oss_jsoup">jsoup - MIT</string>
+    <string name="oss_jsoup_url">https://github.com/jhy/jsoup</string>
+    <string name="oss_okhttp">OkHttp - Apache 2.0</string>
+    <string name="oss_okhttp_url">https://github.com/square/okhttp</string>
+    <string name="oss_commons">Apache Commons Compress - Apache 2.0</string>
+    <string name="oss_commons_url">https://github.com/apache/commons-compress</string>
 
     <!-- Language -->
     <string name="lang_de">🇩🇪 Alemán</string>
@@ -62,6 +78,11 @@
     <string name="lang_pt">🇵🇹 Portugués</string>
     <string name="lang_sv">🇸🇪 Sueco</string>
     <string name="lang_es">🇪🇸 Español</string>
+    <string name="lang_es_ES">🇪🇸 Español (España)</string>
+    <string name="lang_es_MX">🇲🇽 Español (México)</string>
+    <string name="lang_es_AR">🇦🇷 Español (Argentina)</string>
+    <string name="lang_nl_BE">🇧🇪 Holandés (Bélgica)</string>
+    <string name="lang_en_GB">🇬🇧 Inglés (Reino Unido)</string>
     <string name="lang_ja">🇯🇵 Japonés</string>
     <string name="select_language">Elegir idioma</string>
 

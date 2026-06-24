@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Άνοιγμα</string>
+    <string name="listen">Ανάγνωση</string>
+    <string name="pause">Παύση</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">Άνοιγμα PDF, DOCX ή EPUB</string>
+    <string name="status_loading">Φόρτωση…</string>
+    <string name="status_cancelled">Ακύρωση</string>
+    <string name="status_error">ΣΦΑΛΜΑ: %s</string>
+    <string name="status_file_not_found">Το αρχείο δεν είναι πλέον διαθέσιμο</string>
+    <string name="status_pages" formatted="false">%d σελίδες, %d γραμμές κειμένου</string>
+    <string name="status_paragraphs">%d παράγραφοι</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">Σελίδα %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">Οδηγός χρήσης</string>
+    <string name="help_close">Κλείσιμο</string>
+    <string name="help_back">Κλείνει το έγγραφο και εξέρχεται από την εφαρμογή</string>
+    <string name="help_open">Επιλέξτε νέο έγγραφο (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Εμφάνιση περιεχομένων με επικεφαλίδες</string>
+    <string name="help_help">Εμφάνιση αυτού του οδηγού</string>
+    <string name="help_audio">Εναλλαγή μεταξύ ηχείου και ακουστικού</string>
+    <string name="help_speed">Παρα slowing ή επιτάχυνση ταχύτητας ανάγνωσης</string>
+    <string name="help_speed_display">Εμφανίζει την τρέχουσα ταχύτητα</string>
+    <string name="help_skip_back">Προεπισκόπηση 30 δευτερολέπτων</string>
+    <string name="help_listen">Εκκίνηση ή παύση ανάγνωσης</string>
+    <string name="help_timer">Χρονιστής ύπνου: Αυτόματη διακοπή μετά από 30 λεπτά</string>
+    <string name="help_skip_forward">Μετάβαση 30 δευτερολέπτων μπροστά</string>
+    <string name="help_volume">Ρύθμιση έντασης (έως 150%%)</string>
+    <string name="help_volume_display">Εμφανίζει την τρέχουσα ένταση</string>
+    <string name="help_tap">Πατήστε σε μια θέση στο έγγραφο για να συνεχίσετε την ανάγνωση από εκεί</string>
+    <string name="help_tap_title">Πατήστε στο PDF</string>
+    <string name="help_controls_top">Πάνω στοιχεία ελέγχου:</string>
+    <string name="help_controls_bottom">Κάτω στοιχεία ελέγχου:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Νομικά</string>
+    <string name="privacy_policy">Πολιτική απορρήτου</string>
+    <string name="privacy_description">Καμία συλλογή δεδομένων. Όλα τα δεδομένα παραμένουν τοπικά στη συσκευή σας.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 Γερμανικά</string>
+    <string name="lang_en">🇬🇧 Αγγλικά</string>
+    <string name="lang_en_US">🇺🇸 Αμερικανικά αγγλικά</string>
+    <string name="lang_nl">🇳🇱 Ολλανδικά</string>
+    <string name="lang_it">🇮🇹 Ιταλικά</string>
+    <string name="lang_fr">🇫🇷 Γαλλικά</string>
+    <string name="lang_pt">🇵🇹 Πορτογαλικά</string>
+    <string name="lang_sv">🇸🇪 Σουηδικά</string>
+    <string name="lang_es">🇪🇸 Ισπανικά</string>
+    <string name="lang_ja">🇯🇵 Ιαπωνικά</string>
+    <string name="lang_el">🇬🇷 Ελληνικά</string>
+    <string name="lang_ar">🇸🇦 Αραβικά</string>
+    <string name="lang_bg">🇧🇬 Βουλγαρικά</string>
+    <string name="lang_ca">🏴 Καταλανικά</string>
+    <string name="lang_cs">🇨🇿 Τσεχικά</string>
+    <string name="lang_cy">🏴 Ουαλικά</string>
+    <string name="lang_da">🇩🇰 Δανικά</string>
+    <string name="lang_fa">🇮🇷 Περσικά</string>
+    <string name="lang_fi">🇫🇮 Φινλανδικά</string>
+    <string name="lang_hi">🇮🇳 Χίντι</string>
+    <string name="lang_hu">🇭🇺 Ουγγρικά</string>
+    <string name="lang_id">🇮🇩 Ινδονησιακά</string>
+    <string name="lang_is">🇮🇸 Ισλανδικά</string>
+    <string name="lang_ka">🇬🇪 Γεωργιανά</string>
+    <string name="lang_kk">🇰🇿 Καζακικά</string>
+    <string name="lang_ku">☀️ Κουρδικά</string>
+    <string name="lang_lb">🇱🇺 Λουξεμβουργιανά</string>
+    <string name="lang_lv">🇱🇻 Λεττονικά</string>
+    <string name="lang_ml">🇮🇳 Μαλαγιαλάμ</string>
+    <string name="lang_ne">🇳🇵 Νεπαλέζικα</string>
+    <string name="lang_no">🇳🇴 Νορβηγικά</string>
+    <string name="lang_pl">🇵🇱 Πολωνικά</string>
+    <string name="lang_pt_BR">🇧🇷 Πορτογαλικά Βραζιλίας</string>
+    <string name="lang_ro">🇷🇴 Ρουμανικά</string>
+    <string name="lang_ru">🇷🇺 Ρωσικά</string>
+    <string name="lang_sk">🇸🇰 Σλοβακικά</string>
+    <string name="lang_sl">🇸🇮 Σλοβενικά</string>
+    <string name="lang_sq">🇦🇱 Αλβανικά</string>
+    <string name="lang_sr">🇷🇸 Σερβικά</string>
+    <string name="lang_sw">🇹🇿 Σουαχίλι</string>
+    <string name="lang_te">🇮🇳 Τελούγκου</string>
+    <string name="lang_tr">🇹🇷 Τουρκικά</string>
+    <string name="lang_uk">🇺🇦 Ουκρανικά</string>
+    <string name="lang_ur">🇵🇰 Ουρντού</string>
+    <string name="lang_vi">🇻🇳 Βιετναμέζικα</string>
+    <string name="lang_zh">🇨🇳 Κινεζικά</string>
+    <string name="lang_es_MX">🇲🇽 Μεξικάνικα Ισπανικά</string>
+    <string name="lang_es_AR">🇦🇷 Αργεντίνικα Ισπανικά</string>
+    <string name="lang_nl_BE">🇧🇪 Φλαμανδικά</string>
+    <string name="lang_pt_PT">🇵🇹 Ευρωπαϊκά Πορτογαλικά</string>
+    <string name="lang_en_GB">🇬🇧 Βρετανικά Αγγλικά</string>
+    <string name="select_language">Επιλογή γλώσσας</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Η γλώσσα άλλαξε σε %s</string>
+</resources>

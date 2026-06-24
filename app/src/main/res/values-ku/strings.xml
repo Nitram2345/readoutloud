@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Veke</string>
+    <string name="listen">Bixwîne</string>
+    <string name="pause">Bûyîn</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">PDF, DOCX an EPUB veke</string>
+    <string name="status_loading">Tê barkirin…</string>
+    <string name="status_cancelled">Betal kir</string>
+    <string name="status_error">ÇIYER: %s</string>
+    <string name="status_file_not_found">Pelê ne berdest e</string>
+    <string name="status_pages" formatted="false">%d rûpel, %x xêzên nivîsê</string>
+    <string name="status_paragraphs">%d paragraf</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">Rûpela %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">Rêbera bikarhêner</string>
+    <string name="help_close">Bigire</string>
+    <string name="help_back">Pelê digire û ji bernameyê derdikeve</string>
+    <string name="help_open">Pelê nû hilbijêre (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Nîşanê nîşanê bi sernavan</string>
+    <string name="help_help">Ev rêber nîşan bide</string>
+    <string name="help_audio">Di navbera bilindker û guh de biguherîne</string>
+    <string name="help_speed">Leza xwendinê hêdî bike an bilezîne</string>
+    <string name="help_speed_display">Leza heyî nîşan dide</string>
+    <string name="help_skip_back">30 çirkeve paşve</string>
+    <string name="help_listen">Dest bi xwendina bi deng bike an rawestîne</string>
+    <string name="help_timer">Dema xewê: Piştî 30 deqeyan xweber disekine</string>
+    <string name="help_skip_forward">30 çirkeve pêşve</string>
+    <string name="help_volume">Dengê dengî rast bike (heta 150%%)</string>
+    <string name="help_volume_display">Dengê heyî nîşan dide</string>
+    <string name="help_tap">Li cîhek di pelê de bitikîne ji bo berdewamiyê</string>
+    <string name="help_tap_title">Li PDFê bitikîne</string>
+    <string name="help_controls_top">Kontrolên jor:</string>
+    <string name="help_controls_bottom">Kontrolên jêr:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Qanûnî</string>
+    <string name="privacy_policy">Siyaseta veşartî</string>
+    <string name="privacy_description">Komek daneyan tune. Hemû daneyan li ser amûra te dimînin.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 Almanî</string>
+    <string name="lang_en">🇬🇧 Îngilîzî</string>
+    <string name="lang_en_US">🇺🇸 Îngilîziya Amerîkayê</string>
+    <string name="lang_nl">🇳🇱 Holendî</string>
+    <string name="lang_it">🇮🇹 Îtalî</string>
+    <string name="lang_fr">🇫🇷 Fransî</string>
+    <string name="lang_pt">🇵🇹 Portûgalî</string>
+    <string name="lang_sv">🇸🇪 Swêdî</string>
+    <string name="lang_es">🇪🇸 Îspanyolî</string>
+    <string name="lang_ja">🇯🇵 Japonî</string>
+    <string name="lang_ku">☀️ Kurdî</string>
+    <string name="lang_ar">🇸🇦 Erebî</string>
+    <string name="lang_bg">🇧🇬 Bulgarî</string>
+    <string name="lang_ca">🏴 Katalanî</string>
+    <string name="lang_cs">🇨🇿 Çekî</string>
+    <string name="lang_cy">🇬🇧 Galîzî</string>
+    <string name="lang_da">🇩🇰 Danîmarkî</string>
+    <string name="lang_el">🇬🇷 Yewnanî</string>
+    <string name="lang_fa">🇮🇷 Farsî</string>
+    <string name="lang_fi">🇫🇮 Fînî</string>
+    <string name="lang_hi">🇮🇳 Hindî</string>
+    <string name="lang_hu">🇭🇺 Macarî</string>
+    <string name="lang_id">🇮🇩 Endonezî</string>
+    <string name="lang_is">🇮🇸 Îslandî</string>
+    <string name="lang_ka">🇬🇪 Gurcî</string>
+    <string name="lang_kk">🇰🇿 Qazaxî</string>
+    <string name="lang_lb">🇱🇺 Lûksembûrgî</string>
+    <string name="lang_lv">🇱🇻 Letonî</string>
+    <string name="lang_ml">🇮🇳 Malayalam</string>
+    <string name="lang_ne">🇳🇵 Nepalî</string>
+    <string name="lang_no">🇳🇴 Norwêcî</string>
+    <string name="lang_pl">🇵🇱 Polonî</string>
+    <string name="lang_pt_BR">🇧🇷 Portûgalîya Brezîlê</string>
+    <string name="lang_pt_PT">🇵🇹 Portûgalîya Ewropayê</string>
+    <string name="lang_ro">🇷🇴 Rûmenî</string>
+    <string name="lang_ru">🇷🇺 Rûsî</string>
+    <string name="lang_sk">🇸🇰 Slovakî</string>
+    <string name="lang_sl">🇸🇮 Slovenî</string>
+    <string name="lang_sq">🇦🇱 Arnavûtî</string>
+    <string name="lang_sr">🇷🇸 Sirbî</string>
+    <string name="lang_sw">🇹🇰 Swahîlî</string>
+    <string name="lang_te">🇮🇳 Telugu</string>
+    <string name="lang_tr">🇹🇷 Tirkî</string>
+    <string name="lang_uk">🇺🇦 Ûkraynî</string>
+    <string name="lang_ur">🇵🇰 Urdu</string>
+    <string name="lang_vi">🇻🇳 Vîetnamî</string>
+    <string name="lang_zh">🇨🇮 Çînî</string>
+    <string name="lang_es_MX">🇲🇽 Îspanyolîya Meksîkayê</string>
+    <string name="lang_es_AR">🇦🇷 Îspanyolîya Arjentînê</string>
+    <string name="lang_nl_BE">🇧🇪 Flandî</string>
+    <string name="lang_en_GB">🇬🇧 Îngilîziya Brîtanyayê</string>
+    <string name="select_language">Hilbijêre zimanek</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Ziman guherî bo %s</string>
+</resources>

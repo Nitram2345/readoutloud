@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Ашу</string>
+    <string name="listen">Оқу</string>
+    <string name="pause">Тұрақтату</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">PDF, DOCX немесе EPUB ашыңыз</string>
+    <string name="status_loading">Жүктелуде…</string>
+    <string name="status_cancelled">Болдырмау</string>
+    <string name="status_error">ҚАТЕ: %s</string>
+    <string name="status_file_not_found">Файл қолжетімсіз</string>
+    <string name="status_pages" formatted="false">%d бет, %d мәтін жолы</string>
+    <string name="status_paragraphs">%d абзац</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">%d/%d бет</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">Пайдаланушы нұсқаулығы</string>
+    <string name="help_close">Жабу</string>
+    <string name="help_back">Құжатты жабады және қолданбаны шығады</string>
+    <string name="help_open">Жаңа құжатты таңдаңыз (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Тақырыптармен мазмұнды көрсету</string>
+    <string name="help_help">Бұл нұсқаулықты көрсету</string>
+    <string name="help_audio">Динамик пен құлақашық арасында ауысу</string>
+    <string name="help_speed">Оқу жылдамдығын баяулату немесе жылдамдату</string>
+    <string name="help_speed_display">Ағымдағы жылдамдықты көрсету</string>
+    <string name="help_skip_back">30 секундқа кері</string>
+    <string name="help_listen">Дауыспен оқуды бастау немесе тоқтату</string>
+    <string name="help_timer">Ұйқы таймері: 30 минуттан кейін автоматты түрде тоқтайды</string>
+    <string name="help_skip_forward">30 секундқа алға</string>
+    <string name="help_volume">Дыбыс деңгейін реттеу (150%%-ке дейін)</string>
+    <string name="help_volume_display">Ағымдағы дыбыс деңгейін көрсету</string>
+    <string name="help_tap">Құжаттағы орынға басып, одан әрі оқуды жалғастырыңыз</string>
+    <string name="help_tap_title">PDF-ке басыңыз</string>
+    <string name="help_controls_top">Жоғарғы басқару:</string>
+    <string name="help_controls_bottom">Төменгі басқару:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Заңды</string>
+    <string name="privacy_policy">Құпиялылық саясаты</string>
+    <string name="privacy_description">Деректер жинау жоқ. Барлық деректер жергілікті түрде құрылғыңызда қалады.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 Неміс</string>
+    <string name="lang_en">🇬🇧 Ағылшын</string>
+    <string name="lang_en_US">🇺🇸 Американдық ағылшын</string>
+    <string name="lang_nl">🇳🇱 Голланд</string>
+    <string name="lang_it">🇮🇹 Итальян</string>
+    <string name="lang_fr">🇫🇷 Француз</string>
+    <string name="lang_pt">🇵🇹 Португал</string>
+    <string name="lang_sv">🇸🇪 Швед</string>
+    <string name="lang_es">🇪🇸 Испан</string>
+    <string name="lang_ja">🇯🇵 Жапон</string>
+    <string name="lang_kk">🇰🇿 Қазақ</string>
+    <string name="lang_ar">🇸🇦 Араб</string>
+    <string name="lang_bg">🇧🇬 Болгар</string>
+    <string name="lang_ca">🏴 Каталон</string>
+    <string name="lang_cs">🇨🇿 Чех</string>
+    <string name="lang_cy">🏴 Уэльс</string>
+    <string name="lang_da">🇩🇰 Дания</string>
+    <string name="lang_el">🇬🇷 Грек</string>
+    <string name="lang_fa">🇮🇷 Парсы</string>
+    <string name="lang_fi">🇫🇮 Финн</string>
+    <string name="lang_hi">🇮🇳 Хинди</string>
+    <string name="lang_hu">🇭🇺 Венгр</string>
+    <string name="lang_id">🇮🇩 Индонезия</string>
+    <string name="lang_is">🇮🇸 Исланд</string>
+    <string name="lang_ka">🇬🇪 Грузин</string>
+    <string name="lang_ku">☀️ Курд</string>
+    <string name="lang_lb">🇱🇺 Люксембург</string>
+    <string name="lang_lv">🇱🇻 Латыш</string>
+    <string name="lang_ml">🇮🇳 Малайалам</string>
+    <string name="lang_ne">🇳🇵 Непал</string>
+    <string name="lang_no">🇳🇴 Норвегия</string>
+    <string name="lang_pl">🇵🇱 Польша</string>
+    <string name="lang_pt_BR">🇧🇷 Бразилиялық португал</string>
+    <string name="lang_pt_PT">🇵🇹 Еуропалық португал</string>
+    <string name="lang_ro">🇷🇴 Румын</string>
+    <string name="lang_ru">🇷🇺 Орыс</string>
+    <string name="lang_sk">🇸🇰 Словак</string>
+    <string name="lang_sl">🇸🇮 Словен</string>
+    <string name="lang_sq">🇦🇱 Албан</string>
+    <string name="lang_sr">🇷🇸 Серб</string>
+    <string name="lang_sw">🇹🇰 Суахили</string>
+    <string name="lang_te">🇮🇳 Телугу</string>
+    <string name="lang_tr">🇹🇷 Түрік</string>
+    <string name="lang_uk">🇺🇦 Украин</string>
+    <string name="lang_ur">🇵🇰 Урду</string>
+    <string name="lang_vi">🇻🇳 Вьетнам</string>
+    <string name="lang_zh">🇨🇳 Қытай</string>
+    <string name="lang_es_MX">🇲🇽 Мексикалық испан</string>
+    <string name="lang_es_AR">🇦🇷 Аргентиналық испан</string>
+    <string name="lang_nl_BE">🇧🇪 Фламанд</string>
+    <string name="lang_en_GB">🇬🇧 Британ ағылшын</string>
+    <string name="select_language">Тіл таңдаңыз</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Тіл өзгертілді: %s</string>
+</resources>

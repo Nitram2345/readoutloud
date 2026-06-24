@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Mở</string>
+    <string name="listen">Nghe</string>
+    <string name="pause">Tạm dừng</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">Mở PDF, DOCX hoặc EPUB</string>
+    <string name="status_loading">Đang tải…</string>
+    <string name="status_cancelled">Đã hủy</string>
+    <string name="status_error">LỖI: %s</string>
+    <string name="status_file_not_found">Tệp không còn khả dụng</string>
+    <string name="status_pages" formatted="false">%d trang, %d dòng văn bản</string>
+    <string name="status_paragraphs">%d đoạn</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">Trang %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">Hướng dẫn người dùng</string>
+    <string name="help_close">Đóng</string>
+    <string name="help_back">Đóng tài liệu và thoát ứng dụng</string>
+    <string name="help_open">Chọn một tài liệu mới (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Hiển thị mục lục với các tiêu đề</string>
+    <string name="help_help">Hiển thị hướng dẫn này</string>
+    <string name="help_audio">Chuyển đổi giữa loa và tai nghe</string>
+    <string name="help_speed">Làm chậm hoặc tăng tốc độ đọc</string>
+    <string name="help_speed_display">Hiển thị tốc độ hiện tại</string>
+    <string name="help_skip_back">Quay lại 30 giây</string>
+    <string name="help_listen">Bắt đầu hoặc tạm dừng đọc to</string>
+    <string name="help_timer">Hẹn giờ ngủ: Tự động dừng sau 30 phút</string>
+    <string name="help_skip_forward">Tiến tới 30 giây</string>
+    <string name="help_volume">Điều chỉnh âm lượng (lên đến 150%%)</string>
+    <string name="help_volume_display">Hiển thị âm lượng hiện tại</string>
+    <string name="help_tap">Chạm vào vị trí trong tài liệu để tiếp tục đọc từ đó</string>
+    <string name="help_tap_title">Chạm vào PDF</string>
+    <string name="help_controls_top">Điều khiển trên:</string>
+    <string name="help_controls_bottom">Điều khiển dưới:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Pháp lý</string>
+    <string name="privacy_policy">Chính sách bảo mật</string>
+    <string name="privacy_description">Không có thu thập dữ liệu. Tất cả dữ liệu vẫn ở cục bộ trên thiết bị của bạn.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 Tiếng Đức</string>
+    <string name="lang_en">🇬🇧 Tiếng Anh</string>
+    <string name="lang_en_US">🇺🇸 Tiếng Anh Mỹ</string>
+    <string name="lang_nl">🇳🇱 Tiếng Hà Lan</string>
+    <string name="lang_it">🇮🇹 Tiếng Ý</string>
+    <string name="lang_fr">🇫🇷 Tiếng Pháp</string>
+    <string name="lang_pt">🇵🇹 Tiếng Bồ Đào Nha</string>
+    <string name="lang_sv">🇸🇪 Tiếng Thụy Điển</string>
+    <string name="lang_es">🇪🇸 Tiếng Tây Ban Nha</string>
+    <string name="lang_ja">🇯🇵 Tiếng Nhật</string>
+    <string name="lang_vi">🇻🇳 Tiếng Việt</string>
+    <string name="lang_ar">🇸🇦 Tiếng Ả Rập</string>
+    <string name="lang_bg">🇧🇬 Tiếng Bulgaria</string>
+    <string name="lang_ca">🏴 Tiếng Catalan</string>
+    <string name="lang_cs">🇨🇿 Tiếng Séc</string>
+    <string name="lang_cy">🏴 Tiếng Wales</string>
+    <string name="lang_da">🇩🇰 Tiếng Đan Mạch</string>
+    <string name="lang_el">🇬🇷 Tiếng Hy Lạp</string>
+    <string name="lang_fa">🇮🇷 Tiếng Ba Tư</string>
+    <string name="lang_fi">🇫🇮 Tiếng Phần Lan</string>
+    <string name="lang_hi">🇮🇳 Tiếng Hindi</string>
+    <string name="lang_hu">🇭🇺 Tiếng Hungary</string>
+    <string name="lang_id">🇮🇩 Tiếng Indonesia</string>
+    <string name="lang_is">🇮🇸 Tiếng Iceland</string>
+    <string name="lang_ka">🇬🇪 Tiếng Gruzia</string>
+    <string name="lang_kk">🇰🇿 Tiếng Kazakhstan</string>
+    <string name="lang_ku">☀️ Tiếng Kurd</string>
+    <string name="lang_lb">🇱🇺 Tiếng Luxembourg</string>
+    <string name="lang_lv">🇱🇻 Tiếng Latvia</string>
+    <string name="lang_ml">🇮🇳 Malayalam</string>
+    <string name="lang_ne">🇳🇵 Tiếng Nepal</string>
+    <string name="lang_no">🇳🇴 Na Uy</string>
+    <string name="lang_pl">🇵🇱 Tiếng Ba Lan</string>
+    <string name="lang_pt_BR">🇧🇷 Tiếng Bồ Đào Nha Brazil</string>
+    <string name="lang_pt_PT">🇵🇹 Tiếng Bồ Đào Nha châu Âu</string>
+    <string name="lang_ro">🇷🇴 Tiếng Romania</string>
+    <string name="lang_ru">🇷🇺 Tiếng Nga</string>
+    <string name="lang_sk">🇸🇰 Tiếng Slovakia</string>
+    <string name="lang_sl">🇸🇮 Tiếng Slovenia</string>
+    <string name="lang_sq">🇦🇱 Tiếng Albania</string>
+    <string name="lang_sr">🇷🇸 Tiếng Serbia</string>
+    <string name="lang_sw">🇹🇰 Swahili</string>
+    <string name="lang_te">🇮🇳 Telugu</string>
+    <string name="lang_tr">🇹🇷 Tiếng Thổ Nhĩ Kỳ</string>
+    <string name="lang_uk">🇺🇦 Tiếng Ukraina</string>
+    <string name="lang_ur">🇵🇰 Tiếng Urdu</string>
+    <string name="lang_zh">🇨🇳 Tiếng Trung</string>
+    <string name="lang_es_MX">🇲🇽 Tây Ban Nha Mexico</string>
+    <string name="lang_es_AR">🇦🇷 Tây Ban Nha Argentina</string>
+    <string name="lang_nl_BE">🇧🇪 Flemish</string>
+    <string name="lang_en_GB">🇬🇧 Anh Anh</string>
+    <string name="select_language">Chọn ngôn ngữ</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Ngôn ngữ đã thay đổi sang %s</string>
+</resources>

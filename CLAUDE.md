@@ -22,6 +22,7 @@ Emulator starten: Android Studio AVD Manager oder `emulator -avd <name>`.
 | `MainActivity.kt` | Compose-UI, Toolbar, Dokument-Picker, TTS-Callbacks, i18n (7 Sprachen) |
 | `PdfLoader.kt` | `TextLine`-Datenmodell, `DocumentData` sealed class, PDF laden + Text extrahieren, Spaltenlogik |
 | `DocxLoader.kt` | DOCX → `List<TextLine>` via ZipInputStream + XmlPullParser |
+| `HtmlLoader.kt` | HTML → `List<TextLine>` via Jsoup (h1–h6, p, li, td, th, dt, dd) |
 | `EpubLoader.kt` | EPUB → `List<TextLine>` via ZipInputStream + Jsoup |
 | `OdtLoader.kt` | ODT → `List<TextLine>` via ZipInputStream + XmlPullParser (content.xml, text:p/text:h) |
 | `TtsController.kt` | TTS-Steuerung, Satz-Splitting, Sentence→Line-Mapping, Highlighting-Callbacks, `setLanguage()` |
@@ -162,8 +163,8 @@ org.jsoup:jsoup:1.17.2                   // EPUB XHTML-Parsing
 
 ## Internationalisierung (i18n)
 
-7 Sprachen: DE, EN, NL, IT, FR, PT, SV  
-Sprach-Dateien: `values-{de,en,nl,it,fr,pt,sv}/strings.xml`  
+10 Sprachen: DE, EN, EN_US, ES, FR, IT, NL, PT, SV, JA  
+Sprach-Dateien: `values-{de,en,en-rUS,es,fr,it,nl,pt,sv,ja}/strings.xml`  
 Auto-Detect: System-Sprache bei erstem Start  
 TTS-Sync: `TtsController.setLanguage(lang)` synchronisiert TTS mit UI-Sprache  
 UI-Refresh: `recreate()` bei Sprachwechsel für sofortige Aktualisierung

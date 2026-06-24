@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Отвори</string>
+    <string name="listen">Четене</string>
+    <string name="pause">Пауза</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">Отвори PDF, DOCX или EPUB</string>
+    <string name="status_loading">Зареждане…</string>
+    <string name="status_cancelled">Отменено</string>
+    <string name="status_error">ГРЕШКА: %s</string>
+    <string name="status_file_not_found">Файлът вече не е достъпен</string>
+    <string name="status_pages" formatted="false">%d страници, %d текстови редове</string>
+    <string name="status_paragraphs">%d параграфа</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">Страница %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">Потребителско ръководство</string>
+    <string name="help_close">Затвори</string>
+    <string name="help_back">Затваря документа и излиза от приложението</string>
+    <string name="help_open">Изберете нов документ (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Покажи съдържанието с заглавки</string>
+    <string name="help_help">Покажи това ръководство</string>
+    <string name="help_audio">Превключване между говорител и слушалки</string>
+    <string name="help_speed">Забави или ускорете скоростта на четене</string>
+    <string name="help_speed_display">Показва текущата скорост</string>
+    <string name="help_skip_back">Назад с 30 секунди</string>
+    <string name="help_listen">Стартирай или паузирай четенето на глас</string>
+    <string name="help_timer">Таймер за сън: спира автоматично след 30 мин</string>
+    <string name="help_skip_forward">Напред с 30 секунди</string>
+    <string name="help_volume">Регулирай силата на звука (до 150%%)</string>
+    <string name="help_volume_display">Показва текущата сила на звука</string>
+    <string name="help_tap">Докосни място в документа за продължаване оттам</string>
+    <string name="help_tap_title">Докосни PDF</string>
+    <string name="help_controls_top">Горни контроли:</string>
+    <string name="help_controls_bottom">Долни контроли:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Правно</string>
+    <string name="privacy_policy">Политика за поверителност</string>
+    <string name="privacy_description">Няма събиране на данни. Всички данни остават локално на устройството ви.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 Немски</string>
+    <string name="lang_en">🇬🇧 Английски</string>
+    <string name="lang_en_US">🇺🇸 Американски английски</string>
+    <string name="lang_nl">🇳🇱 Холандски</string>
+    <string name="lang_it">🇮🇹 Италиански</string>
+    <string name="lang_fr">🇫🇷 френски</string>
+    <string name="lang_pt">🇵🇹 Португалски</string>
+    <string name="lang_sv">🇸🇪 Шведски</string>
+    <string name="lang_es">🇪🇸 Испански</string>
+    <string name="lang_ja">🇯🇵 Японски</string>
+    <string name="lang_bg">🇧🇬 Български</string>
+    <string name="lang_ar">🇸🇦 Арабски</string>
+    <string name="lang_ca">🏴 Каталонски</string>
+    <string name="lang_cs">🇨🇿 Чешки</string>
+    <string name="lang_cy">🏴 Уелски</string>
+    <string name="lang_da">🇩🇰 Датски</string>
+    <string name="lang_el">🇬🇷 Гръцки</string>
+    <string name="lang_fa">🇮🇷 Персийски</string>
+    <string name="lang_fi">🇫🇮 Финландски</string>
+    <string name="lang_hi">🇮🇳 Хинди</string>
+    <string name="lang_hu">🇭🇺 Унгарски</string>
+    <string name="lang_id">🇮🇩 Индонезийски</string>
+    <string name="lang_is">🇮🇸 Исландски</string>
+    <string name="lang_ka">🇬🇪 Грузински</string>
+    <string name="lang_kk">🇰🇿 Казахски</string>
+    <string name="lang_ku">☀️ Кюрдски</string>
+    <string name="lang_lb">🇱🇺 Люксембургски</string>
+    <string name="lang_lv">🇱🇻 Латышски</string>
+    <string name="lang_ml">🇮🇳 Малайalam</string>
+    <string name="lang_ne">🇳🇵 Непалски</string>
+    <string name="lang_no">🇳🇴 Норвежки</string>
+    <string name="lang_pl">🇵🇱 Полски</string>
+    <string name="lang_pt_BR">🇧🇷 Бразилски португалски</string>
+    <string name="lang_pt_PT">🇵🇹 Европейски португалски</string>
+    <string name="lang_ro">🇷🇴 Румънски</string>
+    <string name="lang_ru">🇷🇺 Руски</string>
+    <string name="lang_sk">🇸🇰 Словацки</string>
+    <string name="lang_sl">🇸🇮 Словенски</string>
+    <string name="lang_sq">🇦🇱 Албански</string>
+    <string name="lang_sr">🇷🇸 Сръбски</string>
+    <string name="lang_sw">🇹🇿 Суахили</string>
+    <string name="lang_te">🇮🇳 Телугу</string>
+    <string name="lang_tr">🇹🇷 Турски</string>
+    <string name="lang_uk">🇺🇦 Украйински</string>
+    <string name="lang_ur">🇵🇰 Урду</string>
+    <string name="lang_vi">🇻🇳 Виетнамски</string>
+    <string name="lang_zh">🇨🇳 Китайски</string>
+    <string name="lang_es_MX">🇲🇽 Мексикански испански</string>
+    <string name="lang_es_AR">🇦🇷 Аржентински испански</string>
+    <string name="lang_nl_BE">🇧🇪 Фламандски</string>
+    <string name="lang_en_GB">🇬🇧 Британски английски</string>
+    <string name="select_language">Избери език</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Езикът променен на %s</string>
+</resources>

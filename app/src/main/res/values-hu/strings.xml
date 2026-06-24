@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Megnyitás</string>
+    <string name="listen">Felolvasás</string>
+    <string name="pause">Szünet</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">Nyissa meg a PDF, DOCX vagy EPUB fájlt</string>
+    <string name="status_loading">Betöltés…</string>
+    <string name="status_cancelled">Mégse</string>
+    <string name="status_error">HIBA: %s</string>
+    <string name="status_file_not_found">A fájl már nem érhető el</string>
+    <string name="status_pages" formatted="false">%d oldal, %d szövegsor</string>
+    <string name="status_paragraphs">%d bekezdés</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">%d/%d oldal</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">Felhasználói kézikönyv</string>
+    <string name="help_close">Bezárás</string>
+    <string name="help_back">Bezárja a dokumentumot és kilép az alkalmazásból</string>
+    <string name="help_open">Válasszon ki egy új dokumentumot (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Tartalomjegyzék megjelenítése címsorokkal</string>
+    <string name="help_help">Ezen útmutató megjelenítése</string>
+    <string name="help_audio">Váltás a hangszóró és a fülhallgató között</string>
+    <string name="help_speed">Olvasási sebesség csökkentése vagy növelése</string>
+    <string name="help_speed_display">Jelenlegi sebesség megjelenítése</string>
+    <string name="help_skip_back">Vissatekerés 30 másodperccel</string>
+    <string name="help_listen">Felolvasás indítása vagy szüneteltetése</string>
+    <string name="help_timer">Alvó időzítő: automatikusan leáll 30 perc után</string>
+    <string name="help_skip_forward">Gyorsítás 30 másodperccel</string>
+    <string name="help_volume">Hangerő beállítása (akár 150%%-ig)</string>
+    <string name="help_volume_display">Jelenlegi hangerő megjelenítése</string>
+    <string name="help_tap">Koppintson a dokumentumban egy helyre a folytatáshoz</string>
+    <string name="help_tap_title">Koppintson a PDF-re</string>
+    <string name="help_controls_top">Felső vezérlők:</string>
+    <string name="help_controls_bottom">Alsó vezérlők:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Jogi</string>
+    <string name="privacy_policy">Adatvédelmi irányelvek</string>
+    <string name="privacy_description">Nincs adatgyűjtés. Minden adat helyben marad az eszközén.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 Német</string>
+    <string name="lang_en">🇬🇧 Angol</string>
+    <string name="lang_en_US">🇺🇸 Amerikai angol</string>
+    <string name="lang_nl">🇳🇱 Holland</string>
+    <string name="lang_it">🇮🇹 Olasz</string>
+    <string name="lang_fr">🇫🇷 Francia</string>
+    <string name="lang_pt">🇵🇹 Portugál</string>
+    <string name="lang_sv">🇸🇪 Svéd</string>
+    <string name="lang_es">🇪🇸 Spanyol</string>
+    <string name="lang_ja">🇯🇵 Japán</string>
+    <string name="lang_hu">🇭🇺 Magyar</string>
+    <string name="lang_ar">🇸🇦 Arab</string>
+    <string name="lang_bg">🇧🇬 Bolgár</string>
+    <string name="lang_ca">🏴 Katalán</string>
+    <string name="lang_cs">🇨🇿 Cseh</string>
+    <string name="lang_cy">🏴 Walesi</string>
+    <string name="lang_da">🇩🇰 Dán</string>
+    <string name="lang_el">🇬🇷 Görög</string>
+    <string name="lang_fa">🇮🇷 Perzsa</string>
+    <string name="lang_fi">🇫🇮 Finn</string>
+    <string name="lang_hi">🇮🇳 Hindi</string>
+    <string name="lang_id">🇮🇩 Indonéz</string>
+    <string name="lang_is">🇮🇸 Izlandi</string>
+    <string name="lang_ka">🇬🇪 Grúz</string>
+    <string name="lang_kk">🇰🇿 Kazah</string>
+    <string name="lang_ku">☀️ Kurdis</string>
+    <string name="lang_lb">🇱🇺 Luxemburgi</string>
+    <string name="lang_lv">🇱🇻 Lett</string>
+    <string name="lang_ml">🇮🇳 Malayalam</string>
+    <string name="lang_ne">🇳🇵 Nepáli</string>
+    <string name="lang_no">🇳🇴 Norvég</string>
+    <string name="lang_pl">🇵🇱 Lengyel</string>
+    <string name="lang_pt_BR">🇧🇷 Brazíliai portugál</string>
+    <string name="lang_ro">🇷🇴 Román</string>
+    <string name="lang_ru">🇷🇺 Orosz</string>
+    <string name="lang_sk">🇸🇰 Szlovák</string>
+    <string name="lang_sl">🇸🇮 Szlovén</string>
+    <string name="lang_sq">🇦🇱 Albán</string>
+    <string name="lang_sr">🇷🇸 Szerb</string>
+    <string name="lang_sw">🇹🇰 Szuahéli</string>
+    <string name="lang_te">🇮🇳 Telugu</string>
+    <string name="lang_tr">🇹🇷 Török</string>
+    <string name="lang_uk">🇺🇦 Ukrán</string>
+    <string name="lang_ur">🇵🇰 Urdu</string>
+    <string name="lang_vi">🇻🇳 Vietnámi</string>
+    <string name="lang_zh">🇨🇳 Kínai</string>
+    <string name="lang_es_MX">🇲🇽 Mexikáni spanyol</string>
+    <string name="lang_es_AR">🇦🇷 Argentin spanyol</string>
+    <string name="lang_nl_BE">🇧🇪 Flamand</string>
+    <string name="lang_pt_PT">🇵🇹 Európai portugál</string>
+    <string name="lang_en_GB">🇬🇧 Britta angol</string>
+    <string name="select_language">Válassz nyelvet</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Nyelv megváltoztatva: %s</string>
+</resources>

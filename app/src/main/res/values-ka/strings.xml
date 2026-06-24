@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">გახსნა</string>
+    <string name="listen">წაკითხვა</string>
+    <string name="pause">პაუზა</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">გახსენით PDF, DOCX ან EPUB</string>
+    <string name="status_loading">იტვირთება…</string>
+    <string name="status_cancelled">გაუქმებულია</string>
+    <string name="status_error">შეცდომა: %s</string>
+    <string name="status_file_not_found">ფაილი აღარ არის ხელმისაწვდომი</string>
+    <string name="status_pages" formatted="false">%d გვერდი, %d ტექსტის ხაზი</string>
+    <string name="status_paragraphs">%d პარაგრაფი</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">გვერდი %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">მომხმარებლის სახელმძღვანელო</string>
+    <string name="help_close">დახურვა</string>
+    <string name="help_back">ხსნის დოკუმენტს და ტოვებს აპს</string>
+    <string name="help_open">აირჩიეთ ახალი დოკუმენტი (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">აჩვენე შინაარსი სათაურებით</string>
+    <string name="help_help">აჩვენე ეს სახელმძღვანელო</string>
+    <string name="help_audio">გადადით დინამიკსა და ყურსასმენს შორის</string>
+    <string name="help_speed">შენელება ან დაჩქარება წაკითხვის სიჩქარე</string>
+    <string name="help_speed_display">აჩვენებს მიმდინარე სიჩქარეს</string>
+    <string name="help_skip_back">30 წამით უკან</string>
+    <string name="help_listen">დაიწყეთ ან შეაჩერეთ ხმით წაკითხვა</string>
+    <string name="help_timer">ძილის ტაიმერი: ავტომატურად ჩერდება 30 წუთის შემდეგ</string>
+    <string name="help_skip_forward">30 წამით წინ</string>
+    <string name="help_volume">ხმის რეგულირება (150%-მდე)</string>
+    <string name="help_volume_display">აჩვენებს მიმდინარე ხმას</string>
+    <string name="help_tap">დააწკაპუნეთ დოკუმენტში ადგილას, რომ გააგრძელოთ წაკითხვა</string>
+    <string name="help_tap_title">დააწკაპუნეთ PDF-ზე</string>
+    <string name="help_controls_top">ზედა კონტროლები:</string>
+    <string name="help_controls_bottom">ქვედა კონტროლები:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">იურიდიული</string>
+    <string name="privacy_policy">კონფიდენციალურობის პოლიტიკა</string>
+    <string name="privacy_description">მონაცემთა შეგროვება არ არსებობს. ყველა მონაცემი რჩება ლოკალურად თქვენს მოწყობილობაზე.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 გერმანული</string>
+    <string name="lang_en">🇬🇧 ინგლისური</string>
+    <string name="lang_en_US">🇺🇸 ამერიკული ინგლისური</string>
+    <string name="lang_nl">🇳🇱 ჰოლანდიური</string>
+    <string name="lang_it">🇮🇹 იტალიური</string>
+    <string name="lang_fr">🇫🇷 ფრანგული</string>
+    <string name="lang_pt">🇵🇹 პორტუგალიური</string>
+    <string name="lang_sv">🇸🇪 შვედური</string>
+    <string name="lang_es">🇪🇸 ესპანური</string>
+    <string name="lang_ja">🇯🇵 იაპონური</string>
+    <string name="lang_ka">🇬🇪 ქართული</string>
+    <string name="lang_ar">🇸🇦 არაბული</string>
+    <string name="lang_bg">🇧🇬 ბულგარული</string>
+    <string name="lang_ca">🏴 კატალანური</string>
+    <string name="lang_cs">🇨🇿 ჩეხური</string>
+    <string name="lang_cy">🏴 უელსური</string>
+    <string name="lang_da">🇩🇰 დანიური</string>
+    <string name="lang_el">🇬🇷 ბერძნული</string>
+    <string name="lang_fa">🇮🇷 სპარსული</string>
+    <string name="lang_fi">🇫🇮 ფინური</string>
+    <string name="lang_hi">🇮🇳 ჰინდი</string>
+    <string name="lang_hu">🇭🇺 უნგრული</string>
+    <string name="lang_id">🇮🇩 ინდონეზიური</string>
+    <string name="lang_is">🇮🇸 ისლანდიური</string>
+    <string name="lang_kk">🇰🇿 ყაზახური</string>
+    <string name="lang_ku">☀️ ქურთული</string>
+    <string name="lang_lb">🇱🇺 ლუქსემბურგიული</string>
+    <string name="lang_lv">🇱🇻 ლატვიური</string>
+    <string name="lang_ml">🇮🇳 მალაიალამი</string>
+    <string name="lang_ne">🇳🇵 ნეპალური</string>
+    <string name="lang_no">🇳🇴 ნორვეგიული</string>
+    <string name="lang_pl">🇵🇱 პოლონური</string>
+    <string name="lang_pt_BR">🇧🇷 ბრაზილიური პორტუგალიური</string>
+    <string name="lang_ro">🇷🇴 რუმინული</string>
+    <string name="lang_ru">🇷🇺 რუსული</string>
+    <string name="lang_sk">🇸🇰 სლოვაკური</string>
+    <string name="lang_sl">🇸🇮 სლოვენიური</string>
+    <string name="lang_sq">🇦🇱 ალბანური</string>
+    <string name="lang_sr">🇷🇸 სერბული</string>
+    <string name="lang_sw">🇹🇰 სუაჰილი</string>
+    <string name="lang_te">🇮🇳 ტელუგუ</string>
+    <string name="lang_tr">🇹🇷 თურქული</string>
+    <string name="lang_uk">🇺🇦 უკრაინული</string>
+    <string name="lang_ur">🇵🇰 ურდუ</string>
+    <string name="lang_vi">🇻🇳 ვიეტნამური</string>
+    <string name="lang_zh">🇨🇳 ჩინური</string>
+    <string name="lang_es_MX">🇲🇽 მექსიკური ესპანური</string>
+    <string name="lang_es_AR">🇦🇷 არგენტინული ესპანური</string>
+    <string name="lang_nl_BE">🇧🇪 ფლამანდური</string>
+    <string name="lang_pt_PT">🇵🇹 ევროპული პორტუგალიური</string>
+    <string name="lang_en_GB">🇬🇧 ბრიტანული ინგლისური</string>
+    <string name="select_language">აირჩიე ენა</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">ენა შეიცვალა: %s</string>
+</resources>

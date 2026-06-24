@@ -19,6 +19,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -44,6 +46,57 @@ import com.tom_roush.pdfbox.android.PDFBoxResourceLoader
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.Locale
+
+// Language codes and their string resource IDs, sorted by ISO code
+private val LANGUAGES = listOf(
+    "ar" to R.string.lang_ar,
+    "bg" to R.string.lang_bg,
+    "ca" to R.string.lang_ca,
+    "cs" to R.string.lang_cs,
+    "cy" to R.string.lang_cy,
+    "da" to R.string.lang_da,
+    "de" to R.string.lang_de,
+    "el" to R.string.lang_el,
+    "en" to R.string.lang_en,
+    "en-US" to R.string.lang_en_US,
+    "es" to R.string.lang_es,
+    "es-MX" to R.string.lang_es_MX,
+    "fa" to R.string.lang_fa,
+    "fi" to R.string.lang_fi,
+    "fr" to R.string.lang_fr,
+    "hi" to R.string.lang_hi,
+    "hu" to R.string.lang_hu,
+    "id" to R.string.lang_id,
+    "is" to R.string.lang_is,
+    "it" to R.string.lang_it,
+    "ja" to R.string.lang_ja,
+    "ka" to R.string.lang_ka,
+    "kk" to R.string.lang_kk,
+    "ku" to R.string.lang_ku,
+    "lb" to R.string.lang_lb,
+    "nl" to R.string.lang_nl,
+    "lv" to R.string.lang_lv,
+    "ml" to R.string.lang_ml,
+    "ne" to R.string.lang_ne,
+    "no" to R.string.lang_no,
+    "pl" to R.string.lang_pl,
+    "pt" to R.string.lang_pt,
+    "pt-BR" to R.string.lang_pt_BR,
+    "ro" to R.string.lang_ro,
+    "ru" to R.string.lang_ru,
+    "sk" to R.string.lang_sk,
+    "sl" to R.string.lang_sl,
+    "sq" to R.string.lang_sq,
+    "sr" to R.string.lang_sr,
+    "sv" to R.string.lang_sv,
+    "sw" to R.string.lang_sw,
+    "te" to R.string.lang_te,
+    "tr" to R.string.lang_tr,
+    "uk" to R.string.lang_uk,
+    "ur" to R.string.lang_ur,
+    "vi" to R.string.lang_vi,
+    "zh" to R.string.lang_zh
+)
 
 class MainActivity : ComponentActivity() {
 
@@ -339,7 +392,70 @@ fun PdfViewerScreen(
                 contentPadding = btnPadding
             ) { Text(stringResource(R.string.open)) }
 
-            RoundBtn(onClick = { showLangDialog = true }) { Text(when (language) { "de" -> "🇩🇪" "en" -> "🇬🇧" "en-US" -> "🇺🇸" "es" -> "🇪🇸" "nl" -> "🇳🇱" "it" -> "🇮🇹" "fr" -> "🇫🇷" "pt" -> "🇵🇹" "sv" -> "🇸🇪" "ja" -> "🇯🇵" else -> "🇩🇪" }, style = MaterialTheme.typography.titleMedium) }
+            RoundBtn(onClick = { showLangDialog = true }) { Text(when (language) {
+                "de" -> "🇩🇪"
+                "en" -> "🇬🇧"
+                "en-US" -> "🇺🇸"
+                "en-GB" -> "🇬🇧"
+                "es" -> "🇪🇸"
+                "es-MX" -> "🇲🇽"
+                "es-AR" -> "🇦🇷"
+                "nl" -> "🇳🇱"
+                "nl-BE" -> "🇧🇪"
+                "it" -> "🇮🇹"
+                "fr" -> "🇫🇷"
+                "fr-FR" -> "🇫🇷"
+                "pt" -> "🇵🇹"
+                "pt-PT" -> "🇵🇹"
+                "pt-BR" -> "🇧🇷"
+                "sv" -> "🇸🇪"
+                "sv-SE" -> "🇸🇪"
+                "ja" -> "🇯🇵"
+                "ar" -> "🇸🇦"
+                "ar-JO" -> "🇯🇴"
+                "bg" -> "🇧🇬"
+                "ca" -> "🏴"
+                "cs" -> "🇨🇿"
+                "cy" -> "🏴"
+                "da" -> "🇩🇰"
+                "el" -> "🇬🇷"
+                "fa" -> "🇮🇷"
+                "fa-IR" -> "🇮🇷"
+                "fi" -> "🇫🇮"
+                "hi" -> "🇮🇳"
+                "hi-IN" -> "🇮🇳"
+                "hu" -> "🇭🇺"
+                "id" -> "🇮🇩"
+                "is" -> "🇮🇸"
+                "ka" -> "🇬🇪"
+                "kk" -> "🇰🇿"
+                "ku" -> "☀️"
+                "ku-TR" -> "☀️"
+                "lb" -> "🇱🇺"
+                "lv" -> "🇱🇻"
+                "ml" -> "🇮🇳"
+                "ml-IN" -> "🇮🇳"
+                "ne" -> "🇳🇵"
+                "ne-NP" -> "🇳🇵"
+                "no" -> "🇳🇴"
+                "no-NO" -> "🇳🇴"
+                "pl" -> "🇵🇱"
+                "ro" -> "🇷🇴"
+                "ru" -> "🇷🇺"
+                "sk" -> "🇸🇰"
+                "sl" -> "🇸🇮"
+                "sq" -> "🇦🇱"
+                "sr" -> "🇷🇸"
+                "sw" -> "🇹🇿"
+                "te" -> "🇮🇳"
+                "tr" -> "🇹🇷"
+                "uk" -> "🇺🇦"
+                "ur" -> "🇵🇰"
+                "vi" -> "🇻🇳"
+                "zh" -> "🇨🇳"
+                "zh-CN" -> "🇨🇳"
+                else -> "🇩🇪"
+            }, style = MaterialTheme.typography.titleMedium) }
 
             RoundBtn(onClick = { showVoiceDialog = true }) { Text("🗣️", style = MaterialTheme.typography.titleMedium) }
 
@@ -548,54 +664,32 @@ fun PdfViewerScreen(
                     Text(stringResource(R.string.legal_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                     HelpItem(stringResource(R.string.privacy_policy), stringResource(R.string.privacy_description), link = stringResource(R.string.privacy_url))
 
+                    Text(stringResource(R.string.open_source_licenses), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 12.dp))
+                    Text(stringResource(R.string.oss_description), style = MaterialTheme.typography.bodyMedium)
+                    HelpItem("sherpa-onnx", stringResource(R.string.oss_sherpa_onnx), link = stringResource(R.string.oss_sherpa_url))
+                    HelpItem("Piper TTS", stringResource(R.string.oss_piper), link = stringResource(R.string.oss_piper_url))
+                    HelpItem("espeak-ng", stringResource(R.string.oss_espeak), link = stringResource(R.string.oss_espeak_url))
+                    HelpItem("PDFBox Android", stringResource(R.string.oss_pdfbox), link = stringResource(R.string.oss_pdfbox_url))
+                    HelpItem("jsoup", stringResource(R.string.oss_jsoup), link = stringResource(R.string.oss_jsoup_url))
+                    HelpItem("OkHttp", stringResource(R.string.oss_okhttp), link = stringResource(R.string.oss_okhttp_url))
+                    HelpItem("Apache Commons", stringResource(R.string.oss_commons), link = stringResource(R.string.oss_commons_url))
+
                     Spacer(modifier = Modifier.weight(1f))
                     Button(onClick = { showHelp = false }, modifier = Modifier.align(Alignment.End)) { Text(stringResource(R.string.help_close)) }
                 }
             }
         }
 
-        if (showLangDialog) {
-            AlertDialog(
-                onDismissRequest = { showLangDialog = false },
-                title = { Text(stringResource(R.string.select_language)) },
-                text = {
-                    Column {
-                        LanguageOption("de", stringResource(R.string.lang_de)) {
-                            language = "de"; settings.language = "de"; onLanguageChange("de"); showLangDialog = false
-                        }
-                        LanguageOption("en", stringResource(R.string.lang_en)) {
-                            language = "en"; settings.language = "en"; onLanguageChange("en"); showLangDialog = false
-                        }
-                        LanguageOption("en-US", stringResource(R.string.lang_en_US)) {
-                            language = "en-US"; settings.language = "en-US"; onLanguageChange("en-US"); showLangDialog = false
-                        }
-                        LanguageOption("nl", stringResource(R.string.lang_nl)) {
-                            language = "nl"; settings.language = "nl"; onLanguageChange("nl"); showLangDialog = false
-                        }
-                        LanguageOption("it", stringResource(R.string.lang_it)) {
-                            language = "it"; settings.language = "it"; onLanguageChange("it"); showLangDialog = false
-                        }
-                        LanguageOption("fr", stringResource(R.string.lang_fr)) {
-                            language = "fr"; settings.language = "fr"; onLanguageChange("fr"); showLangDialog = false
-                        }
-                        LanguageOption("pt", stringResource(R.string.lang_pt)) {
-                            language = "pt"; settings.language = "pt"; onLanguageChange("pt"); showLangDialog = false
-                        }
-                        LanguageOption("sv", stringResource(R.string.lang_sv)) {
-                            language = "sv"; settings.language = "sv"; onLanguageChange("sv"); showLangDialog = false
-                        }
-                        LanguageOption("es", stringResource(R.string.lang_es)) {
-                            language = "es"; settings.language = "es"; onLanguageChange("es"); showLangDialog = false
-                        }
-                        LanguageOption("ja", stringResource(R.string.lang_ja)) {
-                            language = "ja"; settings.language = "ja"; onLanguageChange("ja"); showLangDialog = false
-                        }
-                    }
-                },
-                confirmButton = {},
-                dismissButton = { TextButton(onClick = { showLangDialog = false }) { Text(stringResource(android.R.string.cancel)) } }
-            )
-        }
+        LanguageDialog(
+            showDialog = showLangDialog,
+            currentLanguage = language,
+            onDismiss = { showLangDialog = false },
+            onLanguageChange = { lang ->
+                language = lang
+                settings.language = lang
+                onLanguageChange(lang)
+            }
+        )
 
         var availableVoices by remember { mutableStateOf(emptyList<Voice>()) }
 
@@ -624,9 +718,55 @@ fun PdfViewerScreen(
 }
 
 @Composable
-fun LanguageOption(code: String, label: String, onClick: () -> Unit) {
-    Row(modifier = Modifier.fillMaxWidth().clickable(onClick = onClick).padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
-        Text(label, style = MaterialTheme.typography.bodyLarge)
+fun LanguageDialog(
+    showDialog: Boolean,
+    currentLanguage: String,
+    onDismiss: () -> Unit,
+    onLanguageChange: (String) -> Unit
+) {
+    if (showDialog) {
+        val context = LocalContext.current
+        val localizedContext = remember(currentLanguage) {
+            val config = android.content.res.Configuration(context.resources.configuration)
+            config.setLocale(java.util.Locale.forLanguageTag(currentLanguage))
+            context.createConfigurationContext(config)
+        }
+        val sortedLanguages = remember(currentLanguage) {
+            LANGUAGES.sortedWith(compareBy { (_, resId) ->
+                val fullName = localizedContext.resources.getString(resId)
+                // Sort by text after the first space (skip the flag emoji)
+                val parts = fullName.split(" ", limit = 2)
+                if (parts.size > 1) parts[1] else fullName
+            })
+        }
+        AlertDialog(
+            onDismissRequest = onDismiss,
+            title = { Text(localizedContext.resources.getString(R.string.select_language)) },
+            text = {
+                Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                    sortedLanguages.forEach { (code, resId) ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    onLanguageChange(code)
+                                    onDismiss()
+                                }
+                                .padding(8.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(localizedContext.resources.getString(resId), style = MaterialTheme.typography.bodyLarge)
+                        }
+                    }
+                }
+            },
+            confirmButton = {},
+            dismissButton = {
+                TextButton(onClick = onDismiss) {
+                    Text(localizedContext.resources.getString(android.R.string.cancel))
+                }
+            }
+        )
     }
 }
 

@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Buka</string>
+    <string name="listen">Dengar</string>
+    <string name="pause">Jeda</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">Buka PDF, DOCX, atau EPUB</string>
+    <string name="status_loading">Memuat…</string>
+    <string name="status_cancelled">Dibatalkan</string>
+    <string name="status_error">ERROR: %s</string>
+    <string name="status_file_not_found">File tidak lagi tersedia</string>
+    <string name="status_pages" formatted="false">%d halaman, %d baris teks</string>
+    <string name="status_paragraphs">%d paragraf</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">Halaman %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">Panduan Pengguna</string>
+    <string name="help_close">Tutup</string>
+    <string name="help_back">Menutup dokumen dan keluar dari aplikasi</string>
+    <string name="help_open">Pilih dokumen baru (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Tampilkan daftar isi dengan judul</string>
+    <string name="help_help">Tampilkan panduan ini</string>
+    <string name="help_audio">Beralih antara speaker dan earphone</string>
+    <string name="help_speed">Perlambat atau percepat kecepatan membaca</string>
+    <string name="help_speed_display">Menampilkan kecepatan saat ini</string>
+    <string name="help_skip_back">Mundur 30 detik</string>
+    <string name="help_listen">Mulai atau jeda membaca keras</string>
+    <string name="help_timer">Timer tidur: Berhenti otomatis setelah 30 menit</string>
+    <string name="help_skip_forward">Maju 30 detik</string>
+    <string name="help_volume">Sesuaikan volume (hingga 150%%)</string>
+    <string name="help_volume_display">Menampilkan volume saat ini</string>
+    <string name="help_tap">Ketuk lokasi di dokumen untuk melanjutkan membaca dari sana</string>
+    <string name="help_tap_title">Ketuk PDF</string>
+    <string name="help_controls_top">Kontrol atas:</string>
+    <string name="help_controls_bottom">Kontrol bawah:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Hukum</string>
+    <string name="privacy_policy">Kebijakan Privasi</string>
+    <string name="privacy_description">Tidak ada pengumpulan data. Semua data tetap lokal di perangkat Anda.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 Jerman</string>
+    <string name="lang_en">🇬🇧 Inggris</string>
+    <string name="lang_en_US">🇺🇸 Inggris Amerika</string>
+    <string name="lang_nl">🇳🇱 Belanda</string>
+    <string name="lang_it">🇮🇹 Italia</string>
+    <string name="lang_fr">🇫🇷 Prancis</string>
+    <string name="lang_pt">🇵🇹 Portugis</string>
+    <string name="lang_sv">🇸🇪 Swedia</string>
+    <string name="lang_es">🇪🇸 Spanyol</string>
+    <string name="lang_ja">🇯🇵 Jepang</string>
+    <string name="lang_id">🇮🇩 Indonesia</string>
+    <string name="lang_ar">🇸🇦 Arab</string>
+    <string name="lang_bg">🇧🇬 Bulgaria</string>
+    <string name="lang_ca">🏴 Katalan</string>
+    <string name="lang_cs">🇨🇿 Ceko</string>
+    <string name="lang_cy">🏴 Wales</string>
+    <string name="lang_da">🇩🇰 Denmark</string>
+    <string name="lang_el">🇬🇷 Yunani</string>
+    <string name="lang_fa">🇮🇷 Farsi</string>
+    <string name="lang_fi">🇫🇮 Finlandia</string>
+    <string name="lang_hi">🇮🇳 Hindi</string>
+    <string name="lang_hu">🇭🇺 Hungaria</string>
+    <string name="lang_is">🇮🇸 Islandia</string>
+    <string name="lang_ka">🇬🇪 Georgia</string>
+    <string name="lang_kk">🇰🇿 Kazakh</string>
+    <string name="lang_ku">☀️ Kurdi</string>
+    <string name="lang_lb">🇱🇺 Luxemburg</string>
+    <string name="lang_lv">🇱🇻 Latvia</string>
+    <string name="lang_ml">🇮🇳 Malayalam</string>
+    <string name="lang_ne">🇳🇵 Nepal</string>
+    <string name="lang_no">🇳🇴 Norwegia</string>
+    <string name="lang_pl">🇵🇱 Polandia</string>
+    <string name="lang_pt_BR">🇧🇷 Portugis Brasil</string>
+    <string name="lang_ro">🇷🇴 Rumania</string>
+    <string name="lang_ru">🇷🇺 Rusia</string>
+    <string name="lang_sk">🇸🇰 Slovakia</string>
+    <string name="lang_sl">🇸🇮 Slovenia</string>
+    <string name="lang_sq">🇦🇱 Albania</string>
+    <string name="lang_sr">🇷🇸 Serbia</string>
+    <string name="lang_sw">🇹🇰 Swahili</string>
+    <string name="lang_te">🇮🇳 Telugu</string>
+    <string name="lang_tr">🇹🇷 Turki</string>
+    <string name="lang_uk">🇺🇦 Ukraina</string>
+    <string name="lang_ur">🇵🇰 Urdu</string>
+    <string name="lang_vi">🇻🇳 Vietnam</string>
+    <string name="lang_zh">🇨🇳 Tionghoa</string>
+    <string name="lang_es_MX">🇲🇽 Spanyol Meksiko</string>
+    <string name="lang_es_AR">🇦🇷 Spanyol Argentina</string>
+    <string name="lang_nl_BE">🇧🇪 Flandris</string>
+    <string name="lang_pt_PT">🇵🇹 Portugis Eropa</string>
+    <string name="lang_en_GB">🇬🇧 Inggris Britania</string>
+    <string name="select_language">Pilih bahasa</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Bahasa diubah ke %s</string>
+</resources>

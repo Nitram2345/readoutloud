@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Aç</string>
+    <string name="listen">Sesli oku</string>
+    <string name="pause">Duraklat</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">PDF, DOCX veya EPUB aç</string>
+    <string name="status_loading">Yükleniyor…</string>
+    <string name="status_cancelled">İptal edildi</string>
+    <string name="status_error">HATA: %s</string>
+    <string name="status_file_not_found">Dosya artık mevcut değil</string>
+    <string name="status_pages" formatted="false">%d sayfa, %d metin satırı</string>
+    <string name="status_paragraphs">%d paragraf</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">Sayfa %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">Kullanım kılavuzu</string>
+    <string name="help_close">Kapat</string>
+    <string name="help_back">Belgeyi kapatır ve uygulamadan çıkar</string>
+    <string name="help_open">Yeni bir belge seçin (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Başlıklarla içindekiler tablosunu göster</string>
+    <string name="help_help">Bu kılavuzu göster</string>
+    <string name="help_audio">Hoparlör ve kulaklık arasında geçiş yap</string>
+    <string name="help_speed">Okuma hızını yavaşlat veya hızlandır</string>
+    <string name="help_speed_display">Mevcut hızı gösterir</string>
+    <string name="help_skip_back">30 saniye geri sar</string>
+    <string name="help_listen">Sesli okumayı başlat veya duraklat</string>
+    <string name="help_timer">Uyku zamanlayıcısı: 30 dk sonra otomatik durdurur</string>
+    <string name="help_skip_forward">30 saniye ileri sarmak</string>
+    <string name="help_volume">Ses seviyesini ayarla (150 yüzdeye kadar)</string>
+    <string name="help_volume_display">Mevcut ses seviyesini gösterir</string>
+    <string name="help_tap">Belgedeki bir konuma dokunarak oradan okumaya devam edin</string>
+    <string name="help_tap_title">PDFe dokunun</string>
+    <string name="help_controls_top">Üst kontroller:</string>
+    <string name="help_controls_bottom">Alt kontroller:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Yasal</string>
+    <string name="privacy_policy">Gizlilik politikası</string>
+    <string name="privacy_description">Veri toplama yok. Tüm veriler cihazınızda yerel olarak kalır.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 Almanca</string>
+    <string name="lang_en">🇬🇧 İngilizce</string>
+    <string name="lang_en_US">🇺🇸 Amerikan İngilizcesi</string>
+    <string name="lang_nl">🇳🇱 Felemenkçe</string>
+    <string name="lang_it">🇮🇹 İtalyanca</string>
+    <string name="lang_fr">🇫🇷 Fransızca</string>
+    <string name="lang_pt">🇵🇹 Portekizce</string>
+    <string name="lang_sv">🇸🇪 İsveççe</string>
+    <string name="lang_es">🇪🇸 İspanyolca</string>
+    <string name="lang_ja">🇯🇵 Japonca</string>
+    <string name="lang_tr">🇹🇷 Türkçe</string>
+    <string name="lang_ar">🇸🇦 Arapça</string>
+    <string name="lang_bg">🇧🇬 Bulgarca</string>
+    <string name="lang_ca">🏴 Katalanca</string>
+    <string name="lang_cs">🇨🇿 Çekçe</string>
+    <string name="lang_cy">🏴 Galce</string>
+    <string name="lang_da">🇩🇰 Danca</string>
+    <string name="lang_el">🇬🇷 Yunanca</string>
+    <string name="lang_fa">🇮🇷 Farsça</string>
+    <string name="lang_fi">🇫🇮 Fince</string>
+    <string name="lang_hi">🇮🇳 Hintçe</string>
+    <string name="lang_hu">🇭🇮 Macarca</string>
+    <string name="lang_id">🇮🇩 Endonezce</string>
+    <string name="lang_is">🇮🇸 İzlandaca</string>
+    <string name="lang_ka">🇬🇪 Gürcüce</string>
+    <string name="lang_kk">🇰🇿 Kazakça</string>
+    <string name="lang_ku">☀️ Kürtçe</string>
+    <string name="lang_lb">🇱🇺 Lüksemburgca</string>
+    <string name="lang_lv">🇱🇻 Letonca</string>
+    <string name="lang_ml">🇮🇳 Malayalam</string>
+    <string name="lang_ne">🇳🇵 Nepalce</string>
+    <string name="lang_no">🇳🇷 Norveççe</string>
+    <string name="lang_pl">🇵🇱 Lehçe</string>
+    <string name="lang_pt_BR">🇧🇷 Brezilya Portekizcesi</string>
+    <string name="lang_pt_PT">🇵🇹 Avrupa Portekizcesi</string>
+    <string name="lang_ro">🇷🇴 Rumence</string>
+    <string name="lang_ru">🇷🇺 Rusça</string>
+    <string name="lang_sk">🇸🇰 Slovakça</string>
+    <string name="lang_sl">🇸🇮 Slovence</string>
+    <string name="lang_sq">🇦🇱 Arnavutça</string>
+    <string name="lang_sr">🇷🇸 Sırpça</string>
+    <string name="lang_sw">🇹🇰 Swahili</string>
+    <string name="lang_te">🇮🇳 Telugu</string>
+    <string name="lang_uk">🇺🇦 Ukraynaca</string>
+    <string name="lang_ur">🇵🇷 Urduca</string>
+    <string name="lang_vi">🇻🇳 Vietnamca</string>
+    <string name="lang_zh">🇨🇳 Çince</string>
+    <string name="lang_es_MX">🇲🇽 Meksika İspanyolcası</string>
+    <string name="lang_es_AR">🇦🇷 Arjantin İspanyolcası</string>
+    <string name="lang_nl_BE">🇧🇪 Flamanca</string>
+    <string name="lang_en_GB">🇬🇧 Britanyaca İngilizce</string>
+    <string name="select_language">Dil seçin</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Dil %s olarak değiştirildi</string>
+</resources>

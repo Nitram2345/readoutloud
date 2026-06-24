@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">తెరుచు</string>
+    <string name="listen">విను</string>
+    <string name="pause">విరామం</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">PDF, DOCX లేదా EPUB తెరుచు</string>
+    <string name="status_loading">లోడ్ అవుతోంది…</string>
+    <string name="status_cancelled">రద్దు చేయబడింది</string>
+    <string name="status_error">దోషం: %s</string>
+    <string name="status_file_not_found">ఫైల్ ఇకపై అందుబాటులో లేదు</string>
+    <string name="status_pages" formatted="false">%d పేజీలు, %d టెక్స్ట్ లైన్లు</string>
+    <string name="status_paragraphs">%d పారాగ్రాఫ్లు</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">పేజీ %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">ఉపయోగకర్తా మార్గదర్శకం</string>
+    <string name="help_close">మూసివేయి</string>
+    <string name="help_back">డాక్యుమెంట్ మూసివేసి అప్లికేషన్ నుండి బయటకు వెళ్తుంది</string>
+    <string name="help_open">కొత్త డాక్యుమెంట్ ఎంచుకోండి (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">శీర్షికలతో విషయసూచికను చూపించు</string>
+    <string name="help_help">ఈ మార్గదర్శకాన్ని చూపించు</string>
+    <string name="help_audio">స్పీకర్ మరియు ఇయర్‌ఫోన్ మధ్య మార్చు</string>
+    <string name="help_speed">వేగాన్ని నెమ్మదిం లేదా వేగవంతం చేయి</string>
+    <string name="help_speed_display">ప్రస్తుత వేగాన్ని చూపిస్తుంది</string>
+    <string name="help_skip_back">30 సెకన్లు వెనక్కి</string>
+    <string name="help_listen">ఎక్కువ గొంతుతో చదవడం ప్రారంభించు లేదా విరామం ఇచ్చు</string>
+    <string name="help_timer">నిద్ర టైమర్: 30 నిమిషాల తర్వాత స్వయంక్రియగా ఆగుతుంది</string>
+    <string name="help_skip_forward">30 సెకన్లు ముందుకు</string>
+    <string name="help_volume">వాల్యూమ్ సర్దుబాటు చేయి (150%% వరకు)</string>
+    <string name="help_volume_display">ప్రస్తుత వాల్యూమ్ చూపిస్తుంది</string>
+    <string name="help_tap">అక్కడ నుండి చదవడానికి డాక్యుమెంట్‌లో ఒక స్థలంపై ట్యాప్ చేయండి</string>
+    <string name="help_tap_title">PDF పై ట్యాప్ చేయండి</string>
+    <string name="help_controls_top">పై నియంత్రణలు:</string>
+    <string name="help_controls_bottom">క్రింది నియంత్రణలు:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">చట్టపరమైన</string>
+    <string name="privacy_policy">గోప్యతా నీతి</string>
+    <string name="privacy_description">డేటా సేకరణ లేదు. అన్ని డేటా మీ పరికరంలో స్థానికంగా ఉంటుంది.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 జర్మన్</string>
+    <string name="lang_en">🇬🇧 ఇంగ్లీష్</string>
+    <string name="lang_en_US">🇺🇸 అమెరికన్ ఇంగ్లీష్</string>
+    <string name="lang_nl">🇳🇱 డచ్</string>
+    <string name="lang_it">🇮🇹 ఇటాలియన్</string>
+    <string name="lang_fr">🇫🇷 ఫ్రెంచ్</string>
+    <string name="lang_pt">🇵🇹 పోర్చుగీస్</string>
+    <string name="lang_sv">🇸🇪 స్వీడిష్</string>
+    <string name="lang_es">🇪🇸 స్పానిష్</string>
+    <string name="lang_ja">🇯🇵 జాపనీస్</string>
+    <string name="lang_te">🇮🇳 తెలుగు</string>
+    <string name="lang_ar">🇸🇦 అరబిక్</string>
+    <string name="lang_bg">🇧🇬 బల్గేరియన్</string>
+    <string name="lang_ca">🏴 కటలన్</string>
+    <string name="lang_cs">🇨🇿 చెక్</string>
+    <string name="lang_cy">🏴 వెల్ష్</string>
+    <string name="lang_da">🇩🇰 డానిష్</string>
+    <string name="lang_el">🇬🇷 గ్రీక్</string>
+    <string name="lang_fa">🇮🇷 పర్షియన్</string>
+    <string name="lang_fi">🇫🇮 ఫిన్నిష్</string>
+    <string name="lang_hi">🇮🇳 హిందీ</string>
+    <string name="lang_hu">🇭🇺 హంగేరియన్</string>
+    <string name="lang_id">🇮🇩 ఇండోనేషియన్</string>
+    <string name="lang_is">🇮🇸 ఐస్‌లాండిక్</string>
+    <string name="lang_ka">🇬🇪 జార్జియన్</string>
+    <string name="lang_kk">🇰🇿 కజక్</string>
+    <string name="lang_ku">☀️ కుర్ద్</string>
+    <string name="lang_lb">🇱🇺 లక్సెంబర్గిష్</string>
+    <string name="lang_lv">🇱🇻 లాట్వియన్</string>
+    <string name="lang_ml">🇮🇳 మలయాళం</string>
+    <string name="lang_ne">🇳🇵 నేపాలీ</string>
+    <string name="lang_no">🇳🇴 నార్వేజియన్</string>
+    <string name="lang_pl">🇵🇱 పోలిష్</string>
+    <string name="lang_pt_BR">🇧🇷 బ్రెజిలియన్ పోర్చుగీస్</string>
+    <string name="lang_pt_PT">🇵🇹 యూరోపియన్ పోర్చుగీస్</string>
+    <string name="lang_ro">🇷🇴 రోమేనియన్</string>
+    <string name="lang_ru">🇷🇺 రష్యన్</string>
+    <string name="lang_sk">🇸🇰 స్లోవాక్</string>
+    <string name="lang_sl">🇸🇮 స్లోవేనియన్</string>
+    <string name="lang_sq">🇦🇱 అల్బేనియన్</string>
+    <string name="lang_sr">🇷🇸 సెర్బియన్</string>
+    <string name="lang_sw">🇹🇰 స్వాహిలి</string>
+    <string name="lang_tr">🇹🇷 టర్కిష్</string>
+    <string name="lang_uk">🇺🇦 ఉక్రేనియన్</string>
+    <string name="lang_ur">🇵🇰 ఉర్దూ</string>
+    <string name="lang_vi">🇻🇳 వिएట్నామీస్</string>
+    <string name="lang_zh">🇨🇳 చైనీస్</string>
+    <string name="lang_es_MX">🇲🇽 మెక్సికన్ స్పానిష్</string>
+    <string name="lang_es_AR">🇦🇷 అర్జెంటీనా స్పానిష్</string>
+    <string name="lang_nl_BE">🇧🇪 ఫ్లెమిష్</string>
+    <string name="lang_en_GB">🇬🇧 బ్రిటిష్ ఇంగ్లీష్</string>
+    <string name="select_language">భాషను ఎంచుకోండి</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">భాష %s కి మార్చబడింది</string>
+</resources>

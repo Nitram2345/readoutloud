@@ -253,16 +253,65 @@ class TtsController(
         if (currentEngine is AndroidTtsEngine) {
             val locale = when (lang) {
                 "de" -> Locale.GERMAN
+                "de_DE" -> Locale.GERMAN
                 "en" -> Locale.ENGLISH
                 "en-US" -> Locale("en", "US")
+                "en_GB" -> Locale("en", "GB")
+                "en_US" -> Locale("en", "US")
                 "es" -> Locale("es")
+                "es_ES" -> Locale("es", "ES")
+                "es_MX" -> Locale("es", "MX")
+                "es_AR" -> Locale("es", "AR")
                 "nl" -> Locale.forLanguageTag("nl")
+                "nl_NL" -> Locale.forLanguageTag("nl")
+                "nl_BE" -> Locale("nl", "BE")
                 "it" -> Locale.ITALIAN
+                "it_IT" -> Locale.ITALIAN
                 "fr" -> Locale.FRENCH
+                "fr_FR" -> Locale.FRENCH
                 "pt" -> Locale.forLanguageTag("pt")
+                "pt_PT" -> Locale("pt", "PT")
+                "pt_BR" -> Locale("pt", "BR")
                 "sv" -> Locale.forLanguageTag("sv")
+                "sv_SE" -> Locale.forLanguageTag("sv")
                 "ja" -> Locale.JAPANESE
-                else -> Locale.getDefault()
+                "ja_JP" -> Locale.JAPANESE
+                "ar_JO" -> Locale("ar", "JO")
+                "bg_BG" -> Locale("bg", "BG")
+                "ca_ES" -> Locale("ca", "ES")
+                "cs_CZ" -> Locale("cs", "CZ")
+                "cy_GB" -> Locale("cy", "GB")
+                "da_DK" -> Locale("da", "DK")
+                "el_GR" -> Locale("el", "GR")
+                "fa_IR" -> Locale("fa", "IR")
+                "fi_FI" -> Locale("fi", "FI")
+                "hi_IN" -> Locale("hi", "IN")
+                "hu_HU" -> Locale("hu", "HU")
+                "id_ID" -> Locale("id", "ID")
+                "is_IS" -> Locale("is", "IS")
+                "ka_GE" -> Locale("ka", "GE")
+                "kk_KZ" -> Locale("kk", "KZ")
+                "ku_TR" -> Locale("ku", "TR")
+                "lb_LU" -> Locale("lb", "LU")
+                "lv_LV" -> Locale("lv", "LV")
+                "ml_IN" -> Locale("ml", "IN")
+                "ne_NP" -> Locale("ne", "NP")
+                "no_NO" -> Locale("no", "NO")
+                "pl_PL" -> Locale("pl", "PL")
+                "ro_RO" -> Locale("ro", "RO")
+                "ru_RU" -> Locale("ru", "RU")
+                "sk_SK" -> Locale("sk", "SK")
+                "sl_SI" -> Locale("sl", "SI")
+                "sq_AL" -> Locale("sq", "AL")
+                "sr_RS" -> Locale("sr", "RS")
+                "sw_CD" -> Locale("sw", "CD")
+                "te_IN" -> Locale("te", "IN")
+                "tr_TR" -> Locale("tr", "TR")
+                "uk_UA" -> Locale("uk", "UA")
+                "ur_PK" -> Locale("ur", "PK")
+                "vi_VN" -> Locale("vi", "VN")
+                "zh_CN" -> Locale("zh", "CN")
+                else -> Locale.forLanguageTag(lang.replace("_", "-")).takeIf { it.language.isNotEmpty() } ?: Locale.getDefault()
             }
             tts.setLanguage(locale)
         }

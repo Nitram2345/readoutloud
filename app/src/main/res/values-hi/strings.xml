@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">खोलें</string>
+    <string name="listen">सुनें</string>
+    <string name="pause">विराम</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">PDF, DOCX या EPUB खोलें</string>
+    <string name="status_loading">लोड हो रहा है…</string>
+    <string name="status_cancelled">रद्द किया गया</string>
+    <string name="status_error">त्रुटि: %s</string>
+    <string name="status_file_not_found">फ़ाइल अब उपलब्ध नहीं है</string>
+    <string name="status_pages" formatted="false">%d पृष्ठ, %d पाठ पंक्तियाँ</string>
+    <string name="status_paragraphs">%d अनुच्छेद</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">पृष्ठ %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">उपयोगकर्ता गाइड</string>
+    <string name="help_close">बंद करें</string>
+    <string name="help_back">दस्तावेज़ बंद करता है और ऐप से बाहर जाता है</string>
+    <string name="help_open">नया दस्तावेज़ चुनें (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">शीर्षकों के साथ विषय सूची दिखाएं</string>
+    <string name="help_help">यह गाइड दिखाएं</string>
+    <string name="help_audio">स्पीकर और ईयरफोन के बीच स्विच करें</string>
+    <string name="help_speed">पढ़ने की गति को धीमा या तेज़ करें</string>
+    <string name="help_speed_display">वर्तमान गति प्रदर्शित करता है</string>
+    <string name="help_skip_back">30 सेकंड पीछे जाएं</string>
+    <string name="help_listen">बोलकर पढ़ना शुरू या रोकें</string>
+    <string name="help_timer">नींद टाइमर: 30 मिनट बाद स्वचालित रूप से रुकता है</string>
+    <string name="help_skip_forward">30 सेकंड आगे जाएं</string>
+    <string name="help_volume">आवाज़ समायोजित करें (150%% तक)</string>
+    <string name="help_volume_display">वर्तमान आवाज़ प्रदर्शित करता है</string>
+    <string name="help_tap">दस्तावेज़ में किसी स्थान पर टैप करें ताकि वहां से पढ़ना जारी रख सकें</string>
+    <string name="help_tap_title">PDF पर टैप करें</string>
+    <string name="help_controls_top">ऊपरी नियंत्रण:</string>
+    <string name="help_controls_bottom">निचले नियंत्रण:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">कानूनी</string>
+    <string name="privacy_policy">गोपनीयता नीति</string>
+    <string name="privacy_description">कोई डेटा संग्रह नहीं। सभी डेटा आपके डिवाइस पर स्थानीय रूप से रहता है।</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 जर्मन</string>
+    <string name="lang_en">🇬🇧 अंग्रेज़ी</string>
+    <string name="lang_en_US">🇺🇸 अमेरिकी अंग्रेज़ी</string>
+    <string name="lang_nl">🇳🇱 डच</string>
+    <string name="lang_it">🇮🇹 इतालवी</string>
+    <string name="lang_fr">🇫🇷 फ्रेंच</string>
+    <string name="lang_pt">🇵🇹 पुर्तगाली</string>
+    <string name="lang_sv">🇸🇪 स्वीडिश</string>
+    <string name="lang_es">🇪🇸 स्पेनिश</string>
+    <string name="lang_ja">🇯🇵 जापानी</string>
+    <string name="lang_hi">🇮🇳 हिन्दी</string>
+    <string name="lang_ar">🇸🇦 अरबी</string>
+    <string name="lang_bg">🇧🇬 बल्गेरियाई</string>
+    <string name="lang_ca">🏴 कैटलन</string>
+    <string name="lang_cs">🇨🇿 चेक</string>
+    <string name="lang_cy">🏴 वेल्श</string>
+    <string name="lang_da">🇩🇰 डेनिश</string>
+    <string name="lang_el">🇬🇷 ग्रीक</string>
+    <string name="lang_fa">🇮🇷 फारसी</string>
+    <string name="lang_fi">🇫🇮 फिनिश</string>
+    <string name="lang_hu">🇭🇺 हंगेरियाई</string>
+    <string name="lang_id">🇮🇩 इंडोनेशियाई</string>
+    <string name="lang_is">🇮🇸 आइसलैंडिक</string>
+    <string name="lang_ka">🇬🇪 जॉर्जियन</string>
+    <string name="lang_kk">🇰🇿 कज़ाख</string>
+    <string name="lang_ku">☀️ कुर्द</string>
+    <string name="lang_lb">🇱🇺 लक्ज़मबर्गिश</string>
+    <string name="lang_lv">🇱🇻 लैट्वियन</string>
+    <string name="lang_ml">🇮🇳 मलयालम</string>
+    <string name="lang_ne">🇳🇵 नेपाली</string>
+    <string name="lang_no">🇳🇴 नॉर्वेजियन</string>
+    <string name="lang_pl">🇵🇱 पोलिश</string>
+    <string name="lang_pt_BR">🇧🇷 ब्राज़िली पुर्तगाली</string>
+    <string name="lang_ro">🇷🇴 रोमानियाई</string>
+    <string name="lang_ru">🇷🇺 रूसी</string>
+    <string name="lang_sk">🇸🇰 स्लोवाक</string>
+    <string name="lang_sl">🇸🇮 स्लोवेनियाई</string>
+    <string name="lang_sq">🇦🇱 अल्बानियाई</string>
+    <string name="lang_sr">🇷🇸 सर्बियाई</string>
+    <string name="lang_sw">🇹🇰 स्वाहिली</string>
+    <string name="lang_te">🇮🇳 तेलुगु</string>
+    <string name="lang_tr">🇹🇷 तुर्क</string>
+    <string name="lang_uk">🇺🇦 यूक्रेनी</string>
+    <string name="lang_ur">🇵🇰 उर्दू</string>
+    <string name="lang_vi">🇻🇳 वियतनामी</string>
+    <string name="lang_zh">🇨🇳 चीनी</string>
+    <string name="lang_es_MX">🇲🇽 मैक्सिकन स्पेनिश</string>
+    <string name="lang_es_AR">🇦🇷 अर्जेंटीना स्पेनिश</string>
+    <string name="lang_nl_BE">🇧🇪 फ्लेमिश</string>
+    <string name="lang_pt_PT">🇵🇹 यूरोपीय पुर्तगाली</string>
+    <string name="lang_en_GB">🇬🇧 ब्रिटिश अंग्रेज़ी</string>
+    <string name="select_language">भाषा चुनें</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">भाषा %s में बदली गई</string>
+</resources>

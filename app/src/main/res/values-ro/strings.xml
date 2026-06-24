@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Deschide</string>
+    <string name="listen">Citește cu voce tare</string>
+    <string name="pause">Pauză</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">Deschide PDF, DOCX sau EPUB</string>
+    <string name="status_loading">Se încarcă…</string>
+    <string name="status_cancelled">Anulat</string>
+    <string name="status_error">EROARE: %s</string>
+    <string name="status_file_not_found">Fișierul nu mai este disponibil</string>
+    <string name="status_pages" formatted="false">%d pagini, %d linii de text</string>
+    <string name="status_paragraphs">%d paragrafe</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">Pagina %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">Ghid de utilizator</string>
+    <string name="help_close">Închide</string>
+    <string name="help_back">Închide documentul și iese din aplicație</string>
+    <string name="help_open">Selectați un document nou (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Afișați cuprinsul cu titluri</string>
+    <string name="help_help">Afișați acest ghid</string>
+    <string name="help_audio">Comutați între difuzor și căști</string>
+    <string name="help_speed">Încetiniți sau accelerați viteza de citire</string>
+    <string name="help_speed_display">Afișează viteza curentă</string>
+    <string name="help_skip_back">Răspundeți cu 30 de secunde înapoi</string>
+    <string name="help_listen">Începeți sau opriți citirea cu voce tare</string>
+    <string name="help_timer">Temporizator de somn: Se oprește automat după 30 de minute</string>
+    <string name="help_skip_forward">Înainte cu 30 de secunde</string>
+    <string name="help_volume">Reglați volumul (până la 150%%)</string>
+    <string name="help_volume_display">Afișează volumul curent</string>
+    <string name="help_tap">Atingeți o locație în document pentru a continua citirea de acolo</string>
+    <string name="help_tap_title">Atingeți PDF</string>
+    <string name="help_controls_top">Controale superioare:</string>
+    <string name="help_controls_bottom">Controale inferioare:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Legal</string>
+    <string name="privacy_policy">Politica de confidențialitate</string>
+    <string name="privacy_description">Nu există colectarea de date. Toate datele rămân local pe dispozitivul dumneavoastră.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 Germană</string>
+    <string name="lang_en">🇬🇧 Engleză</string>
+    <string name="lang_en_US">🇺🇸 Engleză americană</string>
+    <string name="lang_nl">🇳🇱 Olandeză</string>
+    <string name="lang_fr">🇫🇷 Franceză</string>
+    <string name="lang_pt">🇵🇹 Portugheză</string>
+    <string name="lang_sv">🇸🇪 Suedeză</string>
+    <string name="lang_es">🇪🇸 Spaniolă</string>
+    <string name="lang_ja">🇯🇵 Japoneză</string>
+    <string name="lang_ro">🇷🇴 Română</string>
+    <string name="lang_ar">🇸🇦 Arabă</string>
+    <string name="lang_bg">🇧🇬 Bulgară</string>
+    <string name="lang_ca">🏴 Catalană</string>
+    <string name="lang_cs">🇨🇿 Cehă</string>
+    <string name="lang_cy">🏴 Țgală</string>
+    <string name="lang_da">🇩🇰 Daneză</string>
+    <string name="lang_el">🇬🇷 Greacă</string>
+    <string name="lang_fa">🇮🇷 Persană</string>
+    <string name="lang_fi">🇫🇮 Finleză</string>
+    <string name="lang_hi">🇮🇳 Hindi</string>
+    <string name="lang_hu">🇭🇺 Maghiară</string>
+    <string name="lang_id">🇮🇩 Indoneziană</string>
+    <string name="lang_is">🇮🇸 Islandeză</string>
+    <string name="lang_it">🇮🇹 Italiană</string>
+    <string name="lang_ka">🇬🇪 Georgiană</string>
+    <string name="lang_kk">🇰🇿 Kazahă</string>
+    <string name="lang_ku">☀️ Kurdă</string>
+    <string name="lang_lb">🇱🇺 Luxenburgeză</string>
+    <string name="lang_lv">🇱🇻 Letonă</string>
+    <string name="lang_ml">🇮🇳 Malayalam</string>
+    <string name="lang_ne">🇳🇵 Nepalveză</string>
+    <string name="lang_no">🇳🇴 Norvegiană</string>
+    <string name="lang_pl">🇵🇱 Poloneză</string>
+    <string name="lang_pt_BR">🇧🇷 Portugheză braziliană</string>
+    <string name="lang_pt_PT">🇵🇹 Portugheză europeană</string>
+    <string name="lang_ru">🇷🇺 Rusă</string>
+    <string name="lang_sk">🇸🇰 Slovacă</string>
+    <string name="lang_sl">🇸🇮 Slovenă</string>
+    <string name="lang_sq">🇦🇱 Albaneză</string>
+    <string name="lang_sr">🇷🇸 Sârbă</string>
+    <string name="lang_sw">🇹🇰 Swahili</string>
+    <string name="lang_te">🇮🇳 Telugu</string>
+    <string name="lang_tr">🇹🇷 Turcă</string>
+    <string name="lang_uk">🇺🇦 Ucraineană</string>
+    <string name="lang_ur">🇵🇰 Urdu</string>
+    <string name="lang_vi">🇻🇳 Vietnameză</string>
+    <string name="lang_zh">🇨🇳 Chineză</string>
+    <string name="lang_es_MX">🇲🇽 Spaniolă mexicană</string>
+    <string name="lang_es_AR">🇦🇷 Spaniolă argentiniană</string>
+    <string name="lang_nl_BE">🇧🇪 Flamandă</string>
+    <string name="lang_en_GB">🇬🇧 Engleză britanică</string>
+    <string name="select_language">Alege limba</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Limba schimbată în %s</string>
+</resources>

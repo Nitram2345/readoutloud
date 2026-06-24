@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Obre</string>
+    <string name="listen">Llegeix en veu alta</string>
+    <string name="pause">Pausa</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">Obre PDF, DOCX o EPUB</string>
+    <string name="status_loading">Carregant…</string>
+    <string name="status_cancelled">Cancel·lat</string>
+    <string name="status_error">ERROR: %s</string>
+    <string name="status_file_not_found">El fitxer ja no està disponible</string>
+    <string name="status_pages" formatted="false">%d pàgines, %d línies de text</string>
+    <string name="status_paragraphs">%d paràgrafs</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">Pàgina %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">Guia d\'usuari</string>
+    <string name="help_close">Tanca</string>
+    <string name="help_back">Tanca el document i surt de l\'aplicació</string>
+    <string name="help_open">Selecciona un nou document (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Mostra la taula de continguts amb capçaleres</string>
+    <string name="help_help">Mostra aquesta guia</string>
+    <string name="help_audio">Canvia entre altaveu i auricular</string>
+    <string name="help_speed">Ralentir o accelerar la velocitat de lectura</string>
+    <string name="help_speed_display">Mostra la velocitat actual</string>
+    <string name="help_skip_back">Torna 30 segons</string>
+    <string name="help_listen">Inicia o pausa la lectura en veu alta</string>
+    <string name="help_timer">Temporitzador de son: s\'atura automàticament després de 30 min</string>
+    <string name="help_skip_forward">Avança 30 segons</string>
+    <string name="help_volume">Ajusta el volum (fins a 150%%)</string>
+    <string name="help_volume_display">Mostra el volum actual</string>
+    <string name="help_tap">Toqueu un lloc del document per continuar llegint des d\'aquí</string>
+    <string name="help_tap_title">Toqueu PDF</string>
+    <string name="help_controls_top">Controles superiors:</string>
+    <string name="help_controls_bottom">Controles inferiors:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Legal</string>
+    <string name="privacy_policy">Política de privadesa</string>
+    <string name="privacy_description">Cap recollida de dades. Totes les dades es mantenen locals al vostre dispositiu.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 Alemany</string>
+    <string name="lang_en">🇬🇧 Anglès</string>
+    <string name="lang_en_US">🇺🇸 Anglès americà</string>
+    <string name="lang_nl">🇳🇱 Holandès</string>
+    <string name="lang_it">🇮🇹 Italià</string>
+    <string name="lang_fr">🇫🇷 Francès</string>
+    <string name="lang_pt">🇵🇹 Portuguès</string>
+    <string name="lang_sv">🇸🇪 Suec</string>
+    <string name="lang_es">🇪🇸 Espanyol</string>
+    <string name="lang_ja">🇯🇵 Japonès</string>
+    <string name="lang_ca">🏴 Català</string>
+    <string name="lang_ar">🇸🇦 Àrab</string>
+    <string name="lang_bg">🇧🇬 Búlgar</string>
+    <string name="lang_cs">🇨🇿 Txec</string>
+    <string name="lang_cy">🏴 Gal·lès</string>
+    <string name="lang_da">🇩🇰 Danès</string>
+    <string name="lang_el">🇬🇷 Grec</string>
+    <string name="lang_fa">🇮🇷 Pèrsia</string>
+    <string name="lang_fi">🇫🇮 Finès</string>
+    <string name="lang_hi">🇮🇳 Hindi</string>
+    <string name="lang_hu">🇭🇺 Hongarès</string>
+    <string name="lang_id">🇮🇩 Indonesi</string>
+    <string name="lang_is">🇮🇸 Islandès</string>
+    <string name="lang_ka">🇬🇪 Georgià</string>
+    <string name="lang_kk">🇰🇿 Kazakhstanès</string>
+    <string name="lang_ku">☀️ Kurd</string>
+    <string name="lang_lb">🇱🇺 Luxemburguès</string>
+    <string name="lang_lv">🇱🇻 Letó</string>
+    <string name="lang_ml">🇮🇳 Malayalam</string>
+    <string name="lang_ne">🇳🇵 Nepalès</string>
+    <string name="lang_no">🇳🇴 Noruec</string>
+    <string name="lang_pl">🇵🇱 Polonès</string>
+    <string name="lang_pt_BR">🇧🇷 Portuguès brasiler</string>
+    <string name="lang_pt_PT">🇵🇹 Portuguès europeu</string>
+    <string name="lang_ro">🇷🇴 Romanès</string>
+    <string name="lang_ru">🇷🇺 Rus</string>
+    <string name="lang_sk">🇸🇰 Eslovac</string>
+    <string name="lang_sl">🇸🇮 Eslovè</string>
+    <string name="lang_sq">🇦🇱 Albanès</string>
+    <string name="lang_sr">🇷🇸 Serbi</string>
+    <string name="lang_sw">🇹🇿 Suahili</string>
+    <string name="lang_te">🇮🇳 Telugu</string>
+    <string name="lang_tr">🇹🇷 Turc</string>
+    <string name="lang_uk">🇺🇦 Ucraïnès</string>
+    <string name="lang_ur">🇵🇰 Urdu</string>
+    <string name="lang_vi">🇻🇳 Vietnamita</string>
+    <string name="lang_zh">🇨🇳 Xinès</string>
+    <string name="lang_es_MX">🇲🇽 Espanyol (Mèxic)</string>
+    <string name="lang_es_AR">🇦🇷 Espanyol (Argentina)</string>
+    <string name="lang_nl_BE">🇧🇪 Neerlandès (Bèlgica)</string>
+    <string name="lang_en_GB">🇬🇧 Anglès (Regne Unit)</string>
+    <string name="select_language">Tria l\'idioma</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Idioma canviat a %s</string>
+</resources>

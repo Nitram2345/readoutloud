@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Åpne</string>
+    <string name="listen">Les høyt</string>
+    <string name="pause">Pause</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">Åpne PDF, DOCX eller EPUB</string>
+    <string name="status_loading">Laster…</string>
+    <string name="status_cancelled">Avbrutt</string>
+    <string name="status_error">FEIL: %s</string>
+    <string name="status_file_not_found">Filen er ikke lenger tilgjengelig</string>
+    <string name="status_pages" formatted="false">%d sider, %d tekstlinjer</string>
+    <string name="status_paragraphs">%d avsnitt</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">Side %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">Brukerveiledning</string>
+    <string name="help_close">Lukk</string>
+    <string name="help_back">Lukker dokumentet og forlater appen</string>
+    <string name="help_open">Velg et nytt dokument (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Vis innholdsfortegnelse med overskrifter</string>
+    <string name="help_help">Vis denne veiledningen</string>
+    <string name="help_audio">Bytt mellom høyttaler og øretelefon</string>
+    <string name="help_speed">Sakte eller øk lesefarten</string>
+    <string name="help_speed_display">Viser gjeldende hastighet</string>
+    <string name="help_skip_back">Spol 30 sekunder tilbake</string>
+    <string name="help_listen">Start eller pause høyttalelesning</string>
+    <string name="help_timer">Søvn-timer: Stopper automatisk etter 30 min</string>
+    <string name="help_skip_forward">Spol 30 sekunder frem</string>
+    <string name="help_volume">Juster lydstyrke (opp til 150%%)</string>
+    <string name="help_volume_display">Viser gjeldende lydstyrke</string>
+    <string name="help_tap">Trykk på en plass i dokumentet for å fortsette lesing der</string>
+    <string name="help_tap_title">Trykk på PDF</string>
+    <string name="help_controls_top">Kontroller øverst:</string>
+    <string name="help_controls_bottom">Kontroller nederst:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Juridisk</string>
+    <string name="privacy_policy">Personvernerklæring</string>
+    <string name="privacy_description">Ingen datainnsamling. Alle data forblir lokalt på enheten din.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 Tysk</string>
+    <string name="lang_en">🇬🇧 Engelsk</string>
+    <string name="lang_en_US">🇺🇸 Amerikansk engelsk</string>
+    <string name="lang_nl">🇳🇱 Nederlandsk</string>
+    <string name="lang_it">🇮🇹 Italiensk</string>
+    <string name="lang_fr">🇫🇷 Fransk</string>
+    <string name="lang_pt">🇵🇹 Portugisisk</string>
+    <string name="lang_sv">🇸🇪 Svensk</string>
+    <string name="lang_es">🇪🇸 Spansk</string>
+    <string name="lang_ja">🇯🇵 Japansk</string>
+    <string name="lang_no">🇳🇴 Norsk</string>
+    <string name="lang_ar">🇸🇦 Arabisk</string>
+    <string name="lang_bg">🇧🇬 Bulgarsk</string>
+    <string name="lang_ca">🏴 Catalansk</string>
+    <string name="lang_cs">🇨🇿 Tsjekkisk</string>
+    <string name="lang_cy">🏴 Walesisk</string>
+    <string name="lang_da">🇩🇰 Dansk</string>
+    <string name="lang_el">🇬🇷 Gresk</string>
+    <string name="lang_fa">🇮🇷 Persisk</string>
+    <string name="lang_fi">🇫🇮 Finsk</string>
+    <string name="lang_hi">🇮🇳 Hindi</string>
+    <string name="lang_hu">🇭🇺 Ungarsk</string>
+    <string name="lang_id">🇮🇩 Indonesisk</string>
+    <string name="lang_is">🇮🇸 Islandsk</string>
+    <string name="lang_ka">🇬🇪 Georgisk</string>
+    <string name="lang_kk">🇰🇿 Kasakhisk</string>
+    <string name="lang_ku">☀️ Kurdisk</string>
+    <string name="lang_lb">🇱🇺 Luxembourgsk</string>
+    <string name="lang_lv">🇱🇻 Latvisk</string>
+    <string name="lang_ml">🇮🇳 Malayalam</string>
+    <string name="lang_ne">🇳🇵 Nepalesisk</string>
+    <string name="lang_pl">🇵🇱 Polsk</string>
+    <string name="lang_pt_BR">🇧🇷 Brasiliansk portugisisk</string>
+    <string name="lang_pt_PT">🇵🇹 Europeisk portugisisk</string>
+    <string name="lang_ro">🇷🇴 Rumensk</string>
+    <string name="lang_ru">🇷🇺 Russisk</string>
+    <string name="lang_sk">🇸🇰 Slovakisk</string>
+    <string name="lang_sl">🇸🇮 Slovensk</string>
+    <string name="lang_sq">🇦🇱 Albansk</string>
+    <string name="lang_sr">🇷🇸 Serbisk</string>
+    <string name="lang_sw">🇹🇰 Swahili</string>
+    <string name="lang_te">🇮🇳 Telugu</string>
+    <string name="lang_tr">🇹🇷 Tyrkisk</string>
+    <string name="lang_uk">🇺🇦 Ukrainsk</string>
+    <string name="lang_ur">🇵🇰 Urdu</string>
+    <string name="lang_vi">🇻🇳 Vietnamesisk</string>
+    <string name="lang_zh">🇨🇳 Kinesisk</string>
+    <string name="lang_es_MX">🇲🇽 Mexikansk spansk</string>
+    <string name="lang_es_AR">🇦🇷 Argentinsk spansk</string>
+    <string name="lang_nl_BE">🇧🇪 Flamsk</string>
+    <string name="lang_en_GB">🇬🇧 Britisk engelsk</string>
+    <string name="select_language">Velg språk</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Språk endret til %s</string>
+</resources>

@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Öffnen</string>
+    <string name="listen">Liesen</string>
+    <string name="pause">Paus</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">PDF, DOCX oder EPUB öffnen</string>
+    <string name="status_loading">Luede…</string>
+    <string name="status_cancelled">Ofgebrach</string>
+    <string name="status_error">FEHLER: %s</string>
+    <string name="status_file_not_found">D Datei ass net méi verfügbar</string>
+    <string name="status_pages" formatted="false">%d Säiten, %d Textlinnen</string>
+    <string name="status_paragraphs">%d Absätz</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">Säit %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">Bedienungsanweisung</string>
+    <string name="help_close">Zoumaachen</string>
+    <string name="help_back">D Dokument zoumaachen an d App verloossen</string>
+    <string name="help_open">Wielt e neit Dokument (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Inhaltsverzeechnes mat Iwwerschrëften weisen</string>
+    <string name="help_help">Dës Weisung weisen</string>
+    <string name="help_audio">Tëscht Lautsprecher an Ouerhörer wiesselen</string>
+    <string name="help_speed">Liesvitesse verlangsamen oder beschleunegen</string>
+    <string name="help_speed_display">Aktuell Vitesse weisen</string>
+    <string name="help_skip_back">30 Sekonnen zeréckspülen</string>
+    <string name="help_listen">Virlesen starten oder pauséieren</string>
+    <string name="help_timer">Schlof-Timer: Stoppt nom 30 Min. automatesch</string>
+    <string name="help_skip_forward">30 Sekonnen weiderspülen</string>
+    <string name="help_volume">Lautstäerkt regelen (bis 150%%)</string>
+    <string name="help_volume_display">Aktuell Lautstäerkt weisen</string>
+    <string name="help_tap">Tippt op eng Plaz am Dokument fir do weider ze liesen</string>
+    <string name="help_tap_title">Op PDF tippen</string>
+    <string name="help_controls_top">Steuerung uewen:</string>
+    <string name="help_controls_bottom">Steuerung ënnen:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Rechtlech</string>
+    <string name="privacy_policy">Datenschutz</string>
+    <string name="privacy_description">Keng Datenerfassung. All Daten bleiwen lokal op Ärem Gerät.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 Däitsch</string>
+    <string name="lang_en">🇬🇧 Englesch</string>
+    <string name="lang_en_US">🇺🇸 Amerikanesch Englesch</string>
+    <string name="lang_nl">🇳🇱 Hollännesch</string>
+    <string name="lang_it">🇮🇹 Italieenesch</string>
+    <string name="lang_fr">🇫🇷 Franséisch</string>
+    <string name="lang_pt">🇵🇹 Portugisesch</string>
+    <string name="lang_sv">🇸🇪 Schweedesch</string>
+    <string name="lang_es">🇪🇸 Spuenesch</string>
+    <string name="lang_ja">🇯🇵 Japanesch</string>
+    <string name="lang_lb">🇱🇺 Lëtzebuergesch</string>
+    <string name="lang_ar">🇸🇦 Arabesch</string>
+    <string name="lang_bg">🇧🇬 Bulgaresch</string>
+    <string name="lang_ca">🏴 Katalanesch</string>
+    <string name="lang_cs">🇨🇿 Tschechesch</string>
+    <string name="lang_cy">🏴 Walisesch</string>
+    <string name="lang_da">🇩🇰 Dänesch</string>
+    <string name="lang_el">🇬🇷 Griichesch</string>
+    <string name="lang_fa">🇮🇷 Persesch</string>
+    <string name="lang_fi">🇫🇮 Finnesch</string>
+    <string name="lang_hi">🇮🇳 Hindi</string>
+    <string name="lang_hu">🇭🇺 Ungaresch</string>
+    <string name="lang_id">🇮🇩 Indonesesch</string>
+    <string name="lang_is">🇮🇸 Islännesch</string>
+    <string name="lang_ka">🇬🇪 Georgesch</string>
+    <string name="lang_kk">🇰🇿 Kasachesch</string>
+    <string name="lang_ku">☀️ Kurdesch</string>
+    <string name="lang_lv">🇱🇻 Lettesch</string>
+    <string name="lang_ml">🇮🇳 Malayalam</string>
+    <string name="lang_ne">🇳🇵 Nepalesesch</string>
+    <string name="lang_no">🇳🇴 Norwegesch</string>
+    <string name="lang_pl">🇵🇱 Polnesch</string>
+    <string name="lang_pt_BR">🇧🇷 Brasilianesch Portugisesch</string>
+    <string name="lang_pt_PT">🇵🇹 Europäesch Portugisesch</string>
+    <string name="lang_ro">🇷🇴 Rumanesch</string>
+    <string name="lang_ru">🇷🇺 Russesch</string>
+    <string name="lang_sk">🇸🇰 Slowakesch</string>
+    <string name="lang_sl">🇸🇮 Slowenesch</string>
+    <string name="lang_sq">🇦🇱 Albanesch</string>
+    <string name="lang_sr">🇷🇸 Serbesch</string>
+    <string name="lang_sw">🇹🇰 Swahili</string>
+    <string name="lang_te">🇮🇳 Telugu</string>
+    <string name="lang_tr">🇹🇷 Tierkesch</string>
+    <string name="lang_uk">🇺🇦 Ukrainesch</string>
+    <string name="lang_ur">🇵🇰 Urdu</string>
+    <string name="lang_vi">🇻🇳 Vietnamesesch</string>
+    <string name="lang_zh">🇨🇳 Chineesesch</string>
+    <string name="lang_es_MX">🇲🇽 Mexikanesch Spuenesch</string>
+    <string name="lang_es_AR">🇦🇷 Argentinisch Spuenesch</string>
+    <string name="lang_nl_BE">🇧🇪 Flämesch</string>
+    <string name="lang_en_GB">🇬🇧 Brittesch Englesch</string>
+    <string name="select_language">Wiel e Sprooch</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Sprooch geännert op %s</string>
+</resources>

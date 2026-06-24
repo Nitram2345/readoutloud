@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Avaa</string>
+    <string name="listen">Lue ääneen</string>
+    <string name="pause">Tauko</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">Avaa PDF, DOCX tai EPUB</string>
+    <string name="status_loading">Ladataan…</string>
+    <string name="status_cancelled">Peruutettu</string>
+    <string name="status_error">VIRHE: %s</string>
+    <string name="status_file_not_found">Tiedosto ei enää saatavilla</string>
+    <string name="status_pages" formatted="false">%d sivua, %d tekstiriviä</string>
+    <string name="status_paragraphs">%d kappaletta</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">Sivu %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">Käyttöohje</string>
+    <string name="help_close">Sulje</string>
+    <string name="help_back">Sulkee asiakirjan ja poistuu sovelluksesta</string>
+    <string name="help_open">Valitse uusi asiakirja (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Näytä sisällysluettelo otsikoilla</string>
+    <string name="help_help">Näytä tämä ohje</string>
+    <string name="help_audio">Vaihda kaiuttimen ja kuulokkeen välillä</string>
+    <string name="help_speed">Hidasta tai nopeuta lukunopeutta</string>
+    <string name="help_speed_display">Näyttää nykyisen nopeuden</string>
+    <string name="help_skip_back">Kelaa 30 sekuntia taaksepäin</string>
+    <string name="help_listen">Käynnistä tai pysäytä lukuääni</string>
+    <string name="help_timer">Nukkumistimeri: Pysäyttää automaattisesti 30 min jälkeen</string>
+    <string name="help_skip_forward">Kelaa 30 sekuntia eteenpäin</string>
+    <string name="help_volume">Säädä äänenvoimakkuutta (enintään 150%%)</string>
+    <string name="help_volume_display">Näyttää nykyisen äänenvoimakkuuden</string>
+    <string name="help_tap">Napauta asiakirjan kohtaa jatkaaksesi lukemista sieltä</string>
+    <string name="help_tap_title">Napauta PDF:ää</string>
+    <string name="help_controls_top">Yläohjaimet:</string>
+    <string name="help_controls_bottom">Alaohjaimet:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Oikeudellinen</string>
+    <string name="privacy_policy">Tietosuojakäytäntö</string>
+    <string name="privacy_description">Ei tietojen keräystä. Kaikki data pysyy paikallisesti laitteellasi.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 Saksa</string>
+    <string name="lang_en">🇬🇧 Englanti</string>
+    <string name="lang_en_US">🇺🇸 Yhdysvaltainenglanti</string>
+    <string name="lang_nl">🇳🇱 Hollanti</string>
+    <string name="lang_it">🇮🇹 Italia</string>
+    <string name="lang_fr">🇫🇷 Ranska</string>
+    <string name="lang_pt">🇵🇹 Portugali</string>
+    <string name="lang_sv">🇸🇪 Ruotsi</string>
+    <string name="lang_es">🇪🇸 Espanja</string>
+    <string name="lang_ja">🇯🇵 Japani</string>
+    <string name="lang_fi">🇫🇮 Suomi</string>
+    <string name="lang_ar">🇸🇦 Arabia</string>
+    <string name="lang_bg">🇧🇬 Bulgaria</string>
+    <string name="lang_ca">🏴 Katalaani</string>
+    <string name="lang_cs">🇨🇿 Tšekki</string>
+    <string name="lang_cy">🏴 Kymriä</string>
+    <string name="lang_da">🇩🇰 Tanska</string>
+    <string name="lang_el">🇬🇷 Kreikka</string>
+    <string name="lang_fa">🇮🇷 Persian</string>
+    <string name="lang_hi">🇮🇳 Hindi</string>
+    <string name="lang_hu">🇭🇺 Unkari</string>
+    <string name="lang_id">🇮🇩 Indonesia</string>
+    <string name="lang_is">🇮🇸 Islanti</string>
+    <string name="lang_ka">🇬🇪 Georgia</string>
+    <string name="lang_kk">🇰🇿 Kazakki</string>
+    <string name="lang_ku">☀️ Kurdi</string>
+    <string name="lang_lb">🇱🇺 Luxemburg</string>
+    <string name="lang_lv">🇱🇻 Latvia</string>
+    <string name="lang_ml">🇮🇳 Malayalam</string>
+    <string name="lang_ne">🇳🇵 Nepal</string>
+    <string name="lang_no">🇳🇴 Norja</string>
+    <string name="lang_pl">🇵🇱 Puola</string>
+    <string name="lang_pt_BR">🇧🇷 Brasilian portugali</string>
+    <string name="lang_ro">🇷🇴 Romania</string>
+    <string name="lang_ru">🇷🇺 Venäjä</string>
+    <string name="lang_sk">🇸🇰 Slovakia</string>
+    <string name="lang_sl">🇸🇮 Slovenia</string>
+    <string name="lang_sq">🇦🇱 Albania</string>
+    <string name="lang_sr">🇷🇸 Serbia</string>
+    <string name="lang_sw">🇹🇰 Swahili</string>
+    <string name="lang_te">🇮🇳 Telugu</string>
+    <string name="lang_tr">🇹🇷 Turkki</string>
+    <string name="lang_uk">🇺🇦 Ukraina</string>
+    <string name="lang_ur">🇵🇰 Urdu</string>
+    <string name="lang_vi">🇻🇳 Vietnam</string>
+    <string name="lang_zh">🇨🇳 Kiina</string>
+    <string name="lang_es_MX">🇲🇽 Meksikanolainen espanja</string>
+    <string name="lang_es_AR">🇦🇷 Argentiinalainen espanja</string>
+    <string name="lang_nl_BE">🇧🇪 Flami</string>
+    <string name="lang_pt_PT">🇵🇹 Eurooppalainen portugali</string>
+    <string name="lang_en_GB">🇬🇧 Brittiläinen englanti</string>
+    <string name="select_language">Valitse kieli</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Kieli muutettu: %s</string>
+</resources>

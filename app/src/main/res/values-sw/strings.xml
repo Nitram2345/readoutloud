@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Fungua</string>
+    <string name="listen">Sikiliza</string>
+    <string name="pause">Pause</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">Fungua PDF, DOCX au EPUB</string>
+    <string name="status_loading">Inapakia…</string>
+    <string name="status_cancelled">Imefutiliwa mbali</string>
+    <string name="status_error">KOSA: %s</string>
+    <string name="status_file_not_found">Faili halipo tena</string>
+    <string name="status_pages" formatted="false">ukurasa %d, mistari ya maandishi %d</string>
+    <string name="status_paragraphs">vidokezo %d</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">Ukurasa %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">Mwongozo wa Mtumiaji</string>
+    <string name="help_close">Funga</string>
+    <string name="help_back">Funga hati na toka kwenye programu</string>
+    <string name="help_open">Chagua hati mpya (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Onyesha jedwali la yaliyomo na kichwa</string>
+    <string name="help_help">Onyesha mwongozo huu</string>
+    <string name="help_audio">Badilisha kati ya spika na kichwa</string>
+    <string name="help_speed">Punguza au ongeza kasi ya kusoma</string>
+    <string name="help_speed_display">Inaonyesha kasi ya sasa</string>
+    <string name="help_skip_back">Rudi nyuma sekunde 30</string>
+    <string name="help_listen">Anzisha au pause kusoma kwa sauti</string>
+    <string name="help_timer">Kipima muda wa kulala: Simamisha kiotomatiki baada ya dakika 30</string>
+    <string name="help_skip_forward">Mbele sekunde 30</string>
+    <string name="help_volume">Sawazisha sauti (hadi 150%%)</string>
+    <string name="help_volume_display">Inaonyesha sauti ya sasa</string>
+    <string name="help_tap">Gusa mahali katika hati kuendelea kusoma kutoka huko</string>
+    <string name="help_tap_title">Gusa PDF</string>
+    <string name="help_controls_top">Dhibiti za juu:</string>
+    <string name="help_controls_bottom">Dhibiti za chini:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Kisheria</string>
+    <string name="privacy_policy">Sera ya faragha</string>
+    <string name="privacy_description">Hakukusanyaji data. Data zote zinaendelea kwenye kifaa chako.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 Kijerumani</string>
+    <string name="lang_en">🇬🇧 Kiingereza</string>
+    <string name="lang_en_US">🇺🇸 Kiingereza cha Marekani</string>
+    <string name="lang_nl">🇳🇱 Kiholanzi</string>
+    <string name="lang_it">🇮🇹 Kiitalia</string>
+    <string name="lang_fr">🇫🇷 Kifaransa</string>
+    <string name="lang_pt">🇵🇹 Kireno</string>
+    <string name="lang_sv">🇸🇪 Kiswidi</string>
+    <string name="lang_es">🇪🇸 Kihispania</string>
+    <string name="lang_ja">🇯🇵 Kijapani</string>
+    <string name="lang_sw">🇹🇿 Kiswahili</string>
+    <string name="lang_ar">🇸🇦 Kiarabu</string>
+    <string name="lang_bg">🇧🇬 Kibulgaria</string>
+    <string name="lang_ca">🏴 Kikatalan</string>
+    <string name="lang_cs">🇨🇿 Kicheko</string>
+    <string name="lang_cy">🏴 Kiwelshi</string>
+    <string name="lang_da">🇩🇰 Kideni</string>
+    <string name="lang_el">🇬🇷 Kigiriki</string>
+    <string name="lang_fa">🇮🇷 Kipersia</string>
+    <string name="lang_fi">🇫🇮 Kifini</string>
+    <string name="lang_hi">🇮🇳 Kihindi</string>
+    <string name="lang_hu">🇭🇺 Kihungaria</string>
+    <string name="lang_id">🇮🇩 Kiindonesia</string>
+    <string name="lang_is">🇮🇸 Kiaiselandi</string>
+    <string name="lang_ka">🇬🇪 Kijojia</string>
+    <string name="lang_kk">🇰🇿 Kikazakhi</string>
+    <string name="lang_ku">☀️ Kikurdi</string>
+    <string name="lang_lb">🇱🇺 Kiluksemberg</string>
+    <string name="lang_lv">🇱🇻 Kilatvia</string>
+    <string name="lang_ml">🇮🇳 Malayalam</string>
+    <string name="lang_ne">🇳🇵 Kinepali</string>
+    <string name="lang_no">🇳🇴 Kinorwei</string>
+    <string name="lang_pl">🇵🇱 Kipoland</string>
+    <string name="lang_pt_BR">🇧🇷 Kireno cha Brazil</string>
+    <string name="lang_pt_PT">🇵🇹 Kireno cha Ulaya</string>
+    <string name="lang_ro">🇷🇴 Kiloumania</string>
+    <string name="lang_ru">🇷🇺 Kirusi</string>
+    <string name="lang_sk">🇸🇰 Kislovakia</string>
+    <string name="lang_sl">🇸🇮 Kislovenia</string>
+    <string name="lang_sq">🇦🇱 Kialbania</string>
+    <string name="lang_sr">🇷🇸 Kiserbia</string>
+    <string name="lang_te">🇮🇳 Kitelegu</string>
+    <string name="lang_tr">🇹🇷 Kituruki</string>
+    <string name="lang_uk">🇺🇦 Kiukreni</string>
+    <string name="lang_ur">🇵🇰 Kiurdu</string>
+    <string name="lang_vi">🇻🇳 Kivietnam</string>
+    <string name="lang_zh">🇨🇳 Kichina</string>
+    <string name="lang_es_MX">🇲🇽 Kihispania cha Mexiko</string>
+    <string name="lang_es_AR">🇦🇷 Kihispania cha Argentina</string>
+    <string name="lang_nl_BE">🇧🇪 Kiflemishi</string>
+    <string name="lang_en_GB">🇬🇧 Kiingereza cha Uingereza</string>
+    <string name="select_language">Chagua lugha</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Lugha imebadilishwa kuwa %s</string>
+</resources>

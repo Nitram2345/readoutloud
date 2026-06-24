@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Opna</string>
+    <string name="listen">Hlusta</string>
+    <string name="pause">Pása</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">Opna PDF, DOCX eða EPUB</string>
+    <string name="status_loading">Hleð inn…</string>
+    <string name="status_cancelled">Hætt við</string>
+    <string name="status_error">VILLA: %s</string>
+    <string name="status_file_not_found">Skrá ekki lengur í boði</string>
+    <string name="status_pages" formatted="false">%d síður, %d textalínur</string>
+    <string name="status_paragraphs">%d málsgrein</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">Síða %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">Notandavegleiðing</string>
+    <string name="help_close">Loka</string>
+    <string name="help_back">Lokar skjali og fer úr forriti</string>
+    <string name="help_open">Veldu nýtt skjal (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Sýna efni með yfirskriftum</string>
+    <string name="help_help">Sýna þessa leiðbeiningu</string>
+    <string name="help_audio">Skipta á milli hljóðspilara og eyrnahljóða</string>
+    <string name="help_speed">Hægja á eða hraða lesturhraða</string>
+    <string name="help_speed_display">Sýnir núverandi hraða</string>
+    <string name="help_skip_back">Spóla 30 sekúndur aftur</string>
+    <string name="help_listen">Byrja eða setja í pása lestur</string>
+    <string name="help_timer">Tími fyrir svefn: Stöðvar sjálfkrafa eftir 30 mín</string>
+    <string name="help_skip_forward">Spóla 30 sekúndur fram</string>
+    <string name="help_volume">Aðlaga hljóðstyrk (upp í 150%%)</string>
+    <string name="help_volume_display">Sýnir núverandi hljóðstyrk</string>
+    <string name="help_tap">Smelltu á stað í skjali til að halda áfram der</string>
+    <string name="help_tap_title">Smelltu á PDF</string>
+    <string name="help_controls_top">Stjórn efst:</string>
+    <string name="help_controls_bottom">Stjórn neðst:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Lagalegt</string>
+    <string name="privacy_policy">Persónuverndarstefna</string>
+    <string name="privacy_description">Engin safnan gagna. Öll gögn eru staðbundin á tækinu þínu.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 Þýska</string>
+    <string name="lang_en">🇬🇧 Enska</string>
+    <string name="lang_en_US">🇺🇸 Amerísk enska</string>
+    <string name="lang_nl">🇳🇱 Hollenska</string>
+    <string name="lang_it">🇮🇹 Ítalska</string>
+    <string name="lang_fr">🇫🇷 Franska</string>
+    <string name="lang_pt">🇵🇹 Portúgalska</string>
+    <string name="lang_sv">🇸🇪 Svíþjóð</string>
+    <string name="lang_es">🇪🇸 Spænska</string>
+    <string name="lang_ja">🇯🇵 Japanska</string>
+    <string name="lang_is">🇮🇸 Íslenska</string>
+    <string name="lang_ar">🇸🇦 Arabíska</string>
+    <string name="lang_bg">🇧🇬 Búlgarska</string>
+    <string name="lang_ca">🏴 Katalónska</string>
+    <string name="lang_cs">🇨🇿 Tékkneska</string>
+    <string name="lang_cy">🏴 Velska</string>
+    <string name="lang_da">🇩🇰 Danska</string>
+    <string name="lang_el">🇬🇷 Grikkneska</string>
+    <string name="lang_fa">🇮🇷 Persneska</string>
+    <string name="lang_fi">🇫🇮 Finnska</string>
+    <string name="lang_hi">🇮🇳 Hindí</string>
+    <string name="lang_hu">🇭🇺 Ungverska</string>
+    <string name="lang_id">🇮🇩 Indónesíska</string>
+    <string name="lang_ka">🇬🇪 Georgíska</string>
+    <string name="lang_kk">🇰🇿 Kasakst</string>
+    <string name="lang_ku">☀️ Kúrdíska</string>
+    <string name="lang_lb">🇱🇺 Lúxemborgíska</string>
+    <string name="lang_lv">🇱🇻 Lettneska</string>
+    <string name="lang_ml">🇮🇳 Malayalam</string>
+    <string name="lang_ne">🇳🇵 Nepalska</string>
+    <string name="lang_no">🇳🇴 Norska</string>
+    <string name="lang_pl">🇵🇱 Pólska</string>
+    <string name="lang_pt_BR">🇧🇷 Portúgalska (Brasíl)</string>
+    <string name="lang_ro">🇷🇴 Rúmenska</string>
+    <string name="lang_ru">🇷🇺 Rússneska</string>
+    <string name="lang_sk">🇸🇰 Slóvakíska</string>
+    <string name="lang_sl">🇸🇮 Slóveníska</string>
+    <string name="lang_sq">🇦🇱 Albanska</string>
+    <string name="lang_sr">🇷🇸 Serbíska</string>
+    <string name="lang_sw">🇹🇰 Svahílí</string>
+    <string name="lang_te">🇮🇳 Telugu</string>
+    <string name="lang_tr">🇹🇷 Tyrkneska</string>
+    <string name="lang_uk">🇺🇦 Úkraínska</string>
+    <string name="lang_ur">🇵🇰 Urdu</string>
+    <string name="lang_vi">🇻🇳 Víetnamska</string>
+    <string name="lang_zh">🇨🇳 Kínverska</string>
+    <string name="lang_es_MX">🇲🇽 Mexíkósk spænska</string>
+    <string name="lang_es_AR">🇦🇷 Argentínsk spænska</string>
+    <string name="lang_nl_BE">🇧🇪 Flæmska</string>
+    <string name="lang_pt_PT">🇵🇹 Evróp-portúgalska</string>
+    <string name="lang_en_GB">🇬🇧 Bresk enska</string>
+    <string name="select_language">Veldu tungumál</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Tungumál breytt í %s</string>
+</resources>

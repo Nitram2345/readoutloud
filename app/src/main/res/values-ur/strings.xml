@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">کھولیں</string>
+    <string name="listen">سنیں</string>
+    <string name="pause">وقفہ</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">PDF، DOCX یا EPUB کھولیں</string>
+    <string name="status_loading">لوڈ ہو رہا ہے…</string>
+    <string name="status_cancelled">منسوخ کیا گیا</string>
+    <string name="status_error">غلطی: %s</string>
+    <string name="status_file_not_found">فائل اب دستیاب نہیں ہے</string>
+    <string name="status_pages" formatted="false">%d صفحات، %d متن کی لائنیں</string>
+    <string name="status_paragraphs">%d پیراگراف</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">صفحہ %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">صارف گائیڈ</string>
+    <string name="help_close">بند کریں</string>
+    <string name="help_back">دستاویز بند کرتا ہے اور ایپ سے باہر جاتا ہے</string>
+    <string name="help_open">نئی دستاویز منتخب کریں (PDF، DOCX، EPUB، ODT)</string>
+    <string name="help_toc">عناوین کے ساتھ فہرست ظاہر کریں</string>
+    <string name="help_help">یہ گائیڈ ظاہر کریں</string>
+    <string name="help_audio">اسپیکر اور آئی فون کے درمیان سوئچ کریں</string>
+    <string name="help_speed">پڑھنے کی رفتار کو سست یا تیز کریں</string>
+    <string name="help_speed_display">موجودہ رفتار ظاہر کرتا ہے</string>
+    <string name="help_skip_back">30 سیکنڈ پیچھے جائیں</string>
+    <string name="help_listen">بلند آواز میں پڑھنا شروع یا روکیں</string>
+    <string name="help_timer">نینڈ ٹائمر: 30 منٹ کے بعد خودکار طور پر روکتا ہے</string>
+    <string name="help_skip_forward">30 سیکنڈ آگے جائیں</string>
+    <string name="help_volume">آواز ایڈجسٹ کریں (150%% تک)</string>
+    <string name="help_volume_display">موجودہ آواز ظاہر کرتا ہے</string>
+    <string name="help_tap">دستاویز میں کسی جگہ پر ٹیپ کریں تاکہ وہاں سے پڑھنا جاری رکھ سکیں</string>
+    <string name="help_tap_title">PDF پر ٹیپ کریں</string>
+    <string name="help_controls_top">اوپر کے کنٹرول:</string>
+    <string name="help_controls_bottom">نیچے کے کنٹرول:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">قانونی</string>
+    <string name="privacy_policy">رازداری کی پالیسی</string>
+    <string name="privacy_description">کوئی ڈیٹا جمع نہیں۔ تمام ڈیٹا آپ کے ڈیوائس پر مقامی طور پر رہتا ہے۔</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 جرمن</string>
+    <string name="lang_en">🇬🇧 انگریزی</string>
+    <string name="lang_en_US">🇺🇸 امریکی انگریزی</string>
+    <string name="lang_nl">🇳🇱 ڈچ</string>
+    <string name="lang_it">🇮🇹 اطالوی</string>
+    <string name="lang_fr">🇫🇷 فرانسیسی</string>
+    <string name="lang_pt">🇵🇹 پرتگالی</string>
+    <string name="lang_sv">🇸🇪 سویڈش</string>
+    <string name="lang_es">🇪🇸 ہسپانوی</string>
+    <string name="lang_ja">🇯🇵 جاپانی</string>
+    <string name="lang_ur">🇵🇰 اردو</string>
+    <string name="lang_ar">🇸🇦 عربی</string>
+    <string name="lang_bg">🇧🇬 بلغاری</string>
+    <string name="lang_ca">🏴 کیٹالان</string>
+    <string name="lang_cs">🇨🇿 چیک</string>
+    <string name="lang_cy">🏴 ویلش</string>
+    <string name="lang_da">🇩🇰 ڈینش</string>
+    <string name="lang_el">🇬🇷 یونانی</string>
+    <string name="lang_fa">🇮🇷 فارسی</string>
+    <string name="lang_fi">🇫🇮 فنش</string>
+    <string name="lang_hi">🇮🇳 ہندی</string>
+    <string name="lang_hu">🇭🇺 ہنگری</string>
+    <string name="lang_id">🇮🇩 انڈونیشین</string>
+    <string name="lang_is">🇮🇸 آئس لینڈک</string>
+    <string name="lang_ka">🇬🇪 جارجیئن</string>
+    <string name="lang_kk">🇰🇿 قازق</string>
+    <string name="lang_ku">☀️ کرد</string>
+    <string name="lang_lb">🇱🇺 لکسمبرگش</string>
+    <string name="lang_lv">🇱🇻 لیٹویا</string>
+    <string name="lang_ml">🇮🇳 ملیالم</string>
+    <string name="lang_ne">🇳🇵 نیپالی</string>
+    <string name="lang_no">🇳🇴 نارویجین</string>
+    <string name="lang_pl">🇵🇱 پولش</string>
+    <string name="lang_pt_BR">🇧🇷 برازیلی پرتگالی</string>
+    <string name="lang_pt_PT">🇵🇹 یورپی پرتگالی</string>
+    <string name="lang_ro">🇷🇴 رومانی</string>
+    <string name="lang_ru">🇷🇺 روسی</string>
+    <string name="lang_sk">🇸🇰 سلوواک</string>
+    <string name="lang_sl">🇸🇮 سلووینیائی</string>
+    <string name="lang_sq">🇦🇱 البانوی</string>
+    <string name="lang_sr">🇷🇸 سربیائی</string>
+    <string name="lang_sw">🇹🇰 سواہیلی</string>
+    <string name="lang_te">🇮🇳 تلگو</string>
+    <string name="lang_tr">🇹🇷 ترکی</string>
+    <string name="lang_uk">🇺🇦 یوکرینی</string>
+    <string name="lang_vi">🇻🇳 ویتنامی</string>
+    <string name="lang_zh">🇨🇳 چینی</string>
+    <string name="lang_es_MX">🇲🇽 میکسیکن ہسپانوی</string>
+    <string name="lang_es_AR">🇦🇷 ارجنٹائن ہسپانوی</string>
+    <string name="lang_nl_BE">🇧🇪 فلیمنش</string>
+    <string name="lang_en_GB">🇬🇧 برطانوی انگریزی</string>
+    <string name="select_language">زبان منتخب کریں</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">زبان %s میں تبدیل ہو گئی</string>
+</resources>

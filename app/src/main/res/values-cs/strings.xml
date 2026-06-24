@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ReadOutLoud</string>
+
+    <!-- Toolbar -->
+    <string name="open">Otevřít</string>
+    <string name="listen">Číst nahlas</string>
+    <string name="pause">Pauza</string>
+    <string name="skip_back">«30s</string>
+    <string name="skip_forward">30s»</string>
+    <string name="sleep_timer">30m</string>
+    <string name="sleep_timer_active">%dm✕</string>
+
+    <!-- Status -->
+    <string name="status_idle">Otevřít PDF, DOCX nebo EPUB</string>
+    <string name="status_loading">Načítání…</string>
+    <string name="status_cancelled">Zrušeno</string>
+    <string name="status_error">CHYBA: %s</string>
+    <string name="status_file_not_found">Soubor již není dostupný</string>
+    <string name="status_pages" formatted="false">%d stránek, %d řádků textu</string>
+    <string name="status_paragraphs">%d odstavců</string>
+    <string name="progress">%d%%</string>
+    <string name="page_indicator" formatted="false">Strana %d/%d</string>
+
+    <!-- Speed & Volume -->
+    <string name="speed">🕛%.1f×</string>
+    <string name="volume">🔊%.0f%%</string>
+
+    <!-- Help -->
+    <string name="help_title">Uživatelská příručka</string>
+    <string name="help_close">Zavřít</string>
+    <string name="help_back">Zavře dokument a opustí aplikaci</string>
+    <string name="help_open">Vyberte nový dokument (PDF, DOCX, EPUB, ODT)</string>
+    <string name="help_toc">Zobrazit obsah s nadpisy</string>
+    <string name="help_help">Zobrazit tuto příručku</string>
+    <string name="help_audio">Přepnout mezi reproduktorem a sluchátky</string>
+    <string name="help_speed">Zpomalení nebo zrychlení rychlosti čtení</string>
+    <string name="help_speed_display">Zobrazuje aktuální rychlost</string>
+    <string name="help_skip_back">Přetočit o 30 sekund zpět</string>
+    <string name="help_listen">Začít nebo pozastavit čtení nahlas</string>
+    <string name="help_timer">Časovač spánku: automaticky zastaví po 30 min</string>
+    <string name="help_skip_forward">Přetočit o 30 sekund vpřed</string>
+    <string name="help_volume">Upravit hlasitost (až 150%%)</string>
+    <string name="help_volume_display">Zobrazuje aktuální hlasitost</string>
+    <string name="help_tap">Klepněte na místo v dokumentu pro pokračování odtud</string>
+    <string name="help_tap_title">Klepnutí na PDF</string>
+    <string name="help_controls_top">Ovládání nahoře:</string>
+    <string name="help_controls_bottom">Ovládání dole:</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Právní</string>
+    <string name="privacy_policy">Zásady ochrany osobních údajů</string>
+    <string name="privacy_description">Žádné sbírání dat. Všechna data zůstávají lokálně na vašem zařízení.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+
+    <!-- Language -->
+    <string name="lang_de">🇩🇪 Němčina</string>
+    <string name="lang_en">🇬🇧 Angličtina</string>
+    <string name="lang_en_US">🇺🇸 Americká angličtina</string>
+    <string name="lang_nl">🇳🇱 Holandština</string>
+    <string name="lang_fr">🇫🇷 Francouzština</string>
+    <string name="lang_pt">🇵🇹 Portugalština</string>
+    <string name="lang_sv">🇸🇪 Švédština</string>
+    <string name="lang_es">🇪🇸 Španělština</string>
+    <string name="lang_ja">🇯🇵 Japonština</string>
+    <string name="lang_cs">🇨🇿 Čeština</string>
+    <string name="lang_ar">🇸🇦 Arabština</string>
+    <string name="lang_bg">🇧🇬 Bulharština</string>
+    <string name="lang_ca">🏴 Katalánština</string>
+    <string name="lang_cy">🏴 Velština</string>
+    <string name="lang_da">🇩🇰 Dánština</string>
+    <string name="lang_el">🇬🇷 Řečtina</string>
+    <string name="lang_fa">🇮🇷 Perština</string>
+    <string name="lang_fi">🇫🇮 Finština</string>
+    <string name="lang_hi">🇮🇳 Hindština</string>
+    <string name="lang_hu">🇭🇺 Maďarština</string>
+    <string name="lang_id">🇮🇩 Indonéština</string>
+    <string name="lang_is">🇮🇸 Islandština</string>
+    <string name="lang_it">🇮🇹 Italština</string>
+    <string name="lang_ka">🇬🇪 Gruzinština</string>
+    <string name="lang_kk">🇰🇿 Kazachstánština</string>
+    <string name="lang_ku">☀️ Kurdistánština</string>
+    <string name="lang_lb">🇱🇺 Lucemburština</string>
+    <string name="lang_lv">🇱🇻 Lotyština</string>
+    <string name="lang_ml">🇮🇳 Malayalam</string>
+    <string name="lang_ne">🇳🇵 Nepálština</string>
+    <string name="lang_no">🇳🇴 Norština</string>
+    <string name="lang_pl">🇵🇱 Polština</string>
+    <string name="lang_pt_BR">🇧🇷 Brazilská portugalština</string>
+    <string name="lang_pt_PT">🇵🇹 Evropská portugalština</string>
+    <string name="lang_ro">🇷🇴 Rumunština</string>
+    <string name="lang_ru">🇷🇺 Ruština</string>
+    <string name="lang_sk">🇸🇰 Slovinština</string>
+    <string name="lang_sl">🇸🇮 Slovenština</string>
+    <string name="lang_sq">🇦🇱 Albánština</string>
+    <string name="lang_sr">🇷🇸 Srbština</string>
+    <string name="lang_sw">🇹🇿 Svahilština</string>
+    <string name="lang_te">🇮🇳 Telugu</string>
+    <string name="lang_tr">🇹🇷 Turečtina</string>
+    <string name="lang_uk">🇺🇦 Ukrajinština</string>
+    <string name="lang_ur">🇵🇰 Urdu</string>
+    <string name="lang_vi">🇻🇳 Vietnamština</string>
+    <string name="lang_zh">🇨🇳 Čínština</string>
+    <string name="lang_es_MX">🇲🇽 Mexická španělština</string>
+    <string name="lang_es_AR">🇦🇷 Argentinská španělština</string>
+    <string name="lang_nl_BE">🇧🇪 Flámsky</string>
+    <string name="lang_en_GB">🇬🇧 Britská angličtina</string>
+    <string name="select_language">Vyberte jazyk</string>
+
+    <!-- Toast -->
+    <string name="toast_language_changed">Jazyk změněn na %s</string>
+</resources>

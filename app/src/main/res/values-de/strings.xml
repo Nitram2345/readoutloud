@@ -46,12 +46,6 @@
     <string name="help_controls_top">Steuerung oben:</string>
     <string name="help_controls_bottom">Steuerung unten:</string>
 
-    <!-- Legal -->
-    <string name="legal_title">Rechtliches</string>
-    <string name="privacy_policy">Datenschutz</string>
-    <string name="privacy_description">Keine Datenerfassung. Alle Daten bleiben lokal auf Ihrem Gerät.</string>
-    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
-
     <!-- Language -->
     <string name="lang_de">🇩🇪 Deutsch</string>
     <string name="lang_en">🇬🇧 Englisch</string>
@@ -60,10 +54,73 @@
     <string name="lang_it">🇮🇹 Italienisch</string>
     <string name="lang_fr">🇫🇷 Französisch</string>
     <string name="lang_pt">🇵🇹 Portugiesisch</string>
-    <string name="lang_sv">🇸🇪 Schwedisch</string>
     <string name="lang_es">🇪🇸 Spanisch</string>
     <string name="lang_ja">🇯🇵 Japanisch</string>
+    <string name="lang_ar">🇸🇦 Arabisch</string>
+    <string name="lang_bg">🇧🇬 Bulgarisch</string>
+    <string name="lang_ca">🏴 Katalanisch</string>
+    <string name="lang_cs">🇨🇿 Tschechisch</string>
+    <string name="lang_cy">🏴 Walisisch</string>
+    <string name="lang_da">🇩🇰 Dänisch</string>
+    <string name="lang_el">🇬🇷 Griechisch</string>
+    <string name="lang_fa">🇮🇷 Persisch</string>
+    <string name="lang_fi">🇫🇮 Finnisch</string>
+    <string name="lang_hi">🇮🇳 Hindi</string>
+    <string name="lang_hu">🇭🇺 Ungarisch</string>
+    <string name="lang_id">🇮🇩 Indonesisch</string>
+    <string name="lang_is">🇮🇸 Isländisch</string>
+    <string name="lang_ka">🇬🇪 Georgisch</string>
+    <string name="lang_kk">🇰🇿 Kasachisch</string>
+    <string name="lang_ku">☀️ Kurdisch</string>
+    <string name="lang_lb">🇱🇺 Luxemburgisch</string>
+    <string name="lang_lv">🇱🇻 Lettisch</string>
+    <string name="lang_ml">🇮🇳 Malayalam</string>
+    <string name="lang_ne">🇳🇵 Nepalesisch</string>
+    <string name="lang_no">🇳🇴 Norwegisch</string>
+    <string name="lang_pl">🇵🇱 Polnisch</string>
+    <string name="lang_pt_BR">🇧🇷 Brasilianisches Portugiesisch</string>
+    <string name="lang_ro">🇷🇴 Rumänisch</string>
+    <string name="lang_ru">🇷🇺 Russisch</string>
+    <string name="lang_sk">🇸🇰 Slowakisch</string>
+    <string name="lang_sl">🇸🇮 Slowenisch</string>
+    <string name="lang_sq">🇦🇱 Albanisch</string>
+    <string name="lang_sr">🇷🇸 Serbisch</string>
+    <string name="lang_sv">🇸🇪 Schwedisch</string>
+    <string name="lang_sw">🇹🇿 Swahili</string>
+    <string name="lang_te">🇮🇳 Telugu</string>
+    <string name="lang_tr">🇹🇷 Türkisch</string>
+    <string name="lang_uk">🇺🇦 Ukrainisch</string>
+    <string name="lang_ur">🇵🇰 Urdu</string>
+    <string name="lang_vi">🇻🇳 Vietnamesisch</string>
+    <string name="lang_zh">🇨🇳 Chinesisch</string>
+    <string name="lang_es_MX">🇲🇽 Mexikanisches Spanisch</string>
+    <string name="lang_es_AR">🇦🇷 Argentinisches Spanisch</string>
+    <string name="lang_nl_BE">🇧🇪 Flämisch</string>
+    <string name="lang_pt_PT">🇵🇹 Europäisches Portugiesisch</string>
+    <string name="lang_en_GB">🇬🇧 Britisches Englisch</string>
     <string name="select_language">Sprache wählen</string>
+
+    <!-- Legal -->
+    <string name="legal_title">Rechtliches</string>
+    <string name="privacy_policy">Datenschutz</string>
+    <string name="privacy_description">Keine Datenerfassung. Alle Daten bleiben lokal auf Ihrem Gerät.</string>
+    <string name="privacy_url">https://nitram2345.github.io/readoutloud-privacy/privacy-policy.html</string>
+    <string name="open_source_licenses">Open-Source-Lizenzen</string>
+    <string name="oss_description">Diese App verwendet folgende Open-Source-Bibliotheken:</string>
+    <string name="oss_sherpa_onnx">sherpa-onnx - Apache 2.0</string>
+    <string name="oss_sherpa_url">https://github.com/k2-fsa/sherpa-onnx</string>
+    <string name="oss_piper">Piper TTS - MIT</string>
+    <string name="oss_piper_url">https://github.com/rhasspy/piper</string>
+    <string name="oss_espeak">espeak-ng - GPL v3</string>
+    <string name="oss_espeak_url">https://github.com/espeak-ng/espeak-ng</string>
+    <string name="oss_pdfbox">PDFBox Android - Apache 2.0</string>
+    <string name="oss_pdfbox_url">https://github.com/TomRoush/PdfBox-Android</string>
+    <string name="oss_jsoup">jsoup - MIT</string>
+    <string name="oss_jsoup_url">https://github.com/jhy/jsoup</string>
+    <string name="oss_okhttp">OkHttp - Apache 2.0</string>
+    <string name="oss_okhttp_url">https://github.com/square/okhttp</string>
+    <string name="oss_commons">Apache Commons Compress - Apache 2.0</string>
+    <string name="oss_commons_url">https://github.com/apache/commons-compress</string>
 
     <!-- Toast -->
     <string name="toast_language_changed">Sprache geändert zu %s</string>
