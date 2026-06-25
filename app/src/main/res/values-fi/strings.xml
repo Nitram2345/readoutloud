@@ -108,4 +108,8 @@
 
     <!-- Toast -->
     <string name="toast_language_changed">Kieli muutettu: %s</string>
+    <!-- Notification / lock-screen -->
+    <string name="notif_reading">Lukee ääneen…</string>
+    <string name="notif_paused">Keskeytetty</string>
+    <string name="notif_play">Toista</string>
 </resources>

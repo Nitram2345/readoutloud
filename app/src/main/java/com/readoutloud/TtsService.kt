@@ -10,6 +10,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.ServiceInfo
+import android.content.res.Configuration
 import android.graphics.drawable.Icon
 import android.media.AudioManager
 import android.media.MediaMetadata
@@ -25,6 +26,7 @@ import android.speech.tts.TextToSpeech
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -45,14 +47,12 @@ class TtsService : Service() {
     private lateinit var mediaSession: MediaSession
     private val serviceJob = Job()
     private val serviceScope = CoroutineScope(Dispatchers.IO + serviceJob)
-    private val uiHandler = Handler(Looper.getMainLooper())
-    private val pendingStateUpdates = mutableListOf<Runnable>()
 
     // Re-arm lock-screen media widget when screen turns on
     private val screenOnReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.action != Intent.ACTION_SCREEN_ON) return
-            val playing = ttsController?.isPlaying == true
+            val playing = ttsController?.isPlaying?.value == true
             mediaSession.isActive = true
             updatePlaybackState(playing)
             if (ttsController != null) startForegroundCompat(buildNotification(playing))
@@ -76,20 +76,13 @@ class TtsService : Service() {
                 if (status == TextToSpeech.SUCCESS) {
                     tts?.language = Locale.GERMAN
                     ttsController = TtsController(tts!!, sessionId, am, voiceManager, piperEngine).also { ctrl ->
-                        ctrl.onPlayStateChanged = { playing ->
-                            updatePlaybackState(playing)
-                            if (!playing) {
-                                // Fallback: if onSpeakStop is late, update after 300ms
-                                val r = Runnable { startForegroundCompat(buildNotification(false)) }
-                                pendingStateUpdates.add(r)
-                                uiHandler.postDelayed(r, 300)
+                        // Single source of truth: observe play state, drive
+                        // MediaSession + notification from every emission.
+                        CoroutineScope(Dispatchers.Main + serviceJob).launch {
+                            ctrl.isPlaying.collectLatest { playing ->
+                                updatePlaybackState(playing)
+                                startForegroundCompat(buildNotification(playing))
                             }
-                        }
-                        ctrl.onSpeakStart = { startForegroundCompat(buildNotification(true)) }
-                        ctrl.onSpeakStop = {
-                            pendingStateUpdates.forEach { uiHandler.removeCallbacks(it) }
-                            pendingStateUpdates.clear()
-                            startForegroundCompat(buildNotification(false))
                         }
                         binder.onControllerReady?.invoke(ctrl)
                         binder.onControllerReady = null
@@ -118,7 +111,7 @@ class TtsService : Service() {
         // Release ORT session (~80MB native memory) under memory pressure.
         // TtsController retries via espeakDataReady flow when next needed.
         if (level >= android.content.ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW) {
-            if (ttsController?.isPlaying != true) {
+            if (ttsController?.isPlaying?.value != true) {
                 piperEngine.releaseModel()
                 android.util.Log.d("TtsService", "Released Piper model at TRIM_MEMORY level=$level")
             }
@@ -185,12 +178,6 @@ class TtsService : Service() {
     }
 
     private fun updatePlaybackState(playing: Boolean) {
-        pendingStateUpdates.forEach { uiHandler.removeCallbacks(it) }
-        pendingStateUpdates.clear()
-        applyPlaybackState(playing)
-    }
-
-    private fun applyPlaybackState(playing: Boolean) {
         val actions = PlaybackState.ACTION_PLAY_PAUSE or
             PlaybackState.ACTION_SKIP_TO_NEXT or
             PlaybackState.ACTION_SKIP_TO_PREVIOUS or
@@ -218,7 +205,7 @@ class TtsService : Service() {
         val idx = SPEED_STEPS.indexOfFirst { it >= rate - 0.01f }.coerceAtLeast(0)
         val newRate = SPEED_STEPS[(idx + delta).coerceIn(0, SPEED_STEPS.lastIndex)]
         ttsController?.setRate(newRate)
-        startForegroundCompat(buildNotification(ttsController?.isPlaying == true))
+        startForegroundCompat(buildNotification(ttsController?.isPlaying?.value == true))
     }
 
     private fun rateLabel(rate: Float): String {
@@ -233,7 +220,17 @@ class TtsService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
+    // Service is not an Activity, so getString() ignores the user-selected
+    // language. Build a context wrapped in the chosen locale.
+    private fun localizedContext(): Context {
+        val lang = AppSettings(this).language
+        val locale = Locale.forLanguageTag(lang.replace("_", "-"))
+        val config = Configuration(resources.configuration).apply { setLocale(locale) }
+        return createConfigurationContext(config)
+    }
+
     private fun buildNotification(playing: Boolean): Notification {
+        val ctx = localizedContext()
         val rate = ttsController?.currentRate ?: 1.0f
         val rateIdx = SPEED_STEPS.indexOfFirst { it >= rate - 0.01f }.coerceAtLeast(0)
         val lowerLabel = rateLabel(SPEED_STEPS[(rateIdx - 1).coerceAtLeast(0)])
@@ -248,7 +245,7 @@ class TtsService : Service() {
         // Compact view [1,2,3]: −30s | ▶/⏸ | +30s
         return Notification.Builder(this, CHANNEL_ID)
             .setContentTitle("ReadOutLoud  ${rateLabel(rate)}")
-            .setContentText(if (playing) "Liest vor…" else "Pausiert")
+            .setContentText(if (playing) ctx.getString(R.string.notif_reading) else ctx.getString(R.string.notif_paused))
             .setSmallIcon(android.R.drawable.ic_media_play)
             .setContentIntent(contentIntent)
             .setVisibility(Notification.VISIBILITY_PUBLIC)
@@ -276,7 +273,7 @@ class TtsService : Service() {
                 Notification.Action.Builder(
                     Icon.createWithResource(this,
                         if (playing) android.R.drawable.ic_media_pause else android.R.drawable.ic_media_play),
-                    if (playing) "Pause" else "Spielen",
+                    if (playing) ctx.getString(R.string.pause) else ctx.getString(R.string.notif_play),
                     actionPendingIntent(if (playing) ACTION_PAUSE else ACTION_PLAY, if (playing) 2 else 6)
                 ).build()
             )

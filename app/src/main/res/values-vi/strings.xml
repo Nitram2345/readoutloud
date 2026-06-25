@@ -108,4 +108,8 @@
 
     <!-- Toast -->
     <string name="toast_language_changed">Ngôn ngữ đã thay đổi sang %s</string>
+    <!-- Notification / lock-screen -->
+    <string name="notif_reading">Đang đọc to…</string>
+    <string name="notif_paused">Tạm dừng</string>
+    <string name="notif_play">Phát</string>
 </resources>

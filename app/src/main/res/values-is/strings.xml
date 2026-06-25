@@ -108,4 +108,8 @@
 
     <!-- Toast -->
     <string name="toast_language_changed">Tungumál breytt í %s</string>
+    <!-- Notification / lock-screen -->
+    <string name="notif_reading">Les upphátt…</string>
+    <string name="notif_paused">Í bið</string>
+    <string name="notif_play">Spila</string>
 </resources>

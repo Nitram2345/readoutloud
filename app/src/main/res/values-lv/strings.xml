@@ -108,4 +108,8 @@
 
     <!-- Toast -->
     <string name="toast_language_changed">Valoda mainīta uz %s</string>
+    <!-- Notification / lock-screen -->
+    <string name="notif_reading">Lasa skaļi…</string>
+    <string name="notif_paused">Pauzēts</string>
+    <string name="notif_play">Atskaņot</string>
 </resources>

@@ -108,4 +108,8 @@
 
     <!-- Toast -->
     <string name="toast_language_changed">ენა შეიცვალა: %s</string>
+    <!-- Notification / lock-screen -->
+    <string name="notif_reading">კითხულობს ხმამაღლა…</string>
+    <string name="notif_paused">შეჩერებული</string>
+    <string name="notif_play">დაკვრა</string>
 </resources>

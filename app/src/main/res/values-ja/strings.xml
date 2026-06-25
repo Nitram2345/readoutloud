@@ -124,4 +124,8 @@
 
     <!-- Toast -->
     <string name="toast_language_changed">言語を %s に変更</string>
+    <!-- Notification / lock-screen -->
+    <string name="notif_reading">読み上げ中…</string>
+    <string name="notif_paused">一時停止中</string>
+    <string name="notif_play">再生</string>
 </resources>

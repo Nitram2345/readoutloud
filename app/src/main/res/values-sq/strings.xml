@@ -108,4 +108,8 @@
 
     <!-- Toast -->
     <string name="toast_language_changed">Gjuha ndryshuar në %s</string>
+    <!-- Notification / lock-screen -->
+    <string name="notif_reading">Po lexon me zë…</string>
+    <string name="notif_paused">Në pauzë</string>
+    <string name="notif_play">Luaj</string>
 </resources>

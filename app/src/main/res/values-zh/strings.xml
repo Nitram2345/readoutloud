@@ -108,4 +108,8 @@
 
     <!-- Toast -->
     <string name="toast_language_changed">语言已更改为 %s</string>
+    <!-- Notification / lock-screen -->
+    <string name="notif_reading">正在朗读…</string>
+    <string name="notif_paused">已暂停</string>
+    <string name="notif_play">播放</string>
 </resources>

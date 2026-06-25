@@ -108,4 +108,8 @@
 
     <!-- Toast -->
     <string name="toast_language_changed">भाषा %s मा परिवर्तन गरियो</string>
+    <!-- Notification / lock-screen -->
+    <string name="notif_reading">ठूलो स्वरमा पढ्दै…</string>
+    <string name="notif_paused">रोकिएको</string>
+    <string name="notif_play">प्ले</string>
 </resources>

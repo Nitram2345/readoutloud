@@ -108,4 +108,8 @@
 
     <!-- Toast -->
     <string name="toast_language_changed">Η γλώσσα άλλαξε σε %s</string>
+    <!-- Notification / lock-screen -->
+    <string name="notif_reading">Ανάγνωση…</string>
+    <string name="notif_paused">Σε παύση</string>
+    <string name="notif_play">Αναπαραγωγή</string>
 </resources>

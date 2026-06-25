@@ -13,6 +13,9 @@ import java.util.Locale
 import kotlin.math.log10
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class TtsController(
@@ -34,20 +37,18 @@ class TtsController(
     private var sentenceLines: List<List<TextLine>> = emptyList()
     private var currentIndex = 0
     @Volatile private var speakingId = -1
-    var isPlaying = false
-        private set
+
+    // Single source of truth for play state. Service + Activity both observe.
+    private val _isPlaying = MutableStateFlow(false)
+    val isPlaying: StateFlow<Boolean> = _isPlaying.asStateFlow()
+
     var currentRate = 1.0f
         private set
     private var currentVolume = 1.0f
     private var loudnessEnhancer: LoudnessEnhancer? = null
     private var currentStream = AudioManager.STREAM_MUSIC
     private var originalStreamVolume = -1
-    var onPlayStateChanged: ((Boolean) -> Unit)? = null
     var onLinesChanged: ((List<TextLine>) -> Unit)? = null
-    var onSpeakStart: (() -> Unit)? = null    // fires when TTS audio actually begins
-    var onSpeakStop: (() -> Unit)? = null     // fires when TTS audio actually stops
-    @Volatile private var speakStartNotified = false
-    @Volatile private var speakStopNotified = false
 
     init {
         // Listen for voice changes to switch engines
@@ -74,34 +75,23 @@ class TtsController(
         }
 
         tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-            override fun onStart(utteranceId: String?) {
-                if (!speakStartNotified) {
-                    speakStartNotified = true
-                    onMain { onSpeakStart?.invoke() }
-                }
-            }
+            override fun onStart(utteranceId: String?) {}
 
             override fun onDone(utteranceId: String?) {
                 val idx = utteranceId?.toIntOrNull() ?: return
                 onMain {
                     currentIndex = idx + 1
-                    if (isPlaying && currentIndex < sentences.size) {
+                    if (_isPlaying.value && currentIndex < sentences.size) {
                         onLinesChanged?.invoke(sentenceLines.getOrElse(currentIndex) { emptyList() })
                         speakAt(currentIndex)
                     } else {
-                        isPlaying = false
+                        _isPlaying.value = false
                         onLinesChanged?.invoke(emptyList())
-                        onPlayStateChanged?.invoke(false)
                     }
                 }
             }
 
-            override fun onStop(utteranceId: String?, interrupted: Boolean) {
-                if (interrupted && !speakStopNotified) {
-                    speakStopNotified = true
-                    onMain { onSpeakStop?.invoke() }
-                }
-            }
+            override fun onStop(utteranceId: String?, interrupted: Boolean) {}
 
             override fun onError(utteranceId: String?) {
                 val idx = utteranceId?.toIntOrNull() ?: return
@@ -110,9 +100,8 @@ class TtsController(
                 if (idx != speakingId) return
                 Log.e("TTS", "Error at utterance $utteranceId")
                 onMain {
-                    isPlaying = false
+                    _isPlaying.value = false
                     onLinesChanged?.invoke(emptyList())
-                    onPlayStateChanged?.invoke(false)
                 }
             }
         })
@@ -189,10 +178,8 @@ class TtsController(
 
         sentenceLines = mapSentencesToLines(fullText, sentences, lines)
         currentIndex = 0
-        speakStartNotified = false
-        isPlaying = true
+        _isPlaying.value = true
         onLinesChanged?.invoke(sentenceLines.getOrElse(0) { emptyList() })
-        onPlayStateChanged?.invoke(true)
         speakAt(0)
     }
 
@@ -211,37 +198,33 @@ class TtsController(
     }
 
     fun pause() {
-        speakStopNotified = false
-        isPlaying = false
+        _isPlaying.value = false
         currentEngine.stop()
         restoreStreamVolume()
-        onPlayStateChanged?.invoke(false)
     }
 
     fun resume() {
         if (currentIndex < sentences.size) {
-            speakStartNotified = false
-            isPlaying = true
+            _isPlaying.value = true
             onLinesChanged?.invoke(sentenceLines.getOrElse(currentIndex) { emptyList() })
-            onPlayStateChanged?.invoke(true)
             speakAt(currentIndex)
         }
     }
 
-    fun canResume() = !isPlaying && sentences.isNotEmpty() && currentIndex < sentences.size
+    fun canResume() = !_isPlaying.value && sentences.isNotEmpty() && currentIndex < sentences.size
 
     fun primeFrom(lines: List<TextLine>) {
         val fullText = lines.joinToString(" ") { it.text }
         sentences = splitSentences(fullText)
         sentenceLines = mapSentencesToLines(fullText, sentences, lines)
         currentIndex = 0
-        isPlaying = false
+        _isPlaying.value = false
         onLinesChanged?.invoke(sentenceLines.getOrElse(0) { emptyList() })
     }
 
     fun setRate(rate: Float) {
         currentRate = rate
-        if (isPlaying && currentIndex < sentences.size) {
+        if (_isPlaying.value && currentIndex < sentences.size) {
             currentEngine.stop()
             speakAt(currentIndex)
         }
@@ -324,7 +307,7 @@ class TtsController(
             originalStreamVolume = -1
         }
         currentStream = newStream
-        if (currentVolume > 1.0f && isPlaying) boostStream()
+        if (currentVolume > 1.0f && _isPlaying.value) boostStream()
         if (currentEngine is AndroidTtsEngine) {
             tts.setAudioAttributes(
                 AudioAttributes.Builder()
@@ -334,13 +317,13 @@ class TtsController(
             )
         }
         piperEngine?.isSpeaker = speaker
-        if (isPlaying && currentIndex < sentences.size) { currentEngine.stop(); speakAt(currentIndex) }
+        if (_isPlaying.value && currentIndex < sentences.size) { currentEngine.stop(); speakAt(currentIndex) }
     }
 
     fun setVolume(vol: Float) {
         currentVolume = vol.coerceIn(0.1f, 1.5f)
         if (currentVolume > 1.0f) {
-            if (isPlaying) boostStream()   // only boost when actually speaking
+            if (_isPlaying.value) boostStream()   // only boost when actually speaking
             val gainMb = (20.0 * log10(currentVolume.toDouble()) * 100).toInt()
             try {
                 if (loudnessEnhancer == null && audioSessionId != 0)
@@ -359,7 +342,7 @@ class TtsController(
             }
             loudnessEnhancer?.enabled = false
         }
-        if (isPlaying && currentIndex < sentences.size) { currentEngine.stop(); speakAt(currentIndex) }
+        if (_isPlaying.value && currentIndex < sentences.size) { currentEngine.stop(); speakAt(currentIndex) }
     }
 
     private fun boostStream() {
@@ -419,7 +402,7 @@ class TtsController(
         currentIndex = idx
         currentEngine.stop()
         onLinesChanged?.invoke(sentenceLines.getOrElse(idx) { emptyList() })
-        if (isPlaying) speakAtWithFallback(idx)
+        if (_isPlaying.value) speakAtWithFallback(idx)
     }
 
     private fun speakAt(idx: Int) {
@@ -431,10 +414,6 @@ class TtsController(
             audioSessionId = audioSessionId
         )
         val isPiper = currentEngine !is AndroidTtsEngine
-        if (isPiper && !speakStartNotified) {
-            speakStartNotified = true
-            onMain { onSpeakStart?.invoke() }
-        }
         currentEngine.speak(
             text = sentences[idx],
             params = params,
@@ -442,13 +421,12 @@ class TtsController(
             onDone = if (isPiper) {
                 {
                     currentIndex = idx + 1
-                    if (isPlaying && currentIndex < sentences.size) {
+                    if (_isPlaying.value && currentIndex < sentences.size) {
                         onLinesChanged?.invoke(sentenceLines.getOrElse(currentIndex) { emptyList() })
                         speakAt(currentIndex)
                     } else {
-                        isPlaying = false
+                        _isPlaying.value = false
                         onLinesChanged?.invoke(emptyList())
-                        onPlayStateChanged?.invoke(false)
                     }
                 }
             } else null

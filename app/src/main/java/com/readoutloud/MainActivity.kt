@@ -16,6 +16,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.lifecycleScope
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -122,7 +123,10 @@ class MainActivity : ComponentActivity() {
 
     private fun setupController(ctrl: TtsController) {
         ttsController = ctrl
-        ctrl.onPlayStateChanged = { playing -> isPlayingState.value = playing }
+        // Observe play state (single source of truth in the controller).
+        lifecycleScope.launch {
+            ctrl.isPlaying.collect { playing -> isPlayingState.value = playing }
+        }
         ctrl.onLinesChanged = { lines -> currentLinesState.value = lines }
         ctrl.setRate(savedSpeechRate)
         ctrl.setAudioOutput(savedIsSpeaker)

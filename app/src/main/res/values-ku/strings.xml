@@ -108,4 +108,8 @@
 
     <!-- Toast -->
     <string name="toast_language_changed">Ziman guherî bo %s</string>
+    <!-- Notification / lock-screen -->
+    <string name="notif_reading">Bi dengî dixwîne…</string>
+    <string name="notif_paused">Rawestandî</string>
+    <string name="notif_play">Lêdan</string>
 </resources>

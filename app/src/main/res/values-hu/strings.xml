@@ -108,4 +108,8 @@
 
     <!-- Toast -->
     <string name="toast_language_changed">Nyelv megváltoztatva: %s</string>
+    <!-- Notification / lock-screen -->
+    <string name="notif_reading">Felolvasás…</string>
+    <string name="notif_paused">Szüneteltetve</string>
+    <string name="notif_play">Lejátszás</string>
 </resources>

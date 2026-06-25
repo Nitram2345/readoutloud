@@ -108,4 +108,8 @@
 
     <!-- Toast -->
     <string name="toast_language_changed">భాష %s కి మార్చబడింది</string>
+    <!-- Notification / lock-screen -->
+    <string name="notif_reading">బిగ్గరగా చదువుతోంది…</string>
+    <string name="notif_paused">పాజ్ చేయబడింది</string>
+    <string name="notif_play">ప్లే</string>
 </resources>

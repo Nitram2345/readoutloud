@@ -125,4 +125,8 @@
 
     <!-- Toast -->
     <string name="toast_language_changed">Taal gewijzigd naar %s</string>
+    <!-- Notification / lock-screen -->
+    <string name="notif_reading">Wordt voorgelezen…</string>
+    <string name="notif_paused">Gepauzeerd</string>
+    <string name="notif_play">Afspelen</string>
 </resources>

@@ -108,4 +108,8 @@
 
     <!-- Toast -->
     <string name="toast_language_changed">Lugha imebadilishwa kuwa %s</string>
+    <!-- Notification / lock-screen -->
+    <string name="notif_reading">Inasoma kwa sauti…</string>
+    <string name="notif_paused">Imesimama</string>
+    <string name="notif_play">Cheza</string>
 </resources>

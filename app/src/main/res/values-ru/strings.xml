@@ -108,4 +108,8 @@
 
     <!-- Toast -->
     <string name="toast_language_changed">Язык изменен на %s</string>
+    <!-- Notification / lock-screen -->
+    <string name="notif_reading">Чтение вслух…</string>
+    <string name="notif_paused">Пауза</string>
+    <string name="notif_play">Воспроизвести</string>
 </resources>

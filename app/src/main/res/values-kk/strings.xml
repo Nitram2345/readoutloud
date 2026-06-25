@@ -108,4 +108,8 @@
 
     <!-- Toast -->
     <string name="toast_language_changed">Тіл өзгертілді: %s</string>
+    <!-- Notification / lock-screen -->
+    <string name="notif_reading">Дауыстап оқуда…</string>
+    <string name="notif_paused">Кідіртілді</string>
+    <string name="notif_play">Ойнату</string>
 </resources>

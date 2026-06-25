@@ -108,4 +108,8 @@
 
     <!-- Toast -->
     <string name="toast_language_changed">Newidiwyd iaith i %s</string>
+    <!-- Notification / lock-screen -->
+    <string name="notif_reading">Yn darllen yn uchel…</string>
+    <string name="notif_paused">Wedi oedi</string>
+    <string name="notif_play">Chwarae</string>
 </resources>
