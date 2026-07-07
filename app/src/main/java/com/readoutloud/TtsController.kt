@@ -175,12 +175,12 @@ class TtsController(
     fun startFrom(lines: List<TextLine>) {
         val fullText = lines.joinToString(" ") { it.text }
         sentences = splitSentences(fullText)
-
         sentenceLines = mapSentencesToLines(fullText, sentences, lines)
         currentIndex = 0
+        if (sentences.isEmpty()) { _isPlaying.value = false; return }
         _isPlaying.value = true
         onLinesChanged?.invoke(sentenceLines.getOrElse(0) { emptyList() })
-        speakAt(0)
+        speakAtWithFallback(0)   // was bare speakAt(0) — resume/skip use fallback; startFrom now matches
     }
 
     /**
@@ -492,14 +492,26 @@ class TtsController(
             Triple(line, start, end)
         }
 
-        val result = mutableListOf<List<TextLine>>()
+        // sentStart increases monotonically (sentences are sequential in fullText and
+        // searchFrom advances past each), and lineRanges are ordered — so sweep both with
+        // pointers instead of filtering all lines per sentence (was O(sentences × lines)).
+        val result = ArrayList<List<TextLine>>(sentences.size)
         var searchFrom = 0
+        var lo = 0
         for (sentence in sentences) {
             val sentStart = fullText.indexOf(sentence, searchFrom)
             if (sentStart < 0) { result.add(emptyList()); continue }
             val sentEnd = sentStart + sentence.length
             searchFrom = sentStart + 1
-            result.add(lineRanges.filter { (_, ls, le) -> le > sentStart && ls < sentEnd }.map { it.first })
+            while (lo < lineRanges.size && lineRanges[lo].third <= sentStart) lo++
+            val hit = ArrayList<TextLine>()
+            var j = lo
+            while (j < lineRanges.size && lineRanges[j].second < sentEnd) {
+                val (line, ls, le) = lineRanges[j]
+                if (le > sentStart && ls < sentEnd) hit.add(line)
+                j++
+            }
+            result.add(hit)
         }
         return result
     }
