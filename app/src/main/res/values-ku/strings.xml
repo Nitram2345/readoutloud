@@ -14,6 +14,7 @@
     <string name="status_idle">PDF, DOCX an EPUB veke</string>
     <string name="status_loading">Tê barkirin…</string>
     <string name="status_cancelled">Betal kir</string>
+    <string name="cancel_loading">Barkirinê betal bike</string>
     <string name="status_error">ÇIYER: %s</string>
     <string name="status_file_not_found">Pelê ne berdest e</string>
     <string name="status_pages" formatted="false">%d rûpel, %x xêzên nivîsê</string>

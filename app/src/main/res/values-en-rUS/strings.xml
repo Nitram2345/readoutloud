@@ -14,6 +14,7 @@
     <string name="status_idle">Open PDF, DOCX or EPUB</string>
     <string name="status_loading">Loading…</string>
     <string name="status_cancelled">Cancelled</string>
+    <string name="cancel_loading">Cancel loading</string>
     <string name="status_error">ERROR: %s</string>
     <string name="status_file_not_found">File no longer available</string>
     <string name="status_pages" formatted="false">%d pages, %d text lines</string>

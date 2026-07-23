@@ -14,6 +14,7 @@
     <string name="status_idle">Obre PDF, DOCX o EPUB</string>
     <string name="status_loading">Carregant…</string>
     <string name="status_cancelled">Cancel·lat</string>
+    <string name="cancel_loading">Cancel·la la càrrega</string>
     <string name="status_error">ERROR: %s</string>
     <string name="status_file_not_found">El fitxer ja no està disponible</string>
     <string name="status_pages" formatted="false">%d pàgines, %d línies de text</string>

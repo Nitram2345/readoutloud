@@ -14,6 +14,7 @@
     <string name="status_idle">PDF, DOCX वा EPUB खोल्नुहोस्</string>
     <string name="status_loading">लोड हुँदैछ…</string>
     <string name="status_cancelled">रद्द गरियो</string>
+    <string name="cancel_loading">लोड रद्द गर्नुहोस्</string>
     <string name="status_error">त्रुटि: %s</string>
     <string name="status_file_not_found">फाइल अब उपलब्ध छैन</string>
     <string name="status_pages" formatted="false">%d पृष्ठ, %d पाठ पंक्तिहरू</string>

@@ -14,6 +14,7 @@
     <string name="status_idle">打开 PDF、DOCX 或 EPUB</string>
     <string name="status_loading">正在加载…</string>
     <string name="status_cancelled">已取消</string>
+    <string name="cancel_loading">取消加载</string>
     <string name="status_error">错误：%s</string>
     <string name="status_file_not_found">文件不再可用</string>
     <string name="status_pages" formatted="false">%d 页，%d 行文本</string>

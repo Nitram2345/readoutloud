@@ -14,6 +14,7 @@
     <string name="status_idle">افتح PDF أو DOCX أو EPUB</string>
     <string name="status_loading">جار التحميل…</string>
     <string name="status_cancelled">تم الإلغاء</string>
+    <string name="cancel_loading">إلغاء التحميل</string>
     <string name="status_error">خطأ: %s</string>
     <string name="status_file_not_found">الملف لم يعد متاحاً</string>
     <string name="status_pages" formatted="false">%d صفحة، %d سطر نص</string>

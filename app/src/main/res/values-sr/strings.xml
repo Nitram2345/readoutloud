@@ -14,6 +14,7 @@
     <string name="status_idle">Отвори PDF, DOCX или EPUB</string>
     <string name="status_loading">Учитавање…</string>
     <string name="status_cancelled">Откажено</string>
+    <string name="cancel_loading">Откажи учитавање</string>
     <string name="status_error">ГРЕШКА: %s</string>
     <string name="status_file_not_found">Фајл више није доступан</string>
     <string name="status_pages" formatted="false">%d страна, %d линија текста</string>

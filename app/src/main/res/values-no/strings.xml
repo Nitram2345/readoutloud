@@ -14,6 +14,7 @@
     <string name="status_idle">Åpne PDF, DOCX eller EPUB</string>
     <string name="status_loading">Laster…</string>
     <string name="status_cancelled">Avbrutt</string>
+    <string name="cancel_loading">Avbryt innlasting</string>
     <string name="status_error">FEIL: %s</string>
     <string name="status_file_not_found">Filen er ikke lenger tilgjengelig</string>
     <string name="status_pages" formatted="false">%d sider, %d tekstlinjer</string>

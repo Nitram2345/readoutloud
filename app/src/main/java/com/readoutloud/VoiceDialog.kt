@@ -115,7 +115,12 @@ fun VoiceDialog(
                 }
             }
         },
-        confirmButton = {}
+        confirmButton = {},
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text(context.getString(android.R.string.cancel))
+            }
+        }
     )
 }
 

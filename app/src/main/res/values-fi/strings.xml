@@ -14,6 +14,7 @@
     <string name="status_idle">Avaa PDF, DOCX tai EPUB</string>
     <string name="status_loading">Ladataan…</string>
     <string name="status_cancelled">Peruutettu</string>
+    <string name="cancel_loading">Peruuta lataus</string>
     <string name="status_error">VIRHE: %s</string>
     <string name="status_file_not_found">Tiedosto ei enää saatavilla</string>
     <string name="status_pages" formatted="false">%d sivua, %d tekstiriviä</string>

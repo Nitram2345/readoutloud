@@ -540,7 +540,7 @@ fun PdfViewerScreen(
                 modifier = Modifier
                     .padding(horizontal = 8.dp, vertical = 2.dp)
                     .fillMaxWidth()
-            ) { Text(stringResource(R.string.status_cancelled)) }
+            ) { Text(stringResource(R.string.cancel_loading)) }
         }
 
         val allLines = documentData?.textLines

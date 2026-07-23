@@ -109,10 +109,11 @@ class TtsController(
 
     private fun switchToPiperEngine() {
         if (piperEngine == null) return
-        val voice = voiceManager?.selectedVoice?.value
-        if (voice == null) {
-            return
-        }
+        val voice = voiceManager?.selectedVoice?.value ?: return
+        // Stop old voice immediately (before loadVoice releases the old model), then restart the
+        // same sentence on the new voice — otherwise both voices play at once.
+        val wasPlaying = _isPlaying.value && currentIndex < sentences.size
+        if (wasPlaying) currentEngine.stop()
         val result = piperEngine.loadVoice(voice)
         if (result.isFailure) {
             val msg = result.exceptionOrNull()?.message ?: ""
@@ -122,11 +123,12 @@ class TtsController(
                     voiceManager?.ensureEspeakNgData()
                 }
             }
-            switchToAndroidEngine()
-            return
+            currentEngine = androidEngine
+        } else {
+            // Only switch engine AFTER successful loadVoice
+            currentEngine = piperEngine
         }
-        // Only switch engine AFTER successful loadVoice
-        currentEngine = piperEngine
+        if (wasPlaying) speakAt(currentIndex)
     }
 
     /**
@@ -138,8 +140,11 @@ class TtsController(
     }
 
     private fun switchToAndroidEngine() {
+        val wasPlaying = _isPlaying.value && currentIndex < sentences.size
+        if (wasPlaying) currentEngine.stop()   // stop old voice before swapping, then restart same sentence
         currentEngine = androidEngine
         Log.d("TtsController", "Switched to Android engine")
+        if (wasPlaying) speakAt(currentIndex)
     }
 
     private class AndroidTtsEngine(private val tts: TextToSpeech) : TtsEngine {
@@ -298,6 +303,8 @@ class TtsController(
             }
             tts.setLanguage(locale)
         }
+        // Stop current sentence and restart it in the new language — no overlap of old+new locale.
+        if (_isPlaying.value && currentIndex < sentences.size) { currentEngine.stop(); speakAt(currentIndex) }
     }
 
     fun setAudioOutput(speaker: Boolean) {

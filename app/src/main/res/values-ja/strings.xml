@@ -14,6 +14,7 @@
     <string name="status_idle">PDF、DOCX、EPUB を開く</string>
     <string name="status_loading">読み込み中…</string>
     <string name="status_cancelled">キャンセル</string>
+    <string name="cancel_loading">読み込みを中止</string>
     <string name="status_error">エラー: %s</string>
     <string name="status_file_not_found">ファイルが利用できません</string>
     <string name="status_pages" formatted="false">%dページ、%d行</string>

@@ -14,6 +14,7 @@
     <string name="status_idle">Άνοιγμα PDF, DOCX ή EPUB</string>
     <string name="status_loading">Φόρτωση…</string>
     <string name="status_cancelled">Ακύρωση</string>
+    <string name="cancel_loading">Ακύρωση φόρτωσης</string>
     <string name="status_error">ΣΦΑΛΜΑ: %s</string>
     <string name="status_file_not_found">Το αρχείο δεν είναι πλέον διαθέσιμο</string>
     <string name="status_pages" formatted="false">%d σελίδες, %d γραμμές κειμένου</string>

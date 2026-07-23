@@ -14,6 +14,7 @@
     <string name="status_idle">PDF, DOCX немесе EPUB ашыңыз</string>
     <string name="status_loading">Жүктелуде…</string>
     <string name="status_cancelled">Болдырмау</string>
+    <string name="cancel_loading">Жүктеуді болдырмау</string>
     <string name="status_error">ҚАТЕ: %s</string>
     <string name="status_file_not_found">Файл қолжетімсіз</string>
     <string name="status_pages" formatted="false">%d бет, %d мәтін жолы</string>

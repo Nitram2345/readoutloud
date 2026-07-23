@@ -14,6 +14,7 @@
     <string name="status_idle">PDF، DOCX یا EPUB باز کنید</string>
     <string name="status_loading">در حال بارگذاری…</string>
     <string name="status_cancelled">لغو شد</string>
+    <string name="cancel_loading">لغو بارگذاری</string>
     <string name="status_error">خطا: %s</string>
     <string name="status_file_not_found">فایل دیگر در دسترس نیست</string>
     <string name="status_pages" formatted="false">%d صفحه، %d خط متن</string>

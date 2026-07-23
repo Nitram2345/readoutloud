@@ -14,6 +14,7 @@
     <string name="status_idle">Opna PDF, DOCX eða EPUB</string>
     <string name="status_loading">Hleð inn…</string>
     <string name="status_cancelled">Hætt við</string>
+    <string name="cancel_loading">Hætta við hleðslu</string>
     <string name="status_error">VILLA: %s</string>
     <string name="status_file_not_found">Skrá ekki lengur í boði</string>
     <string name="status_pages" formatted="false">%d síður, %d textalínur</string>

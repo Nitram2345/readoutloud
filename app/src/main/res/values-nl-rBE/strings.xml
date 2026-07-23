@@ -14,6 +14,7 @@
     <string name="status_idle">PDF, DOCX of EPUB openen</string>
     <string name="status_loading">Laden…</string>
     <string name="status_cancelled">Geannuleerd</string>
+    <string name="cancel_loading">Laden annuleren</string>
     <string name="status_error">FOUT: %s</string>
     <string name="status_file_not_found">Bestand niet meer beschikbaar</string>
     <string name="status_pages" formatted="false">%d paginas, %d tekstregels</string>

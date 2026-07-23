@@ -14,6 +14,7 @@
     <string name="status_idle">Odpri PDF, DOCX ali EPUB</string>
     <string name="status_loading">Nalaganje…</string>
     <string name="status_cancelled">Preklicano</string>
+    <string name="cancel_loading">Prekliči nalaganje</string>
     <string name="status_error">NAPAKA: %s</string>
     <string name="status_file_not_found">Datoteka ni več na voljo</string>
     <string name="status_pages" formatted="false">%d strani, %d vrstic besedila</string>

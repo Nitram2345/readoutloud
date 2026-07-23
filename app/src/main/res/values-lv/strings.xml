@@ -14,6 +14,7 @@
     <string name="status_idle">Atvērt PDF, DOCX vai EPUB</string>
     <string name="status_loading">Ielādē…</string>
     <string name="status_cancelled">Atcelts</string>
+    <string name="cancel_loading">Atcelt ielādi</string>
     <string name="status_error">KĒDA: %s</string>
     <string name="status_file_not_found">Fails vairs nav pieejams</string>
     <string name="status_pages" formatted="false">%d lappuses, %d teksta rindas</string>

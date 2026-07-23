@@ -14,6 +14,7 @@
     <string name="status_idle">Fungua PDF, DOCX au EPUB</string>
     <string name="status_loading">Inapakia…</string>
     <string name="status_cancelled">Imefutiliwa mbali</string>
+    <string name="cancel_loading">Ghairi upakiaji</string>
     <string name="status_error">KOSA: %s</string>
     <string name="status_file_not_found">Faili halipo tena</string>
     <string name="status_pages" formatted="false">ukurasa %d, mistari ya maandishi %d</string>

@@ -14,6 +14,7 @@
     <string name="status_idle">Otevřít PDF, DOCX nebo EPUB</string>
     <string name="status_loading">Načítání…</string>
     <string name="status_cancelled">Zrušeno</string>
+    <string name="cancel_loading">Zrušit načítání</string>
     <string name="status_error">CHYBA: %s</string>
     <string name="status_file_not_found">Soubor již není dostupný</string>
     <string name="status_pages" formatted="false">%d stránek, %d řádků textu</string>

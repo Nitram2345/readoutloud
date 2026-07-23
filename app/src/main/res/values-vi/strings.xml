@@ -14,6 +14,7 @@
     <string name="status_idle">Mở PDF, DOCX hoặc EPUB</string>
     <string name="status_loading">Đang tải…</string>
     <string name="status_cancelled">Đã hủy</string>
+    <string name="cancel_loading">Hủy tải</string>
     <string name="status_error">LỖI: %s</string>
     <string name="status_file_not_found">Tệp không còn khả dụng</string>
     <string name="status_pages" formatted="false">%d trang, %d dòng văn bản</string>

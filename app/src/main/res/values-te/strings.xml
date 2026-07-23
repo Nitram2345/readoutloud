@@ -14,6 +14,7 @@
     <string name="status_idle">PDF, DOCX లేదా EPUB తెరుచు</string>
     <string name="status_loading">లోడ్ అవుతోంది…</string>
     <string name="status_cancelled">రద్దు చేయబడింది</string>
+    <string name="cancel_loading">లోడింగ్ రద్దు చేయండి</string>
     <string name="status_error">దోషం: %s</string>
     <string name="status_file_not_found">ఫైల్ ఇకపై అందుబాటులో లేదు</string>
     <string name="status_pages" formatted="false">%d పేజీలు, %d టెక్స్ట్ లైన్లు</string>
