@@ -73,6 +73,7 @@ dependencies {
         exclude(group = "org.bouncycastle")
     }
     implementation("org.jsoup:jsoup:1.17.2")
+    implementation("net.dankito.readability4j:readability4j:1.0.8")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("org.apache.commons:commons-compress:1.27.1")
     implementation(files("libs/sherpa-onnx-1.13.2.aar"))

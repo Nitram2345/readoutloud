@@ -320,15 +320,59 @@ fun PdfViewerScreen(
         }
     }
 
+    fun openUrl(url: String) {
+        loadJob?.cancel()
+        loadJob = scope.launch {
+            isLoading = true
+            statusText = resources.getString(R.string.status_loading)
+            try {
+                val uri = Uri.parse(url)
+                val oldUri = settings.lastUri
+                val data = loadUrl(url)
+                documentData = data
+                if (oldUri != uri) {
+                    settings.savedLineIndex = -1
+                    speechRate = 1.0f
+                    settings.speechRate = 1.0f
+                    onRateChange(1.0f)
+                }
+                settings.lastUri = uri
+                statusText = resources.getString(R.string.status_paragraphs, data.textLines.size)
+                val savedIdx = settings.savedLineIndex
+                if (savedIdx >= 0 && savedIdx < data.textLines.size) {
+                    onPrimeFrom(data.textLines.drop(savedIdx))
+                }
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                statusText = resources.getString(R.string.status_cancelled)
+                throw e
+            } catch (e: Exception) {
+                statusText = resources.getString(R.string.status_error, "${e.javaClass.simpleName}: ${e.message}")
+                Log.e("URL", "Load failed: $url", e)
+            } finally {
+                isLoading = false
+                loadJob = null
+            }
+        }
+    }
+
     LaunchedEffect(Unit) {
-        val activity = context as? android.app.Activity
-        val viewUri = activity?.intent
+        val intent = (context as? android.app.Activity)?.intent
+        val sharedUrl = when (intent?.action) {
+            Intent.ACTION_SEND -> intent.getStringExtra(Intent.EXTRA_TEXT)?.let { extractUrl(it) }
+            Intent.ACTION_VIEW -> intent.data
+                ?.takeIf { it.scheme == "http" || it.scheme == "https" }?.toString()
+            else -> null
+        }
+        val viewFileUri = intent
             ?.takeIf { it.action == Intent.ACTION_VIEW }
-            ?.data
-        if (viewUri != null) {
-            loadUri(viewUri)
-        } else {
-            settings.lastUri?.let { loadUri(it) }
+            ?.data?.takeIf { it.scheme != "http" && it.scheme != "https" }
+        when {
+            sharedUrl != null -> openUrl(sharedUrl)
+            viewFileUri != null -> loadUri(viewFileUri)
+            else -> settings.lastUri?.let { uri ->
+                if (uri.scheme == "http" || uri.scheme == "https") openUrl(uri.toString())
+                else loadUri(uri)
+            }
         }
     }
 

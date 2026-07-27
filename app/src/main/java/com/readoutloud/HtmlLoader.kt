@@ -3,12 +3,12 @@ package com.readoutloud
 import android.content.Context
 import android.net.Uri
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Element
 
-fun extractHtmlLines(context: Context, uri: Uri): List<TextLine> {
-    val stream = context.contentResolver.openInputStream(uri) ?: return emptyList()
-    val doc = stream.use { Jsoup.parse(it, null, "") }
+/** Shared extractor: turns an HTML element tree into readable TextLines. */
+fun extractLinesFromElement(root: Element): List<TextLine> {
     val paragraphs = mutableListOf<Pair<String, String>>()
-    for (el in doc.body().select("h1,h2,h3,h4,h5,h6,p,li,td,th,dt,dd")) {
+    for (el in root.select("h1,h2,h3,h4,h5,h6,p,li,td,th,dt,dd")) {
         val text = el.text().trim()
         if (text.isBlank()) continue
         val style = when (el.tagName()) {
@@ -29,4 +29,10 @@ fun extractHtmlLines(context: Context, uri: Uri): List<TextLine> {
             text = text, style = style
         )
     }
+}
+
+fun extractHtmlLines(context: Context, uri: Uri): List<TextLine> {
+    val stream = context.contentResolver.openInputStream(uri) ?: return emptyList()
+    val doc = stream.use { Jsoup.parse(it, null, "") }
+    return extractLinesFromElement(doc.body())
 }
