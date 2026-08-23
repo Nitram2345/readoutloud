@@ -29,6 +29,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -355,8 +356,16 @@ fun PdfViewerScreen(
         }
     }
 
+    // recreate() (language switch) re-runs this effect with the original launch intent still
+    // attached, which re-opened the shared URL and threw away whatever the user had opened since.
+    // Survives recreate() via saved instance state; a fresh share starts a new Activity, so it
+    // starts out false there and the intent is handled normally.
+    var launchIntentConsumed by rememberSaveable { mutableStateOf(false) }
+
     LaunchedEffect(Unit) {
         val intent = (context as? android.app.Activity)?.intent
+            ?.takeUnless { launchIntentConsumed }
+        launchIntentConsumed = true
         val sharedUrl = when (intent?.action) {
             Intent.ACTION_SEND -> intent.getStringExtra(Intent.EXTRA_TEXT)?.let { extractUrl(it) }
             Intent.ACTION_VIEW -> intent.data

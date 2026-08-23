@@ -12,6 +12,9 @@ import java.util.concurrent.TimeUnit
 
 private const val USER_AGENT = "Mozilla/5.0 (Android) ReadOutLoud"
 
+// An article page is never this big. Caps what we buffer so a link to a large file can't OOM us.
+private const val MAX_BODY_BYTES = 8L * 1024 * 1024
+
 // OkHttp follows HTTP 3xx by default; explicit here as intent. JS redirects are out of scope.
 private val httpClient by lazy {
     OkHttpClient.Builder()
@@ -26,11 +29,30 @@ private val httpClient by lazy {
 fun extractUrl(text: String): String? =
     Regex("""https?://\S+""").find(text)?.value
 
+/**
+ * Cleartext is blocked by default from targetSdk 28 on, so an http:// URL can never load —
+ * it fails with "CLEARTEXT communication not permitted" no matter what. Try https instead;
+ * nearly every site that still publishes http links redirects there anyway.
+ */
+private fun httpsUpgrade(url: String): String =
+    if (url.startsWith("http://", ignoreCase = true)) "https://" + url.substring(7) else url
+
 private fun fetch(url: String): Pair<String, String> {
-    val req = Request.Builder().url(url).header("User-Agent", USER_AGENT).build()
+    val req = Request.Builder().url(httpsUpgrade(url)).header("User-Agent", USER_AGENT).build()
     httpClient.newCall(req).execute().use { resp ->
-        val body = resp.body?.string() ?: ""
-        return resp.request.url.toString() to body   // final URL after redirects
+        val body = resp.body ?: return resp.request.url.toString() to ""
+
+        val mime = body.contentType()?.let { "${it.type}/${it.subtype}" }
+        if (mime != null && !mime.startsWith("text/") && mime != "application/xhtml+xml") {
+            throw IllegalStateException("Keine Webseite: $mime")
+        }
+        // contentLength() is -1 for chunked responses, so also bound what we actually buffer.
+        if (body.contentLength() > MAX_BODY_BYTES) throw IllegalStateException("Seite zu groß")
+        val source = body.source()
+        source.request(MAX_BODY_BYTES + 1)
+        if (source.buffer.size > MAX_BODY_BYTES) throw IllegalStateException("Seite zu groß")
+
+        return resp.request.url.toString() to body.string()   // final URL after redirects
     }
 }
 

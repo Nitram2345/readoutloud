@@ -30,7 +30,6 @@ class VoiceRepositoryImpl(
         private const val HUGGINGFACE_BASE_URL = "https://huggingface.co/rhasspy/piper-voices/resolve/main"
         private const val VOICES_DIR = "voices"
         private const val ONNX_EXTENSION = ".onnx"
-        private const val DAT_EXTENSION = ".dat"
 
         // Initialize cap names for common voice file prefixes
         private val INIT_CAP_MAP = mapOf(
@@ -153,28 +152,43 @@ class VoiceRepositoryImpl(
             val body = response.body ?: return@withContext Result.failure(IOException("Empty response body"))
             val contentLength = body.contentLength()
 
-            val inputStream = body.byteStream()
-            val outputStream = FileOutputStream(destination)
+            // Download to a .part file and only promote it once the byte count checks out.
+            // injectOnnxMetadata() appends to the model and marks it as done; running that on a
+            // truncated download produced a permanently corrupt model with no way to recover,
+            // because the marker check then skipped the repair on every later attempt.
+            destination.parentFile?.mkdirs()
+            val partFile = File(destination.parentFile, destination.name + ".part")
 
-            val buffer = ByteArray(8192)
             var totalBytesRead = 0L
+            body.byteStream().use { input ->
+                FileOutputStream(partFile).use { output ->
+                    val buffer = ByteArray(8192)
+                    while (true) {
+                        val bytesRead = input.read(buffer)
+                        if (bytesRead == -1) break
 
-            while (true) {
-                val bytesRead = inputStream.read(buffer)
-                if (bytesRead == -1) break
+                        output.write(buffer, 0, bytesRead)
+                        totalBytesRead += bytesRead
 
-                outputStream.write(buffer, 0, bytesRead)
-                totalBytesRead += bytesRead
-
-                if (contentLength > 0) {
-                    val progress = totalBytesRead.toFloat() / contentLength.toFloat()
-                    onProgress(progress)
+                        if (contentLength > 0) {
+                            onProgress(totalBytesRead.toFloat() / contentLength.toFloat())
+                        }
+                    }
+                    output.flush()
                 }
             }
 
-            outputStream.flush()
-            outputStream.close()
-            inputStream.close()
+            if (contentLength > 0 && totalBytesRead != contentLength) {
+                partFile.delete()
+                return@withContext Result.failure(
+                    IOException("Incomplete download: $totalBytesRead of $contentLength bytes")
+                )
+            }
+            destination.delete()   // rename fails on an existing target
+            if (!partFile.renameTo(destination)) {
+                partFile.delete()
+                return@withContext Result.failure(IOException("Could not finalize ${destination.name}"))
+            }
 
             // Download companion JSON config (sherpa-onnx reads it automatically for Piper voices)
             val jsonDest = File(destination.parent, destination.name + ".json")
@@ -312,16 +326,19 @@ class VoiceRepositoryImpl(
      */
     override suspend fun deleteVoice(voice: Voice, context: Context) = withContext(Dispatchers.IO) {
         try {
+            // No lowercase(): files are written as "${voice.name}.onnx" (see VoiceManager), and
+            // filesDir is case-sensitive, so lowercasing here matched nothing and left the model
+            // (20-110 MB) on disk.
             val voicesDir = getVoicesDirectory(context)
-            val onnxFile = File(voicesDir, "${voice.name.lowercase()}$ONNX_EXTENSION")
-            val datFile = File(voicesDir, "${voice.name.lowercase()}$DAT_EXTENSION")
+            val onnxFile = File(voicesDir, "${voice.name}$ONNX_EXTENSION")
 
             if (onnxFile.exists()) onnxFile.delete()
-            if (datFile.exists()) datFile.delete()
-            val jsonFile = File(voicesDir, "${voice.name.lowercase()}$ONNX_EXTENSION.json")
+            val jsonFile = File(voicesDir, "${voice.name}$ONNX_EXTENSION.json")
             if (jsonFile.exists()) jsonFile.delete()
-            val tokensFile = File(voicesDir, "${voice.name.lowercase()}.tokens.txt")
+            val tokensFile = File(voicesDir, "${voice.name}.tokens.txt")
             if (tokensFile.exists()) tokensFile.delete()
+            val partFile = File(voicesDir, "${voice.name}$ONNX_EXTENSION.part")
+            if (partFile.exists()) partFile.delete()
         } catch (e: Exception) {
             // Log error but don't throw
         }

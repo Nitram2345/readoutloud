@@ -1,19 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-   Sample data extraction rules file; uncomment and customize as necessary.
-   See https://developer.android.com/about/versions/12/backup-restore#xml-changes
-   for details.
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   Auto Backup is capped at 25 MB per app. A single Piper voice model is 20-110 MB, so leaving
+   filesDir at its default (included) makes the system call onQuotaExceeded() and drop the whole
+   backup - including the SharedPreferences that hold the reading position. Exclude the model
+   directories so the small stuff still gets backed up. Voices are re-downloadable anyway.
 -->
 <data-extraction-rules>
     <cloud-backup>
-        <!-- TODO: Use <include> and <exclude> to control what is backed up.
-        <include .../>
-        <exclude .../>
-        -->
+        <exclude domain="file" path="voices" />
+        <exclude domain="file" path="espeak-ng-data" />
     </cloud-backup>
-    <!--
     <device-transfer>
-        <include .../>
-        <exclude .../>
+        <exclude domain="file" path="voices" />
+        <exclude domain="file" path="espeak-ng-data" />
     </device-transfer>
-    -->
 </data-extraction-rules>

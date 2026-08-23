@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class TtsController(
     private val tts: TextToSpeech,
@@ -79,6 +80,12 @@ class TtsController(
 
             override fun onDone(utteranceId: String?) {
                 val idx = utteranceId?.toIntOrNull() ?: return
+                // Same guard as onError: a late onDone from a stopped/flushed utterance must not
+                // advance the index and start a second speak chain alongside the live one.
+                // ponytail: utteranceId is the plain index, so a restart of the SAME index (setRate,
+                // setLanguage) still lets the stale callback through. Add an epoch to the id if that
+                // ever shows up in practice.
+                if (idx != speakingId) return
                 onMain {
                     currentIndex = idx + 1
                     if (_isPlaying.value && currentIndex < sentences.size) {
@@ -107,14 +114,16 @@ class TtsController(
         })
     }
 
-    private fun switchToPiperEngine() {
+    private suspend fun switchToPiperEngine() {
         if (piperEngine == null) return
         val voice = voiceManager?.selectedVoice?.value ?: return
         // Stop old voice immediately (before loadVoice releases the old model), then restart the
         // same sentence on the new voice — otherwise both voices play at once.
         val wasPlaying = _isPlaying.value && currentIndex < sentences.size
         if (wasPlaying) currentEngine.stop()
-        val result = piperEngine.loadVoice(voice)
+        // loadVoice() builds the ONNX session: file IO plus a native model load, hundreds of ms to
+        // seconds. It ran on Main via the collectors below and could ANR on a voice switch.
+        val result = withContext(Dispatchers.IO) { piperEngine.loadVoice(voice) }
         if (result.isFailure) {
             val msg = result.exceptionOrNull()?.message ?: ""
             Log.e("TtsController", "Failed to load Piper voice ${voice.name}: $msg")
@@ -178,6 +187,9 @@ class TtsController(
     }
 
     fun startFrom(lines: List<TextLine>) {
+        // Tap-to-start-here while already reading: kill the running utterance first, otherwise the
+        // old and new one overlap. Every other speak entry point does this too.
+        currentEngine.stop()
         val fullText = lines.joinToString(" ") { it.text }
         sentences = splitSentences(fullText)
         sentenceLines = mapSentencesToLines(fullText, sentences, lines)
@@ -210,6 +222,10 @@ class TtsController(
 
     fun resume() {
         if (currentIndex < sentences.size) {
+            // Play can arrive twice for one press (notification action + MediaSession callback +
+            // KeyEvent are all wired to resume()). Stop first so the second call replaces rather
+            // than layers on top.
+            currentEngine.stop()
             _isPlaying.value = true
             onLinesChanged?.invoke(sentenceLines.getOrElse(currentIndex) { emptyList() })
             speakAt(currentIndex)
@@ -413,6 +429,13 @@ class TtsController(
     }
 
     private fun speakAt(idx: Int) {
+        // Out of range would throw on sentences[idx]; speakAtWithFallback would then retry and
+        // throw again, uncaught. Treat it as "nothing left to read".
+        if (idx < 0 || idx >= sentences.size) {
+            _isPlaying.value = false
+            onLinesChanged?.invoke(emptyList())
+            return
+        }
         if (currentVolume > 1.0f) boostStream()
         speakingId = idx
         val params = SpeakParams(

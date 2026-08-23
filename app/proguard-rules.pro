@@ -42,15 +42,16 @@
 -keepnames class com.gemalto.jp2.** { *; }
 
 # ============================================
+# readability4j pulls in slf4j-api but no binding. R8 fails the release build on the
+# missing StaticLoggerBinder; slf4j falls back to a no-op logger at runtime.
+# ============================================
+-dontwarn org.slf4j.**
+
+# ============================================
 # Jsoup: Keep only required classes
 # ============================================
 -keep class org.jsoup.** { *; }
 -dontwarn org.jsoup.helper.DataUtil
-
-# ============================================
-# AndroidX Media: Keep only required parts
-# ============================================
--keep class androidx.media.** { *; }
 
 # ============================================
 # Compose: Keep runtime but remove debug-only code
@@ -73,9 +74,8 @@
 
 # ============================================
 # General optimizations
+# (-optimizations and -optimizationpasses are ProGuard-only; R8 ignores them, so they are gone)
 # ============================================
--optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
--optimizationpasses 5
 -allowaccessmodification
 
 # Remove assertions

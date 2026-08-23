@@ -119,6 +119,9 @@ class PiperTtsEngine(
 
                     if (audio.samples.isNotEmpty()) {
                         val track = createAudioTrack(audio.sampleRate, params)
+                        // Re-check before claiming the shared field: a stale job must never install
+                        // its own track over a newer one, or the newer track escapes stop().
+                        if (speakEpoch != epoch || stopped) { track.release(); return@withContext }
                         audioTrack = track
                         track.play()
 
@@ -134,7 +137,10 @@ class PiperTtsEngine(
                             try { track.stop() } catch (_: Exception) {}
                         }
                         track.release()
-                        audioTrack = null
+                        // Only clear the field if it still points at OUR track. A stale job that
+                        // finishes late used to null out the current track's reference, so stop()
+                        // found null and that track played on top of the next utterance.
+                        if (audioTrack === track) audioTrack = null
                     }
                 } catch (e: Exception) {
                 }

@@ -173,4 +173,15 @@ UI-Refresh: `recreate()` bei Sprachwechsel für sofortige Aktualisierung
 
 Privacy Policy: https://nitram2345.github.io/readoutloud-privacy/
 Berechtigungen: `READ_EXTERNAL_STORAGE`, `FOREGROUND_SERVICE`, `FOREGROUND_SERVICE_MEDIA_PLAYBACK`
-`POST_NOTIFICATIONS` entfernt (nicht benötigt)
+`POST_NOTIFICATIONS` wird gebraucht (Foreground-Service-Notification ab Android 13) – im Manifest und in `MainActivity.onCreate` angefordert
+
+### Backup
+Voice-Modelle (20–110 MB) sind in `backup_rules.xml` + `data_extraction_rules.xml` ausgeschlossen.
+Auto Backup hat 25 MB Quota – darüber bricht das System das **komplette** Backup ab, auch die SharedPreferences.
+
+### Cleartext
+Ab targetSdk 28 ist `http://` blockiert. `UrlLoader.httpsUpgrade()` schreibt http→https um, weil der Request sonst
+immer mit "CLEARTEXT communication not permitted" scheitert.
+
+### Voice-Dateinamen sind case-sensitive
+Geschrieben wird `"${voice.name}.onnx"` (groß). Nicht `lowercase()` beim Löschen/Suchen – sonst bleiben 100 MB liegen.

@@ -1,6 +1,20 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+}
+
+// Signing credentials come from keystore.properties in the repo root, which is gitignored so the
+// passwords never land in version control. Expected keys:
+//   storeFile=readoutloud.keystore
+//   storePassword=...
+//   keyAlias=...
+//   keyPassword=...
+// Without that file the release build still works, it just comes out unsigned.
+val keystorePropsFile = rootProject.file("keystore.properties")
+val keystoreProps = Properties().apply {
+    if (keystorePropsFile.exists()) keystorePropsFile.inputStream().use { load(it) }
 }
 
 android {
@@ -19,22 +33,34 @@ android {
         versionName = "0.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled = true
-        ndk { abiFilters += listOf("arm64-v8a") }
+        // No abiFilters: the sherpa-onnx AAR ships arm64-v8a, armeabi-v7a, x86 and x86_64, and Play
+        // delivers only the matching one per device from the bundle. Filtering here would drop
+        // 32-bit ARM phones, ChromeOS and Play Games on PC for no download-size gain.
+    }
+
+    signingConfigs {
+        if (keystorePropsFile.exists()) {
+            create("release") {
+                storeFile = rootProject.file(keystoreProps.getProperty("storeFile"))
+                storePassword = keystoreProps.getProperty("storePassword")
+                keyAlias = keystoreProps.getProperty("keyAlias")
+                keyPassword = keystoreProps.getProperty("keyPassword")
+            }
+        }
     }
 
     buildTypes {
         release {
+            signingConfig = signingConfigs.findByName("release")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            // Additional release optimizations
-            ndk {
-                debugSymbolLevel = "NONE"
-            }
+            // No debugSymbolLevel: the sherpa-onnx AAR ships prebuilt .so that upstream already
+            // stripped (no .symtab), so there is nothing for AGP to extract. Native crashes will
+            // show raw addresses in Play Console. Fixing that needs unstripped libs from upstream.
         }
     }
 
@@ -60,9 +86,10 @@ android {
             )
         }
         jniLibs {
-            // Compress native libs in APK (~50% size reduction for download).
-            // Trade-off: Android extracts libs on first install (slightly more storage used).
-            useLegacyPackaging = true
+            // false = .so stored uncompressed and mapped straight out of the APK. Play compresses
+            // the bundle for transfer anyway, so this gives both a smaller download and a smaller
+            // install than legacy packaging, which keeps a second extracted copy on disk.
+            useLegacyPackaging = false
         }
     }
 }
@@ -77,8 +104,6 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("org.apache.commons:commons-compress:1.27.1")
     implementation(files("libs/sherpa-onnx-1.13.2.aar"))
-    implementation("androidx.media:media:1.7.0")
-    implementation("androidx.core:core:1.13.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
