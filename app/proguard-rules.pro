@@ -1,22 +1,22 @@
 # Keep TextLine and DocumentData data classes
--keep class com.readoutloud.TextLine { *; }
--keep class com.readoutloud.DocumentData { *; }
--keepclassmembers class com.readoutloud.DocumentData$* { *; }
+-keep class de.readoutloud.TextLine { *; }
+-keep class de.readoutloud.DocumentData { *; }
+-keepclassmembers class de.readoutloud.DocumentData$* { *; }
 
 # Keep TTS Service and Controller
--keep class com.readoutloud.TtsService { *; }
--keep class com.readoutloud.TtsController { *; }
--keep class com.readoutloud.AppSettings { *; }
+-keep class de.readoutloud.TtsService { *; }
+-keep class de.readoutloud.TtsController { *; }
+-keep class de.readoutloud.AppSettings { *; }
 
 # Keep MainActivity and Compose UI classes
--keep class com.readoutloud.MainActivity { *; }
--keepclassmembers class com.readoutloud.MainActivity* { *; }
+-keep class de.readoutloud.MainActivity { *; }
+-keepclassmembers class de.readoutloud.MainActivity* { *; }
 
 # Keep loader classes
--keep class com.readoutloud.DocxLoader { *; }
--keep class com.readoutloud.EpubLoader { *; }
--keep class com.readoutloud.OdtLoader { *; }
--keep class com.readoutloud.HtmlLoader { *; }
+-keep class de.readoutloud.DocxLoader { *; }
+-keep class de.readoutloud.EpubLoader { *; }
+-keep class de.readoutloud.OdtLoader { *; }
+-keep class de.readoutloud.HtmlLoader { *; }
 
 # ============================================
 # PDFBox: Only keep required classes

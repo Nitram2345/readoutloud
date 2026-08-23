@@ -18,7 +18,7 @@ val keystoreProps = Properties().apply {
 }
 
 android {
-    namespace = "com.readoutloud"
+    namespace = "de.readoutloud"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -26,7 +26,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.readoutloud"
+        applicationId = "de.readoutloud"
         minSdk = 26
         targetSdk = 36
         versionCode = 1
