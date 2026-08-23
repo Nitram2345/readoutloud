@@ -6,12 +6,17 @@
    directories so the small stuff still gets backed up. Voices are re-downloadable anyway.
 -->
 <data-extraction-rules>
+    <!-- readoutloud_local.xml holds only last_uri. A content:// permission is device-local, so the
+         value is worthless both after a cloud restore and after a device transfer. Excluding works
+         per file, not per key, which is why it lives in its own store. See AppSettings.localPrefs. -->
     <cloud-backup>
         <exclude domain="file" path="voices" />
         <exclude domain="file" path="espeak-ng-data" />
+        <exclude domain="sharedpref" path="readoutloud_local.xml" />
     </cloud-backup>
     <device-transfer>
         <exclude domain="file" path="voices" />
         <exclude domain="file" path="espeak-ng-data" />
+        <exclude domain="sharedpref" path="readoutloud_local.xml" />
     </device-transfer>
 </data-extraction-rules>

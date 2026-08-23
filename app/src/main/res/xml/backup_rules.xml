@@ -6,4 +6,7 @@
 <full-backup-content>
     <exclude domain="file" path="voices" />
     <exclude domain="file" path="espeak-ng-data" />
+    <!-- Holds only last_uri, which is a device-local content:// permission and is worthless after
+         a restore. See AppSettings.localPrefs. -->
+    <exclude domain="sharedpref" path="readoutloud_local.xml" />
 </full-backup-content>

@@ -7,11 +7,17 @@ import java.util.Locale
 
 class AppSettings(context: Context) {
     private val prefs = context.getSharedPreferences("readoutloud", Context.MODE_PRIVATE)
+
+    // Separate file so the backup rules can exclude it. A content:// permission does not survive a
+    // restore or a device transfer, so backing this up would only put the last document's name in
+    // the cloud for no benefit. Excluding works per file, not per key, hence the second store.
+    private val localPrefs = context.getSharedPreferences("readoutloud_local", Context.MODE_PRIVATE)
+
     private val defaultLang = Locale.getDefault().language.take(2)
 
     var lastUri: Uri?
-        get() = prefs.getString("last_uri", null)?.toUri()
-        set(value) = prefs.edit().putString("last_uri", value?.toString()).apply()
+        get() = localPrefs.getString("last_uri", null)?.toUri()
+        set(value) = localPrefs.edit().putString("last_uri", value?.toString()).apply()
 
     var speechRate: Float
         get() = prefs.getFloat("speech_rate", 1.0f)
