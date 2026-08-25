@@ -33,8 +33,8 @@ Emulator starten: Android Studio AVD Manager oder `emulator -avd <name>`.
 | `TtsService.kt` | Foreground-Service: TTS-Lifecycle, MediaSession, Notification mit Media-Controls (CoroutineScope) |
 | `VoiceManager.kt` | Download, Entpacken und Löschen von Stimmenmodellen und espeak-ng-data |
 | `VoiceRepository.kt` / `VoiceRepositoryImpl.kt` | Stimmenkatalog von HuggingFace, Interface plus Implementierung |
-| `PiperVoiceData.kt` | Datenmodell einer Stimme |
-| `VoiceDialog.kt` | Stimmenauswahl-Dialog |
+| `PiperVoiceData.kt` | Datenmodell einer Stimme, inkl. `modelCardUrl` |
+| `VoiceDialog.kt` | Stimmenauswahl-Dialog, Lizenz-Link je Stimme, einmaliger Lizenzhinweis vor dem ersten Download |
 | `CountryUtils.kt` | Sprach- und Ländercodes, Flaggen |
 | `AppSettings.kt` | SharedPreferences, **zwei Dateien** — siehe unten |
 | `ui/` | Theme und wiederverwendbare Composables |
@@ -42,7 +42,7 @@ Emulator starten: Android Studio AVD Manager oder `emulator -avd <name>`.
 ### AppSettings: zwei Prefs-Dateien
 
 `readoutloud` enthält speechRate, savedLineIndex, volume, isSpeaker, language, selectedVoice,
-downloadedVoices — alles, was ins Backup soll.
+downloadedVoices, voiceLicenseAcknowledged — alles, was ins Backup soll.
 
 `readoutloud_local` enthält nur `last_uri`. Getrennt, weil `<exclude>` in den Backup-Regeln auf
 Dateiebene arbeitet und nicht auf Schlüsselebene. Eine `content://`-Berechtigung ist gerätelokal
@@ -190,8 +190,40 @@ Seiten auf.
 ### espeak-ng ist GPL-3.0
 
 `libsherpa-onnx-jni.so` enthält einkompiliertes espeak-ng (GPL-3.0-or-later), erkennbar an den
-Symbolen `espeak-ng`, `espeak-ng-data`, `espeakXXXXXX`. sherpa-onnx selbst ist Apache-2.0. Vor einer
-Veröffentlichung klären, ansonsten steht die Lizenzfrage offen.
+Symbolen `espeak-ng`, `espeak-ng-data`, `espeakXXXXXX`. sherpa-onnx selbst ist Apache-2.0. Damit
+steht das APK als kombiniertes Werk unter GPL-3.0 — Verkauf ist erlaubt, Offenlegung des
+Quellcodes wird Pflicht.
+
+Der Upstream sieht das genauso und will espeak-ng in **sherpa-onnx 2.0.0** entfernen
+([Issue #3731](https://github.com/k2-fsa/sherpa-onnx/issues/3731)). Das Issue ist offen, ohne
+Termin, und danach bräuchten die Piper-Modelle eine `lexicon.txt` je Sprache oder eine externe
+Phonemisierung. Ein Upgrade löst das Problem derzeit also nicht.
+
+## Stimmenlizenzen
+
+Die Piper-Stimmen haben **je eigene Lizenzen**, die weder mit Piper noch mit sherpa-onnx zu tun
+haben. `voices.json` nennt keine davon — sie stehen nur in der `MODEL_CARD` neben jedem Modell.
+
+Vollständige Erhebung aller 174 Stimmen: `docs/voice-licenses.md`. Kurzfassung:
+
+| | |
+|---|---:|
+| Lizenz kommerziell nutzbar, Herkunft unbelastet | 45 |
+| Herkunft belastet (von lessac, ryan, amy oder LibriTTS-R feinabgestimmt) | 63 |
+| Lizenz unklar, MODEL_CARD verweist nur auf eine URL | 44 |
+| Ausdrücklich nicht kommerziell (CC BY-NC, Blizzard) | 22 |
+
+Die Falle ist die Abstammung, nicht das Etikett: 38 der belasteten Stimmen tragen CC0, sind aber
+von `lessac` feinabgestimmt, dessen Blizzard-Datensatz nur Forschung erlaubt. `thorsten` in medium,
+low und high ist genau dieser Fall, `thorsten_emotional_medium` dagegen nicht.
+
+**Die App liefert keine Modelle aus** — der Nutzer lädt sie direkt bei HuggingFace. Deshalb wurde
+nicht gefiltert, sondern offengelegt: Lizenz-Link je Stimme plus einmaliger Hinweis vor dem ersten
+Download (`voiceLicenseAcknowledged`). Der Hinweistext ist bewusst Information und keine
+Haftungsfreizeichnung — eine solche Klausel wäre gegenüber Verbrauchern nach § 307 BGB angreifbar.
+
+Der MODEL_CARD-Pfad steckt bereits im `files`-Objekt jeder `voices.json`-Eintragung,
+`VoiceRepositoryImpl.modelCardUrlFrom()` zieht ihn dort heraus. Kein zusätzlicher Request.
 
 ## Heading-Erkennung
 
@@ -209,6 +241,14 @@ UI-Refresh: `recreate()` bei Sprachwechsel für sofortige Aktualisierung
 
 **Beim Ändern eines Strings alle 49 Dateien anfassen**, sonst fällt die Sprache auf Englisch
 zurück. Das gilt auch für `privacy_url` und `privacy_description`.
+
+Für neue Strings gibt es `tools/add-voice-license-strings.sh` — fügt fünf Strings vor
+`</resources>` ein, idempotent, eine Sprache pro Aufruf. Als Vorlage für die nächste Runde
+brauchbar.
+
+**Keine geraden Anführungszeichen und keine unmaskierten Apostrophe in Strings.** AAPT bricht sonst
+ab. Entweder `\"` und `\'` schreiben oder — besser — den Text so formulieren, dass beides nicht
+vorkommt. Bei 49 Sprachen ist Umformulieren die robustere Wahl.
 
 ## Play Store Vorbereitung
 
