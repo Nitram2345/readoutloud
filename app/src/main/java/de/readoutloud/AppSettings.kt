@@ -46,4 +46,11 @@ class AppSettings(context: Context) {
     var downloadedVoices: List<String>
         get() = prefs.getStringSet("downloaded_voices", emptySet())?.toList() ?: emptyList()
         set(value) = prefs.edit().putStringSet("downloaded_voices", value.toSet()).apply()
+
+    // Shown once before the first voice download. The voices come from HuggingFace under licenses
+    // that differ per voice, some of them non-commercial or research only, so the user is told
+    // where the license is before anything is fetched.
+    var voiceLicenseAcknowledged: Boolean
+        get() = prefs.getBoolean("voice_license_acknowledged", false)
+        set(value) = prefs.edit().putBoolean("voice_license_acknowledged", value).apply()
 }

@@ -129,4 +129,10 @@
     <string name="notif_reading">Läser upp…</string>
     <string name="notif_paused">Pausad</string>
     <string name="notif_play">Spela upp</string>
+    <!-- Voice licenses -->
+    <string name="voice_license_link">Licens</string>
+    <string name="voice_license_title">Röster från Hugging Face</string>
+    <string name="voice_license_body">Rösterna tillhandahålls inte av ReadOutLoud utan laddas ned direkt från Hugging Face. De har egna licenser som skiljer sig åt mellan rösterna. Vissa tillåter endast icke-kommersiell eller uteslutande vetenskaplig användning. Licensen för varje röst kan visas via licenslänken bredvid.</string>
+    <string name="voice_license_checkbox">Jag har läst licensinformationen.</string>
+    <string name="voice_license_confirm">Ladda ned</string>
 </resources>

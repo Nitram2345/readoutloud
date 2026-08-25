@@ -113,4 +113,10 @@
     <string name="notif_reading">Předčítání…</string>
     <string name="notif_paused">Pozastaveno</string>
     <string name="notif_play">Přehrát</string>
+    <!-- Voice licenses -->
+    <string name="voice_license_link">Licence</string>
+    <string name="voice_license_title">Hlasy z Hugging Face</string>
+    <string name="voice_license_body">Hlasy neposkytuje ReadOutLoud, ale stahují se přímo z Hugging Face. Mají vlastní licence, které se u jednotlivých hlasů liší. Některé umožňují pouze nekomerční nebo výhradně vědecké použití. Licenci každého hlasu si lze zobrazit pomocí odkazu na licenci vedle něj.</string>
+    <string name="voice_license_checkbox">Přečetl jsem si licenční upozornění.</string>
+    <string name="voice_license_confirm">Stáhnout</string>
 </resources>

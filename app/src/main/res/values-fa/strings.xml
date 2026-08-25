@@ -113,4 +113,10 @@
     <string name="notif_reading">در حال خواندن…</string>
     <string name="notif_paused">متوقف شده</string>
     <string name="notif_play">پخش</string>
+    <!-- Voice licenses -->
+    <string name="voice_license_link">مجوز</string>
+    <string name="voice_license_title">صداها از Hugging Face</string>
+    <string name="voice_license_body">صداها را ReadOutLoud ارائه نمی‌کند، بلکه مستقیماً از Hugging Face دانلود می‌شوند. آن‌ها مجوزهای خاص خود را دارند که از صدایی به صدای دیگر متفاوت است. برخی تنها استفادهٔ غیرتجاری یا صرفاً پژوهشی را مجاز می‌دانند. مجوز هر صدا از طریق پیوند مجوز کنار آن قابل مشاهده است.</string>
+    <string name="voice_license_checkbox">اعلان‌های مجوز را خوانده‌ام.</string>
+    <string name="voice_license_confirm">دانلود</string>
 </resources>

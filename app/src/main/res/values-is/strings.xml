@@ -113,4 +113,10 @@
     <string name="notif_reading">Les upphátt…</string>
     <string name="notif_paused">Í bið</string>
     <string name="notif_play">Spila</string>
+    <!-- Voice licenses -->
+    <string name="voice_license_link">Leyfi</string>
+    <string name="voice_license_title">Raddir frá Hugging Face</string>
+    <string name="voice_license_body">Raddirnar eru ekki í boði ReadOutLoud heldur eru þær sóttar beint frá Hugging Face. Þær hafa eigin leyfi sem eru mismunandi eftir röddum. Sum leyfa aðeins notkun sem er ekki í viðskiptaskyni eða eingöngu til rannsókna. Hægt er að skoða leyfi hverrar raddar með leyfistenglinum við hliðina.</string>
+    <string name="voice_license_checkbox">Ég hef lesið leyfisupplýsingarnar.</string>
+    <string name="voice_license_confirm">Sækja</string>
 </resources>

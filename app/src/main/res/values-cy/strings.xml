@@ -113,4 +113,10 @@
     <string name="notif_reading">Yn darllen yn uchel…</string>
     <string name="notif_paused">Wedi oedi</string>
     <string name="notif_play">Chwarae</string>
+    <!-- Voice licenses -->
+    <string name="voice_license_link">Trwydded</string>
+    <string name="voice_license_title">Lleisiau o Hugging Face</string>
+    <string name="voice_license_body">Nid ReadOutLoud sy\'n darparu\'r lleisiau; cânt eu llwytho i lawr yn uniongyrchol o Hugging Face. Mae ganddynt eu trwyddedau eu hunain, sy\'n amrywio o lais i lais. Mae rhai yn caniatáu defnydd anfasnachol neu ymchwil yn unig. Gellir gweld trwydded pob llais drwy\'r ddolen drwydded wrth ei ymyl.</string>
+    <string name="voice_license_checkbox">Rwyf wedi darllen yr hysbysiadau trwydded.</string>
+    <string name="voice_license_confirm">Llwytho i lawr</string>
 </resources>

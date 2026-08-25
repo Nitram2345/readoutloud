@@ -113,4 +113,10 @@
     <string name="notif_reading">Citește cu voce tare…</string>
     <string name="notif_paused">Întrerupt</string>
     <string name="notif_play">Redare</string>
+    <!-- Voice licenses -->
+    <string name="voice_license_link">Licență</string>
+    <string name="voice_license_title">Voci de la Hugging Face</string>
+    <string name="voice_license_body">Vocile nu sunt furnizate de ReadOutLoud, ci sunt descărcate direct de la Hugging Face. Au licențe proprii, care diferă de la o voce la alta. Unele permit doar utilizarea necomercială sau exclusiv științifică. Licența fiecărei voci poate fi consultată prin linkul de licență de lângă ea.</string>
+    <string name="voice_license_checkbox">Am citit notele privind licența.</string>
+    <string name="voice_license_confirm">Descarcă</string>
 </resources>

@@ -113,4 +113,10 @@
     <string name="notif_reading">Glasno branje…</string>
     <string name="notif_paused">Zaustavljeno</string>
     <string name="notif_play">Predvajaj</string>
+    <!-- Voice licenses -->
+    <string name="voice_license_link">Licenca</string>
+    <string name="voice_license_title">Glasovi s Hugging Face</string>
+    <string name="voice_license_body">Glasov ne zagotavlja ReadOutLoud, temveč se prenesejo neposredno s Hugging Face. Imajo lastne licence, ki se razlikujejo od glasu do glasu. Nekatere dovoljujejo le nekomercialno ali izključno znanstveno uporabo. Licenco vsakega glasu si je mogoče ogledati prek povezave do licence poleg njega.</string>
+    <string name="voice_license_checkbox">Prebral sem obvestila o licencah.</string>
+    <string name="voice_license_confirm">Prenesi</string>
 </resources>

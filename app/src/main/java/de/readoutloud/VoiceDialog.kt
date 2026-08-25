@@ -13,7 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.AlertDialog as MaterialAlertDialog
 import de.readoutloud.CountryUtils.getFlagForLanguage
@@ -35,6 +38,8 @@ fun VoiceDialog(
     downloadedVoices: List<Voice>,
     selectedVoice: Voice?,
     activeDownloads: Map<String, VoiceDownload>,
+    licenseAcknowledged: Boolean,
+    onAcknowledgeLicense: () -> Unit,
     onVoiceSelected: (Voice) -> Unit,
     onVoiceDownloaded: (Voice) -> Unit,
     onVoiceDeleted: (Voice) -> Unit,
@@ -42,16 +47,25 @@ fun VoiceDialog(
     onDismiss: () -> Unit
 ) {
     val context = LocalContext.current
+    val uriHandler = LocalUriHandler.current
+
+    // Set while the license notice is up, so the download can run once it is confirmed.
+    var pendingDownload by remember { mutableStateOf<Voice?>(null) }
 
     // Merge all voices with download status - computed once and memoized
     val sortedVoices = remember(downloadedVoices, allVoices, selectedVoice) {
         val voiceMap = mutableMapOf<String, Voice>()
 
+        // getDownloadedVoices() only scans the filesystem and has no catalogue data, so the
+        // MODEL_CARD link would vanish the moment a voice finished downloading. Carry it over.
+        val catalogByName = allVoices.associateBy { it.name }
+
         // Add downloaded voices first
         downloadedVoices.forEach { voice ->
             voiceMap[voice.name] = voice.copy(
                 isDownloaded = true,
-                isSelected = voice.name == selectedVoice?.name
+                isSelected = voice.name == selectedVoice?.name,
+                modelCardUrl = voice.modelCardUrl ?: catalogByName[voice.name]?.modelCardUrl
             )
         }
 
@@ -108,9 +122,14 @@ fun VoiceDialog(
                         downloadProgress = activeDownloads[voice.name]?.progress ?: 0f,
                         isSelected = voice.name == selectedVoice?.name,
                         onSelect = { onVoiceSelected(voice) },
-                        onDownload = { onVoiceDownloaded(voice) },
+                        // First download of any voice shows the license notice instead.
+                        onDownload = {
+                            if (licenseAcknowledged) onVoiceDownloaded(voice)
+                            else pendingDownload = voice
+                        },
                         onDelete = { onVoiceDeleted(voice) },
-                        onCancel = { onCancelDownload(voice.name) }
+                        onCancel = { onCancelDownload(voice.name) },
+                        onOpenLicense = { voice.modelCardUrl?.let(uriHandler::openUri) }
                     )
                 }
             }
@@ -121,6 +140,72 @@ fun VoiceDialog(
                 Text(context.getString(android.R.string.cancel))
             }
         }
+    )
+
+    // Voice licenses differ per voice and some are non-commercial or research only, so say where
+    // the voices come from and where their license is before fetching the first one. Shown once.
+    val voiceToConfirm = pendingDownload
+    if (voiceToConfirm != null) {
+        var acknowledged by remember(voiceToConfirm) { mutableStateOf(false) }
+        MaterialAlertDialog(
+            onDismissRequest = { pendingDownload = null },
+            title = {
+                Text(stringResource(R.string.voice_license_title), fontWeight = FontWeight.Bold)
+            },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Text(
+                        text = stringResource(R.string.voice_license_body),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { acknowledged = !acknowledged },
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Checkbox(checked = acknowledged, onCheckedChange = { acknowledged = it })
+                        Text(
+                            text = stringResource(R.string.voice_license_checkbox),
+                            modifier = Modifier.weight(1f),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton(
+                    enabled = acknowledged,
+                    onClick = {
+                        onAcknowledgeLicense()
+                        onVoiceDownloaded(voiceToConfirm)
+                        pendingDownload = null
+                    }
+                ) {
+                    Text(stringResource(R.string.voice_license_confirm))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { pendingDownload = null }) {
+                    Text(context.getString(android.R.string.cancel))
+                }
+            }
+        )
+    }
+}
+
+/** Opens the voice's MODEL_CARD on HuggingFace, which states its license and its lineage. */
+@Composable
+private fun LicenseLink(onClick: () -> Unit) {
+    Text(
+        text = stringResource(R.string.voice_license_link),
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.primary,
+        textDecoration = TextDecoration.Underline,
+        modifier = Modifier
+            .clickable(onClick = onClick)
+            .padding(top = 2.dp)
     )
 }
 
@@ -137,7 +222,8 @@ fun VoiceRow(
     onSelect: () -> Unit,
     onDownload: () -> Unit,
     onDelete: () -> Unit,
-    onCancel: () -> Unit
+    onCancel: () -> Unit,
+    onOpenLicense: () -> Unit = {}
 ) {
     val backgroundColor = if (isSelected) {
         MaterialTheme.colorScheme.primaryContainer
@@ -207,6 +293,7 @@ fun VoiceRow(
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
+                    if (voice.modelCardUrl != null) LicenseLink(onOpenLicense)
                 }
 
                 // Delete button (only for downloaded voices, not default)
@@ -250,6 +337,7 @@ fun VoiceRow(
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
+                    if (voice.modelCardUrl != null) LicenseLink(onOpenLicense)
                 }
 
                 // Download button

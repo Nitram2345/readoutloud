@@ -129,4 +129,10 @@
     <string name="notif_reading">読み上げ中…</string>
     <string name="notif_paused">一時停止中</string>
     <string name="notif_play">再生</string>
+    <!-- Voice licenses -->
+    <string name="voice_license_link">ライセンス</string>
+    <string name="voice_license_title">Hugging Face の音声</string>
+    <string name="voice_license_body">音声は ReadOutLoud が提供するものではなく、Hugging Face から直接ダウンロードされます。音声ごとに異なる独自のライセンスが適用されます。非営利または研究目的のみに限定されているものもあります。各音声のライセンスは、隣のライセンスリンクから確認できます。</string>
+    <string name="voice_license_checkbox">ライセンスに関する注意事項を読みました。</string>
+    <string name="voice_license_confirm">ダウンロード</string>
 </resources>

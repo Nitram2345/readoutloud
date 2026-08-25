@@ -113,4 +113,10 @@
     <string name="notif_reading">Membacakan…</string>
     <string name="notif_paused">Dijeda</string>
     <string name="notif_play">Putar</string>
+    <!-- Voice licenses -->
+    <string name="voice_license_link">Lisensi</string>
+    <string name="voice_license_title">Suara dari Hugging Face</string>
+    <string name="voice_license_body">Suara tidak disediakan oleh ReadOutLoud, melainkan diunduh langsung dari Hugging Face. Masing-masing memiliki lisensi sendiri yang berbeda antar suara. Sebagian hanya mengizinkan penggunaan nonkomersial atau khusus penelitian. Lisensi setiap suara dapat dilihat melalui tautan lisensi di sebelahnya.</string>
+    <string name="voice_license_checkbox">Saya telah membaca pemberitahuan lisensi.</string>
+    <string name="voice_license_confirm">Unduh</string>
 </resources>

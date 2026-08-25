@@ -113,4 +113,10 @@
     <string name="notif_reading">正在朗读…</string>
     <string name="notif_paused">已暂停</string>
     <string name="notif_play">播放</string>
+    <!-- Voice licenses -->
+    <string name="voice_license_link">许可</string>
+    <string name="voice_license_title">来自 Hugging Face 的语音</string>
+    <string name="voice_license_body">语音并非由 ReadOutLoud 提供，而是直接从 Hugging Face 下载。它们各自拥有不同的许可协议，因语音而异。部分仅允许非商业或仅供研究使用。每个语音的许可可通过其旁边的许可链接查看。</string>
+    <string name="voice_license_checkbox">我已阅读许可说明。</string>
+    <string name="voice_license_confirm">下载</string>
 </resources>

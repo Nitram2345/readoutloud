@@ -113,4 +113,10 @@
     <string name="notif_reading">Чете на глас…</string>
     <string name="notif_paused">На пауза</string>
     <string name="notif_play">Възпроизвеждане</string>
+    <!-- Voice licenses -->
+    <string name="voice_license_link">Лиценз</string>
+    <string name="voice_license_title">Гласове от Hugging Face</string>
+    <string name="voice_license_body">Гласовете не се предоставят от ReadOutLoud, а се изтеглят директно от Hugging Face. Те са под собствени лицензи, които се различават при всеки глас. Някои позволяват само нетърговска или единствено научна употреба. Лицензът на всеки глас може да се види чрез връзката за лиценз до него.</string>
+    <string name="voice_license_checkbox">Прочетох бележките за лиценза.</string>
+    <string name="voice_license_confirm">Изтегляне</string>
 </resources>

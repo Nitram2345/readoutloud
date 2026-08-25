@@ -113,4 +113,10 @@
     <string name="notif_reading">يقرأ بصوت عالٍ…</string>
     <string name="notif_paused">متوقف مؤقتًا</string>
     <string name="notif_play">تشغيل</string>
+    <!-- Voice licenses -->
+    <string name="voice_license_link">الترخيص</string>
+    <string name="voice_license_title">الأصوات من Hugging Face</string>
+    <string name="voice_license_body">الأصوات ليست مقدَّمة من ReadOutLoud، بل تُنزَّل مباشرة من Hugging Face. ولها تراخيص خاصة بها تختلف من صوت إلى آخر. بعضها يسمح بالاستخدام غير التجاري أو البحثي فقط. يمكن الاطلاع على ترخيص كل صوت عبر رابط الترخيص المجاور له.</string>
+    <string name="voice_license_checkbox">لقد قرأت إشعارات الترخيص.</string>
+    <string name="voice_license_confirm">تنزيل</string>
 </resources>

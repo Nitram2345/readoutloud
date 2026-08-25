@@ -113,4 +113,10 @@
     <string name="notif_reading">Lasa skaļi…</string>
     <string name="notif_paused">Pauzēts</string>
     <string name="notif_play">Atskaņot</string>
+    <!-- Voice licenses -->
+    <string name="voice_license_link">Licence</string>
+    <string name="voice_license_title">Balsis no Hugging Face</string>
+    <string name="voice_license_body">Balsis nenodrošina ReadOutLoud, tās tiek lejupielādētas tieši no Hugging Face. Tām ir savas licences, kas atšķiras katrai balsij. Dažas atļauj tikai nekomerciālu vai vienīgi zinātnisku izmantošanu. Katras balss licenci var apskatīt, izmantojot blakus esošo licences saiti.</string>
+    <string name="voice_license_checkbox">Esmu izlasījis licences paziņojumus.</string>
+    <string name="voice_license_confirm">Lejupielādēt</string>
 </resources>

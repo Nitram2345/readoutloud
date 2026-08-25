@@ -113,4 +113,10 @@
     <string name="notif_reading">Дауыстап оқуда…</string>
     <string name="notif_paused">Кідіртілді</string>
     <string name="notif_play">Ойнату</string>
+    <!-- Voice licenses -->
+    <string name="voice_license_link">Лицензия</string>
+    <string name="voice_license_title">Hugging Face дауыстары</string>
+    <string name="voice_license_body">Дауыстарды ReadOutLoud ұсынбайды — олар тікелей Hugging Face-тен жүктеледі. Олардың әр дауысқа қарай ерекшеленетін өз лицензиялары бар. Кейбірі тек коммерциялық емес немесе тек ғылыми пайдалануға рұқсат етеді. Әр дауыстың лицензиясын жанындағы лицензия сілтемесі арқылы қарауға болады.</string>
+    <string name="voice_license_checkbox">Лицензия ескертпелерін оқып шықтым.</string>
+    <string name="voice_license_confirm">Жүктеу</string>
 </resources>

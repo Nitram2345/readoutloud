@@ -113,4 +113,10 @@
     <string name="notif_reading">კითხულობს ხმამაღლა…</string>
     <string name="notif_paused">შეჩერებული</string>
     <string name="notif_play">დაკვრა</string>
+    <!-- Voice licenses -->
+    <string name="voice_license_link">ლიცენზია</string>
+    <string name="voice_license_title">ხმები Hugging Face-იდან</string>
+    <string name="voice_license_body">ხმებს არ აწვდის ReadOutLoud — ისინი პირდაპირ Hugging Face-იდან იტვირთება. მათ აქვთ საკუთარი ლიცენზიები, რომლებიც ხმების მიხედვით განსხვავდება. ზოგი მხოლოდ არაკომერციულ ან მხოლოდ სამეცნიერო გამოყენებას უშვებს. თითოეული ხმის ლიცენზია მის გვერდით მოცემული ლიცენზიის ბმულით შეიძლება ნახოთ.</string>
+    <string name="voice_license_checkbox">ლიცენზიის შენიშვნები წავიკითხე.</string>
+    <string name="voice_license_confirm">ჩამოტვირთვა</string>
 </resources>

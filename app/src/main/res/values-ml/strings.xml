@@ -113,4 +113,10 @@
     <string name="notif_reading">ഉറക്കെ വായിക്കുന്നു…</string>
     <string name="notif_paused">താൽക്കാലികമായി നിർത്തി</string>
     <string name="notif_play">പ്ലേ</string>
+    <!-- Voice licenses -->
+    <string name="voice_license_link">ലൈസൻസ്</string>
+    <string name="voice_license_title">Hugging Face-ൽ നിന്നുള്ള ശബ്ദങ്ങൾ</string>
+    <string name="voice_license_body">ശബ്ദങ്ങൾ ReadOutLoud നൽകുന്നതല്ല, അവ നേരിട്ട് Hugging Face-ൽ നിന്നാണ് ഡൗൺലോഡ് ചെയ്യുന്നത്. ഓരോ ശബ്ദത്തിനും വ്യത്യസ്തമായ സ്വന്തം ലൈസൻസുകളുണ്ട്. ചിലത് വാണിജ്യേതര അല്ലെങ്കിൽ ഗവേഷണ ആവശ്യങ്ങൾക്ക് മാത്രമേ അനുവദിക്കുന്നുള്ളൂ. ഓരോ ശബ്ദത്തിന്റെയും ലൈസൻസ് അതിനടുത്തുള്ള ലൈസൻസ് ലിങ്കിലൂടെ കാണാം.</string>
+    <string name="voice_license_checkbox">ലൈസൻസ് അറിയിപ്പുകൾ ഞാൻ വായിച്ചു.</string>
+    <string name="voice_license_confirm">ഡൗൺലോഡ്</string>
 </resources>

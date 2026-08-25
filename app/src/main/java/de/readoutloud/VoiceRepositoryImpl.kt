@@ -28,8 +28,22 @@ class VoiceRepositoryImpl(
     companion object {
         private const val VOICES_JSON_URL = "https://huggingface.co/rhasspy/piper-voices/raw/main/voices.json"
         private const val HUGGINGFACE_BASE_URL = "https://huggingface.co/rhasspy/piper-voices/resolve/main"
+        // /blob/ instead of /resolve/: the browser then renders the file instead of downloading it.
+        private const val HUGGINGFACE_BLOB_URL = "https://huggingface.co/rhasspy/piper-voices/blob/main"
         private const val VOICES_DIR = "voices"
         private const val ONNX_EXTENSION = ".onnx"
+
+        /**
+         * Browsable URL of a voice's MODEL_CARD, picked out of the file keys of its voices.json
+         * entry. That card is the only place stating the voice's license and what it was finetuned
+         * from; voices.json itself carries no license information at all.
+         * Returns null for an entry without a card.
+         *
+         * Takes plain strings rather than the JSONObject so it stays unit testable — org.json is
+         * only a stub in local unit tests and throws "not mocked".
+         */
+        fun modelCardUrlFrom(fileKeys: Iterable<String>): String? =
+            fileKeys.firstOrNull { it.endsWith("MODEL_CARD") }?.let { "$HUGGINGFACE_BLOB_URL/$it" }
 
         // Initialize cap names for common voice file prefixes
         private val INIT_CAP_MAP = mapOf(
@@ -86,9 +100,11 @@ class VoiceRepositoryImpl(
                     val files = voiceData.optJSONObject("files")
                     var onnxPath: String? = null
                     var sizeBytes: Long = 0
+                    var modelCardUrl: String? = null
 
                     if (files != null) {
                         val fileKeys = files.keys().asSequence().toList()
+                        modelCardUrl = modelCardUrlFrom(fileKeys)
                         for (fileKey in fileKeys) {
                             if (fileKey.endsWith(".onnx") && !fileKey.endsWith(".onnx.json")) {
                                 onnxPath = fileKey
@@ -113,7 +129,8 @@ class VoiceRepositoryImpl(
                                 onnxUrl = onnxUrl,
                                 sampleRate = sampleRate,
                                 isDownloaded = false,
-                                isSelected = false
+                                isSelected = false,
+                                modelCardUrl = modelCardUrl
                             )
                         )
                     }

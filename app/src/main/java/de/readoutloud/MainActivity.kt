@@ -749,6 +749,7 @@ fun PdfViewerScreen(
         )
 
         var availableVoices by remember { mutableStateOf(emptyList<Voice>()) }
+        var voiceLicenseAcknowledged by remember { mutableStateOf(settings.voiceLicenseAcknowledged) }
 
         val vm = voiceManager
         if (showVoiceDialog && vm != null) {
@@ -761,6 +762,11 @@ fun PdfViewerScreen(
                 downloadedVoices = vm.downloadedVoices.collectAsState().value,
                 selectedVoice = vm.selectedVoice.collectAsState().value,
                 activeDownloads = vm.downloads.collectAsState().value,
+                licenseAcknowledged = voiceLicenseAcknowledged,
+                onAcknowledgeLicense = {
+                    voiceLicenseAcknowledged = true
+                    settings.voiceLicenseAcknowledged = true
+                },
                 onVoiceSelected = { voice ->
                     vm.selectVoice(voice)
                     showVoiceDialog = false

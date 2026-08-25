@@ -113,4 +113,10 @@
     <string name="notif_reading">Felolvasás…</string>
     <string name="notif_paused">Szüneteltetve</string>
     <string name="notif_play">Lejátszás</string>
+    <!-- Voice licenses -->
+    <string name="voice_license_link">Licenc</string>
+    <string name="voice_license_title">Hangok a Hugging Face-ről</string>
+    <string name="voice_license_body">A hangokat nem a ReadOutLoud biztosítja, hanem közvetlenül a Hugging Face-ről töltődnek le. Saját licenccel rendelkeznek, amely hangonként eltér. Némelyik csak nem kereskedelmi vagy kizárólag tudományos használatot enged. Az egyes hangok licence a mellettük lévő licenchivatkozáson keresztül tekinthető meg.</string>
+    <string name="voice_license_checkbox">Elolvastam a licencre vonatkozó tájékoztatót.</string>
+    <string name="voice_license_confirm">Letöltés</string>
 </resources>

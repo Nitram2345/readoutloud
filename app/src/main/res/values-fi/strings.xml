@@ -113,4 +113,10 @@
     <string name="notif_reading">Lukee ääneen…</string>
     <string name="notif_paused">Keskeytetty</string>
     <string name="notif_play">Toista</string>
+    <!-- Voice licenses -->
+    <string name="voice_license_link">Lisenssi</string>
+    <string name="voice_license_title">Äänet Hugging Facesta</string>
+    <string name="voice_license_body">ReadOutLoud ei tarjoa ääniä, vaan ne ladataan suoraan Hugging Facesta. Niillä on omat lisenssinsä, jotka vaihtelevat äänestä toiseen. Osa sallii vain ei-kaupallisen tai yksinomaan tieteellisen käytön. Kunkin äänen lisenssin voi tarkistaa viereisestä lisenssilinkistä.</string>
+    <string name="voice_license_checkbox">Olen lukenut lisenssitiedot.</string>
+    <string name="voice_license_confirm">Lataa</string>
 </resources>

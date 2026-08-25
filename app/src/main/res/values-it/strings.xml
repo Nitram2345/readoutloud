@@ -129,4 +129,10 @@
     <string name="notif_reading">Lettura in corso…</string>
     <string name="notif_paused">In pausa</string>
     <string name="notif_play">Riproduci</string>
+    <!-- Voice licenses -->
+    <string name="voice_license_link">Licenza</string>
+    <string name="voice_license_title">Voci da Hugging Face</string>
+    <string name="voice_license_body">Le voci non sono fornite da ReadOutLoud, ma vengono scaricate direttamente da Hugging Face. Hanno licenze proprie che variano da voce a voce. Alcune consentono solo un uso non commerciale o esclusivamente di ricerca. La licenza di ogni voce è consultabile tramite il collegamento alla licenza accanto.</string>
+    <string name="voice_license_checkbox">Ho letto le note sulla licenza.</string>
+    <string name="voice_license_confirm">Scarica</string>
 </resources>

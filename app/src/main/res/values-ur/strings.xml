@@ -113,4 +113,10 @@
     <string name="notif_reading">بلند آواز سے پڑھ رہا ہے…</string>
     <string name="notif_paused">موقوف</string>
     <string name="notif_play">چلائیں</string>
+    <!-- Voice licenses -->
+    <string name="voice_license_link">لائسنس</string>
+    <string name="voice_license_title">Hugging Face سے آوازیں</string>
+    <string name="voice_license_body">آوازیں ReadOutLoud فراہم نہیں کرتا، بلکہ یہ براہِ راست Hugging Face سے ڈاؤن لوڈ ہوتی ہیں۔ ان کے اپنے لائسنس ہیں جو ہر آواز کے لیے مختلف ہوتے ہیں۔ کچھ صرف غیر تجارتی یا صرف تحقیقی استعمال کی اجازت دیتے ہیں۔ ہر آواز کا لائسنس اس کے ساتھ موجود لائسنس لنک سے دیکھا جا سکتا ہے۔</string>
+    <string name="voice_license_checkbox">میں نے لائسنس سے متعلق نوٹس پڑھ لیے ہیں۔</string>
+    <string name="voice_license_confirm">ڈاؤن لوڈ</string>
 </resources>
