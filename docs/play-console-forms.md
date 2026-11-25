@@ -99,12 +99,10 @@ Video (30–60 s, als nicht gelistetes YouTube-Video verlinken):
 4. Bildschirm aus und wieder an — Lock-Screen-Controls zeigen, dort Pause / Play tippen
 5. Zurück in die App, Pause
 
-**Achtung, Code-Befund:** `TtsService` geht schon beim App-Start in den Vordergrund (der erste
-Wert von `isPlaying` ist `false` und löst `startForegroundCompat` aus) und bleibt es auch im
-Pause-Zustand — `stopForeground` wird nirgends aufgerufen. Google erwartet für `mediaPlayback`,
-dass der Service nur während der Wiedergabe im Vordergrund läuft. Gängige Praxis: beim Pausieren
-`stopForeground(STOP_FOREGROUND_DETACH)`, die Notification bleibt dann sichtbar, ist aber
-wegwischbar. Senkt das Ablehnungsrisiko bei der Prüfung.
+Code-Stand: `TtsService` ist nur während der Wiedergabe im Vordergrund. Beim Pausieren wird
+die Notification mit `stopForeground(STOP_FOREGROUND_DETACH)` gelöst — sie bleibt mit ihren
+Controls sichtbar, ist aber wegwischbar. Vorher lief der Service ab App-Start dauerhaft im
+Vordergrund, auch pausiert, was bei der Prüfung ein Ablehnungsgrund sein kann.
 
 ## Store settings
 

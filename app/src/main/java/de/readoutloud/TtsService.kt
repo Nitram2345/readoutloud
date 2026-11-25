@@ -55,7 +55,7 @@ class TtsService : Service() {
             val playing = ttsController?.isPlaying?.value == true
             mediaSession.isActive = true
             updatePlaybackState(playing)
-            if (ttsController != null) startForegroundCompat(buildNotification(playing))
+            if (ttsController != null) showNotification(playing)
         }
     }
 
@@ -81,7 +81,7 @@ class TtsService : Service() {
                         CoroutineScope(Dispatchers.Main + serviceJob).launch {
                             ctrl.isPlaying.collectLatest { playing ->
                                 updatePlaybackState(playing)
-                                startForegroundCompat(buildNotification(playing))
+                                showNotification(playing)
                             }
                         }
                         binder.onControllerReady?.invoke(ctrl)
@@ -120,12 +120,33 @@ class TtsService : Service() {
 
     override fun onDestroy() {
         serviceJob.cancel()
+        // A detached (paused) notification outlives the service; its buttons would hit a dead controller.
+        getSystemService(NotificationManager::class.java).cancel(NOTIF_ID)
         unregisterReceiver(screenOnReceiver)
         mediaSession.release()
         ttsController?.release()
         tts?.stop()
         tts?.shutdown()
         super.onDestroy()
+    }
+
+    // Foreground only while speaking, as Play requires for mediaPlayback. When paused, the
+    // notification is detached: it stays visible with its controls but can be swiped away.
+    private fun showNotification(playing: Boolean) {
+        val notif = buildNotification(playing)
+        if (playing) {
+            try {
+                startForegroundCompat(notif)
+                return
+            } catch (e: IllegalStateException) {
+                // Android 12+: ForegroundServiceStartNotAllowedException when playback is resumed
+                // from the background, e.g. by a Bluetooth media button. Speech still runs.
+                android.util.Log.w("TtsService", "startForeground not allowed", e)
+            }
+        } else {
+            stopForeground(STOP_FOREGROUND_DETACH)
+        }
+        getSystemService(NotificationManager::class.java).notify(NOTIF_ID, notif)
     }
 
     private fun startForegroundCompat(notif: Notification) {
@@ -205,7 +226,7 @@ class TtsService : Service() {
         val idx = SPEED_STEPS.indexOfFirst { it >= rate - 0.01f }.coerceAtLeast(0)
         val newRate = SPEED_STEPS[(idx + delta).coerceIn(0, SPEED_STEPS.lastIndex)]
         ttsController?.setRate(newRate)
-        startForegroundCompat(buildNotification(ttsController?.isPlaying?.value == true))
+        showNotification(ttsController?.isPlaying?.value == true)
     }
 
     private fun rateLabel(rate: Float): String {
@@ -249,7 +270,7 @@ class TtsService : Service() {
             .setSmallIcon(android.R.drawable.ic_media_play)
             .setContentIntent(contentIntent)
             .setVisibility(Notification.VISIBILITY_PUBLIC)
-            .setOngoing(true)
+            .setOngoing(playing)
             .setStyle(
                 Notification.MediaStyle()
                     .setMediaSession(mediaSession.sessionToken)
