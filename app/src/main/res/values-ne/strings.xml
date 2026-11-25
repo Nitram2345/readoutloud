@@ -119,4 +119,5 @@
     <string name="voice_license_body">आवाजहरू ReadOutLoud ले उपलब्ध गराउँदैन, ती सिधै Hugging Face बाट डाउनलोड हुन्छन्। तिनका आफ्नै इजाजतपत्र छन्, जुन आवाजपिच्छे फरक हुन्छन्। कतिपयले गैर-व्यावसायिक वा अनुसन्धान प्रयोजनका लागि मात्र अनुमति दिन्छन्। प्रत्येक आवाजको इजाजतपत्र छेउको इजाजतपत्र लिङ्कबाट हेर्न सकिन्छ।</string>
     <string name="voice_license_checkbox">मैले इजाजतपत्र सूचनाहरू पढेको छु।</string>
     <string name="voice_license_confirm">डाउनलोड</string>
+    <string name="oss_app_source">यस एपको स्रोत कोड - GPL v3 वा पछिको</string>
 </resources>

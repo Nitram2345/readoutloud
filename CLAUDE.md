@@ -192,7 +192,7 @@ Seiten auf.
 `libsherpa-onnx-jni.so` enthält einkompiliertes espeak-ng (GPL-3.0-or-later), erkennbar an den
 Symbolen `espeak-ng`, `espeak-ng-data`, `espeakXXXXXX`. sherpa-onnx selbst ist Apache-2.0. Damit
 steht das APK als kombiniertes Werk unter GPL-3.0 — Verkauf ist erlaubt, Offenlegung des
-Quellcodes wird Pflicht.
+Quellcodes wird Pflicht. Das Repo ist deshalb GPL-3.0-or-later (`LICENSE`, kanonischer Text).
 
 Der Upstream sieht das genauso und will espeak-ng in **sherpa-onnx 2.0.0** entfernen
 ([Issue #3731](https://github.com/k2-fsa/sherpa-onnx/issues/3731)). Das Issue ist offen, ohne

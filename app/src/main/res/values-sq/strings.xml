@@ -119,4 +119,5 @@
     <string name="voice_license_body">Zërat nuk ofrohen nga ReadOutLoud, por shkarkohen drejtpërdrejt nga Hugging Face. Ata kanë licencat e tyre, të cilat ndryshojnë nga një zë te tjetri. Disa lejojnë vetëm përdorim jokomercial ose vetëm shkencor. Licenca e secilit zë mund të shihet përmes lidhjes së licencës pranë tij.</string>
     <string name="voice_license_checkbox">I kam lexuar shënimet e licencës.</string>
     <string name="voice_license_confirm">Shkarko</string>
+    <string name="oss_app_source">Kodi burimor i këtij aplikacioni - GPL v3 ose më i ri</string>
 </resources>

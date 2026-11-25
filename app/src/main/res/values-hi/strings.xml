@@ -119,4 +119,5 @@
     <string name="voice_license_body">आवाज़ें ReadOutLoud द्वारा प्रदान नहीं की जातीं, बल्कि सीधे Hugging Face से डाउनलोड होती हैं। उनके अपने लाइसेंस हैं, जो हर आवाज़ के लिए अलग-अलग हैं। कुछ केवल ग़ैर-व्यावसायिक या केवल शोध उपयोग की अनुमति देते हैं। हर आवाज़ का लाइसेंस उसके बगल के लाइसेंस लिंक से देखा जा सकता है।</string>
     <string name="voice_license_checkbox">मैंने लाइसेंस सूचनाएँ पढ़ ली हैं।</string>
     <string name="voice_license_confirm">डाउनलोड</string>
+    <string name="oss_app_source">इस ऐप का सोर्स कोड - GPL v3 या बाद का</string>
 </resources>

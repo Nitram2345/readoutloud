@@ -119,4 +119,5 @@
     <string name="voice_license_body">Hlasy neposkytuje ReadOutLoud, ale stahují se přímo z Hugging Face. Mají vlastní licence, které se u jednotlivých hlasů liší. Některé umožňují pouze nekomerční nebo výhradně vědecké použití. Licenci každého hlasu si lze zobrazit pomocí odkazu na licenci vedle něj.</string>
     <string name="voice_license_checkbox">Přečetl jsem si licenční upozornění.</string>
     <string name="voice_license_confirm">Stáhnout</string>
+    <string name="oss_app_source">Zdrojový kód této aplikace - GPL v3 nebo novější</string>
 </resources>

@@ -124,6 +124,12 @@ Pre-release. Not yet published on Google Play.
 
 ## License
 
-No license has been chosen for this repository yet, so the default applies: all rights reserved.
-Note that this needs resolving before any public release, because espeak-ng is linked into the
-native speech library under GPL-3.0-or-later.
+ReadOutLoud is free software, licensed under the
+[GNU General Public License v3.0 or later](LICENSE) (GPL-3.0-or-later).
+
+The license follows from espeak-ng, which is compiled into the sherpa-onnx native library under
+GPL-3.0-or-later, making the APK a combined work under the GPL. The other bundled libraries are
+under Apache-2.0 or MIT, both compatible with GPLv3.
+
+Downloaded Piper voices are not part of the app and keep their own licenses, which differ from
+voice to voice and in some cases rule out commercial use. See [docs/voice-licenses.md](docs/voice-licenses.md).

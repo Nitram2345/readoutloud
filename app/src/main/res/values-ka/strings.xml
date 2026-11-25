@@ -119,4 +119,5 @@
     <string name="voice_license_body">ხმებს არ აწვდის ReadOutLoud — ისინი პირდაპირ Hugging Face-იდან იტვირთება. მათ აქვთ საკუთარი ლიცენზიები, რომლებიც ხმების მიხედვით განსხვავდება. ზოგი მხოლოდ არაკომერციულ ან მხოლოდ სამეცნიერო გამოყენებას უშვებს. თითოეული ხმის ლიცენზია მის გვერდით მოცემული ლიცენზიის ბმულით შეიძლება ნახოთ.</string>
     <string name="voice_license_checkbox">ლიცენზიის შენიშვნები წავიკითხე.</string>
     <string name="voice_license_confirm">ჩამოტვირთვა</string>
+    <string name="oss_app_source">აპის საწყისი კოდი - GPL v3 ან უფრო ახალი</string>
 </resources>

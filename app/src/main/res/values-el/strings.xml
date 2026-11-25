@@ -119,4 +119,5 @@
     <string name="voice_license_body">Οι φωνές δεν παρέχονται από το ReadOutLoud, αλλά λαμβάνονται απευθείας από το Hugging Face. Διέπονται από δικές τους άδειες, οι οποίες διαφέρουν ανά φωνή. Ορισμένες επιτρέπουν μόνο μη εμπορική ή αποκλειστικά ερευνητική χρήση. Η άδεια κάθε φωνής είναι διαθέσιμη μέσω του συνδέσμου άδειας δίπλα της.</string>
     <string name="voice_license_checkbox">Διάβασα τις σημειώσεις άδειας.</string>
     <string name="voice_license_confirm">Λήψη</string>
+    <string name="oss_app_source">Πηγαίος κώδικας της εφαρμογής - GPL v3 ή νεότερη</string>
 </resources>

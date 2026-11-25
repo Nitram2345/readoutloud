@@ -119,4 +119,5 @@
     <string name="voice_license_body">Sauti hazitolewi na ReadOutLoud, bali hupakuliwa moja kwa moja kutoka Hugging Face. Zina leseni zake zenyewe, ambazo hutofautiana kati ya sauti moja na nyingine. Baadhi huruhusu matumizi yasiyo ya kibiashara au ya utafiti pekee. Leseni ya kila sauti inaweza kuonekana kupitia kiungo cha leseni kilicho karibu nayo.</string>
     <string name="voice_license_checkbox">Nimesoma taarifa za leseni.</string>
     <string name="voice_license_confirm">Pakua</string>
+    <string name="oss_app_source">Msimbo chanzo wa programu hii - GPL v3 au toleo jipya zaidi</string>
 </resources>

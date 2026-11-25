@@ -119,4 +119,5 @@
     <string name="voice_license_body">Sesler ReadOutLoud tarafından sağlanmaz, doğrudan Hugging Face üzerinden indirilir. Sesten sese farklılık gösteren kendi lisansları vardır. Bazıları yalnızca ticari olmayan veya yalnızca bilimsel kullanıma izin verir. Her sesin lisansı, yanındaki lisans bağlantısından görüntülenebilir.</string>
     <string name="voice_license_checkbox">Lisans bildirimlerini okudum.</string>
     <string name="voice_license_confirm">İndir</string>
+    <string name="oss_app_source">Bu uygulamanın kaynak kodu - GPL v3 veya üstü</string>
 </resources>

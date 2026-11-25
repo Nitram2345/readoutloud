@@ -119,4 +119,5 @@
     <string name="voice_license_body">స్వరాలను ReadOutLoud అందించదు, అవి నేరుగా Hugging Face నుండి డౌన్‌లోడ్ అవుతాయి. వాటికి స్వంత లైసెన్సులు ఉంటాయి, ఇవి ఒక్కో స్వరానికి వేరుగా ఉంటాయి. కొన్ని వాణిజ్యేతర లేదా పరిశోధన అవసరాలకు మాత్రమే అనుమతిస్తాయి. ప్రతి స్వరం లైసెన్సును పక్కనే ఉన్న లైసెన్స్ లింక్ ద్వారా చూడవచ్చు.</string>
     <string name="voice_license_checkbox">లైసెన్స్ నోటీసులను నేను చదివాను.</string>
     <string name="voice_license_confirm">డౌన్‌లోడ్</string>
+    <string name="oss_app_source">ఈ యాప్ సోర్స్ కోడ్ - GPL v3 లేదా తదుపరి</string>
 </resources>

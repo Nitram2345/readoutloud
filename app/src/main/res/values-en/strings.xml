@@ -135,4 +135,5 @@
     <string name="voice_license_body">Voices are not provided by ReadOutLoud. They are downloaded directly from Hugging Face and carry their own licenses, which differ from voice to voice. Some permit non-commercial or research use only. The license of each voice can be viewed through the license link next to it.</string>
     <string name="voice_license_checkbox">I have read the license notices.</string>
     <string name="voice_license_confirm">Download</string>
+    <string name="oss_app_source">Source code of this app - GPL v3 or later</string>
 </resources>

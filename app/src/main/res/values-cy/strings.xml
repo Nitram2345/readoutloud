@@ -119,4 +119,5 @@
     <string name="voice_license_body">Nid ReadOutLoud sy\'n darparu\'r lleisiau; cânt eu llwytho i lawr yn uniongyrchol o Hugging Face. Mae ganddynt eu trwyddedau eu hunain, sy\'n amrywio o lais i lais. Mae rhai yn caniatáu defnydd anfasnachol neu ymchwil yn unig. Gellir gweld trwydded pob llais drwy\'r ddolen drwydded wrth ei ymyl.</string>
     <string name="voice_license_checkbox">Rwyf wedi darllen yr hysbysiadau trwydded.</string>
     <string name="voice_license_confirm">Llwytho i lawr</string>
+    <string name="oss_app_source">Cod ffynhonnell yr ap hwn - GPL v3 neu ddiweddarach</string>
 </resources>

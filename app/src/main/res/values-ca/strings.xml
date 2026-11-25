@@ -119,4 +119,5 @@
     <string name="voice_license_body">Les veus no les proporciona ReadOutLoud, sinó que es descarreguen directament de Hugging Face. Tenen llicències pròpies que varien segons la veu. Algunes només permeten un ús no comercial o exclusivament de recerca. La llicència de cada veu es pot consultar mitjançant l\'enllaç de llicència del costat.</string>
     <string name="voice_license_checkbox">He llegit els avisos de llicència.</string>
     <string name="voice_license_confirm">Baixa</string>
+    <string name="oss_app_source">Codi font d’aquesta aplicació - GPL v3 o posterior</string>
 </resources>

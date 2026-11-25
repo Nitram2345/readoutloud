@@ -119,4 +119,5 @@
     <string name="voice_license_body">Glasov ne zagotavlja ReadOutLoud, temveč se prenesejo neposredno s Hugging Face. Imajo lastne licence, ki se razlikujejo od glasu do glasu. Nekatere dovoljujejo le nekomercialno ali izključno znanstveno uporabo. Licenco vsakega glasu si je mogoče ogledati prek povezave do licence poleg njega.</string>
     <string name="voice_license_checkbox">Prebral sem obvestila o licencah.</string>
     <string name="voice_license_confirm">Prenesi</string>
+    <string name="oss_app_source">Izvorna koda te aplikacije - GPL v3 ali novejša</string>
 </resources>

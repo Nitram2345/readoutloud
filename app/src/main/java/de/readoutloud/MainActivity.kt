@@ -720,6 +720,8 @@ fun PdfViewerScreen(
 
                     Text(stringResource(R.string.legal_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                     HelpItem(stringResource(R.string.privacy_policy), stringResource(R.string.privacy_description), link = stringResource(R.string.privacy_url))
+                    // GPL-3.0 (via espeak-ng): users must be able to find the source from inside the app
+                    HelpItem("ReadOutLoud", stringResource(R.string.oss_app_source), link = "https://github.com/Nitram2345/readoutloud")
 
                     Text(stringResource(R.string.open_source_licenses), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 12.dp))
                     Text(stringResource(R.string.oss_description), style = MaterialTheme.typography.bodyMedium)

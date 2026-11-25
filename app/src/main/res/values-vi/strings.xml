@@ -119,4 +119,5 @@
     <string name="voice_license_body">Giọng nói không do ReadOutLoud cung cấp mà được tải trực tiếp từ Hugging Face. Chúng có giấy phép riêng, khác nhau tùy từng giọng. Một số chỉ cho phép sử dụng phi thương mại hoặc chỉ cho nghiên cứu. Có thể xem giấy phép của từng giọng qua liên kết giấy phép bên cạnh.</string>
     <string name="voice_license_checkbox">Tôi đã đọc các thông báo về giấy phép.</string>
     <string name="voice_license_confirm">Tải xuống</string>
+    <string name="oss_app_source">Mã nguồn của ứng dụng - GPL v3 hoặc mới hơn</string>
 </resources>

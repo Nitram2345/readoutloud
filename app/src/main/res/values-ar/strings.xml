@@ -119,4 +119,5 @@
     <string name="voice_license_body">الأصوات ليست مقدَّمة من ReadOutLoud، بل تُنزَّل مباشرة من Hugging Face. ولها تراخيص خاصة بها تختلف من صوت إلى آخر. بعضها يسمح بالاستخدام غير التجاري أو البحثي فقط. يمكن الاطلاع على ترخيص كل صوت عبر رابط الترخيص المجاور له.</string>
     <string name="voice_license_checkbox">لقد قرأت إشعارات الترخيص.</string>
     <string name="voice_license_confirm">تنزيل</string>
+    <string name="oss_app_source">الشيفرة المصدرية لهذا التطبيق - GPL v3 أو أحدث</string>
 </resources>

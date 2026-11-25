@@ -119,4 +119,5 @@
     <string name="voice_license_body">A hangokat nem a ReadOutLoud biztosítja, hanem közvetlenül a Hugging Face-ről töltődnek le. Saját licenccel rendelkeznek, amely hangonként eltér. Némelyik csak nem kereskedelmi vagy kizárólag tudományos használatot enged. Az egyes hangok licence a mellettük lévő licenchivatkozáson keresztül tekinthető meg.</string>
     <string name="voice_license_checkbox">Elolvastam a licencre vonatkozó tájékoztatót.</string>
     <string name="voice_license_confirm">Letöltés</string>
+    <string name="oss_app_source">Az alkalmazás forráskódja - GPL v3 vagy újabb</string>
 </resources>

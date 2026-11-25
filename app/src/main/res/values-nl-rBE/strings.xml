@@ -135,4 +135,5 @@
     <string name="voice_license_body">De stemmen worden niet door ReadOutLoud geleverd, maar rechtstreeks van Hugging Face gedownload. Ze vallen onder eigen licenties die per stem verschillen. Sommige staan alleen niet-commercieel of uitsluitend wetenschappelijk gebruik toe. De licentie van elke stem is te bekijken via de licentielink ernaast.</string>
     <string name="voice_license_checkbox">Ik heb de licentievermeldingen gelezen.</string>
     <string name="voice_license_confirm">Downloaden</string>
+    <string name="oss_app_source">Broncode van deze app - GPL v3 of later</string>
 </resources>

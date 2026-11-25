@@ -119,4 +119,5 @@
     <string name="voice_license_body">D\'Stëmmen ginn net vum ReadOutLoud zur Verfügung gestallt, mee direkt vun Hugging Face erofgelueden. Si hunn eege Lizenzen, déi sech vun Stëmm zu Stëmm ënnerscheeden. E puer erlaben nëmmen net-kommerziell oder ausschliisslech wëssenschaftlech Notzung. D\'Lizenz vun all Stëmm kann iwwer de Lizenzlink doniewent ugekuckt ginn.</string>
     <string name="voice_license_checkbox">Ech hunn d\'Lizenzhiweiser gelies.</string>
     <string name="voice_license_confirm">Eroflueden</string>
+    <string name="oss_app_source">Quellcode vun dëser App - GPL v3 oder méi spéit</string>
 </resources>
