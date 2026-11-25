@@ -259,6 +259,10 @@ Berechtigungen: `INTERNET`, `READ_EXTERNAL_STORAGE` (maxSdk 32), `FOREGROUND_SER
 Die Policy liegt als `index.html`, damit die nackte Verzeichnis-URL auflöst. `privacy-policy.html`
 bleibt als Weiterleitung stehen, weil `privacy_url` in allen 49 `strings.xml` dorthin zeigt.
 
+### Preis
+
+Kostenlos (entschieden 2026-11-25). Play erlaubt keinen Wechsel von kostenlos zu kostenpflichtig.
+
 ### Paketname
 
 `de.readoutloud` für `namespace` und `applicationId` (umbenannt von `com.readoutloud` am
